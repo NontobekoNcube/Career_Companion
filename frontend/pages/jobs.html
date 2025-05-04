@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Career Companion - Jobs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#00A0A0", // Teal color
+              secondary: "#008080", // Darker teal for hover
+              accent: "#00C0C0", // Lighter teal for accents
+              darkblue: {
+                primary: "#0E3559", // Main dark blue
+                secondary: "#0A2845", // Darker blue for hover
+                light: "#1A4876", // Lighter blue for accents
+              },
+              dark: {
+                bg: "#121C2E", // Dark blue background for dark mode
+                card: "#1E2A3E", // Card background in dark mode
+                text: "#E5E5E5", // Text color in dark mode
+              },
+              light: {
+                bg: "#FFFFFF", // White background in light mode
+                card: "#F5F5F5", // Light gray for cards in light mode
+                text: "#333333", // Text color in light mode
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body
+    class="bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text transition-colors duration-200"
+  >
+    <div id="app" class="min-h-screen flex flex-col">
+      <!-- Header -->
+      <header class="bg-primary text-white shadow-md">
+        <div class="container mx-auto px-4 py-3">
+          <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+              <i class="ri-briefcase-4-line text-2xl"></i>
+              <h1 class="text-xl font-bold">Career Companion</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+              <button
+                id="themeToggle"
+                class="p-1 rounded-full hover:bg-secondary"
+              >
+                <i class="ri-sun-line dark:hidden text-xl"></i>
+                <i class="ri-moon-line hidden dark:block text-xl"></i>
+              </button>
+              <div class="hidden md:block">
+                <button
+                  class="px-3 py-1 bg-white text-primary rounded-full text-sm font-medium hover:bg-gray-100"
+                >
+                  Sign In
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Navigation -->
+      <nav class="bg-white dark:bg-dark-card shadow-sm">
+        <div class="container mx-auto px-4">
+          <div class="flex overflow-x-auto no-scrollbar py-2 space-x-1">
+            <a href="dashboard.html" class="nav-btn">Dashboard</a>
+            <a href="applications.html" class="nav-btn">Applications</a>
+            <a href="skills.html" class="nav-btn">Skills</a>
+            <a href="mentorship.html" class="nav-btn">Mentorship</a>
+            <a href="jobs.html" class="nav-btn active">Jobs</a>
+            <a href="resources.html" class="nav-btn">Resources</a>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Main Content - Jobs Section -->
+      <main class="flex-grow container mx-auto px-4 py-6">
+        <div
+          class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6"
+        >
+          <h1 class="text-2xl font-bold">Jobs & Internships</h1>
+          <div class="mt-3 md:mt-0 relative">
+            <input
+              type="text"
+              id="searchJobs"
+              placeholder="Search jobs..."
+              class="w-full md:w-64 pl-10 pr-4 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+            />
+            <i class="ri-search-line absolute left-3 top-3 text-gray-400"></i>
+          </div>
+        </div>
+
+        <div
+          class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-5 mb-6"
+        >
+          <h2 class="text-lg font-semibold mb-4">Filter Opportunities</h2>
+          <div class="flex flex-col md:flex-row gap-4">
+            <div class="flex-grow">
+              <label for="jobTypeFilter" class="block text-sm font-medium mb-1"
+                >Job Type</label
+              >
+              <select
+                id="jobTypeFilter"
+                class="w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+              >
+                <option value="">All Types</option>
+                <option value="Full-time">Full-time</option>
+                <option value="Part-time">Part-time</option>
+                <option value="Internship">Internship</option>
+                <option value="Graduate Program">Graduate Program</option>
+                <option value="Contract">Contract</option>
+              </select>
+            </div>
+            <div class="flex-grow">
+              <label for="locationFilter" class="block text-sm font-medium mb-1"
+                >Location</label
+              >
+              <select
+                id="locationFilter"
+                class="w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+              >
+                <option value="">All Locations</option>
+                <option value="Cape Town">Cape Town</option>
+                <option value="Johannesburg">Johannesburg</option>
+                <option value="Durban">Durban</option>
+                <option value="Pretoria">Pretoria</option>
+                <option value="Remote">Remote</option>
+              </select>
+            </div>
+            <div class="flex-grow">
+              <label
+                for="experienceFilter"
+                class="block text-sm font-medium mb-1"
+                >Experience</label
+              >
+              <select
+                id="experienceFilter"
+                class="w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+              >
+                <option value="">Any Experience</option>
+                <option value="Entry Level">Entry Level</option>
+                <option value="1-2 Years">1-2 Years</option>
+                <option value="3-5 Years">3-5 Years</option>
+                <option value="5+ Years">5+ Years</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-6" id="jobsContainer">
+          <p class="text-center py-10 text-gray-500 dark:text-gray-400 italic">
+            Loading opportunities...
+          </p>
+        </div>
+
+        <!-- No Jobs Found Message (hidden by default) -->
+        <div id="noJobsMessage" class="hidden text-center py-10">
+          <i
+            class="ri-search-eye-line text-5xl text-gray-400 dark:text-gray-600 mb-3"
+          ></i>
+          <p class="text-xl font-medium text-gray-500 dark:text-gray-400">
+            No jobs match your search
+          </p>
+          <p class="text-gray-500 dark:text-gray-400 mb-4">
+            Try adjusting your filters or search terms
+          </p>
+          <button
+            id="resetFiltersBtn"
+            class="px-4 py-2 bg-primary hover:bg-secondary text-white rounded-lg text-sm"
+          >
+            Reset Filters
+          </button>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer class="bg-white dark:bg-dark-card shadow-inner mt-auto">
+        <div class="container mx-auto px-4 py-4">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center mb-3 md:mb-0">
+              <i class="ri-briefcase-4-line text-primary text-xl mr-2"></i>
+              <span class="text-gray-700 dark:text-gray-300 font-medium"
+                >Career Companion</span
+              >
+            </div>
+            <div class="flex items-center space-x-4">
+              <a
+                href="#"
+                class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+              >
+                <i class="ri-question-line"></i>
+              </a>
+              <a
+                href="#"
+                class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+              >
+                <i class="ri-settings-3-line"></i>
+              </a>
+              <a
+                href="#"
+                class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+              >
+                <i class="ri-user-line"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <!-- Toast Notification -->
+      <div
+        id="toast"
+        class="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg transform translate-y-10 opacity-0 transition-all duration-300 z-50 hidden"
+      >
+        Action completed successfully
+      </div>
+
+      <!-- Job Detail Modal -->
+      <div
+        id="jobModal"
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+      >
+        <div
+          class="bg-white dark:bg-dark-bg rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+        >
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-4">
+              <h2 class="text-xl font-bold" id="jobModalTitle">Job Details</h2>
+              <button
+                class="closeModal text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+              >
+                <i class="ri-close-line text-xl"></i>
+              </button>
+            </div>
+            <div id="jobModalContent" class="space-y-4">
+              <!-- Content will be dynamically inserted here -->
+            </div>
+
+            <!-- Azure AI Match Analysis -->
+            <div class="mt-6 border-t dark:border-gray-700 pt-4">
+              <h3 class="text-lg font-semibold mb-3">AI Match Analysis</h3>
+              <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                <div class="flex items-center mb-4">
+                  <div
+                    class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary"
+                  >
+                    <span class="text-xl font-bold">85%</span>
+                  </div>
+                  <div class="ml-4">
+                    <h4 class="font-medium">Match Score</h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                      Your profile is a strong match for this position
+                    </p>
+                  </div>
+                </div>
+
+                <div class="space-y-3">
+                  <div>
+                    <h4 class="text-sm font-medium mb-2">Skill Match</h4>
+                    <div class="flex flex-wrap gap-2">
+                      <span
+                        class="px-2 py-1 bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 rounded-full text-xs flex items-center"
+                      >
+                        <i class="ri-check-line mr-1"></i> HTML/CSS
+                      </span>
+                      <span
+                        class="px-2 py-1 bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 rounded-full text-xs flex items-center"
+                      >
+                        <i class="ri-check-line mr-1"></i> JavaScript
+                      </span>
+                      <span
+                        class="px-2 py-1 bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300 rounded-full text-xs flex items-center"
+                      >
+                        <i class="ri-error-warning-line mr-1"></i> React
+                      </span>
+                      <span
+                        class="px-2 py-1 bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300 rounded-full text-xs flex items-center"
+                      >
+                        <i class="ri-close-line mr-1"></i> Node.js
+                      </span>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4 class="text-sm font-medium mb-2">AI Recommendation</h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                      This job aligns well with your current skills and career
+                      goals. Consider highlighting your frontend development
+                      experience and learning React before applying.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4 class="text-sm font-medium mb-2">
+                      Interview Preparation
+                    </h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                      Based on this job description, prepare for technical
+                      questions about:
+                    </p>
+                    <ul
+                      class="list-disc pl-5 mt-1 text-sm text-gray-600 dark:text-gray-400"
+                    >
+                      <li>Frontend frameworks (React)</li>
+                      <li>Responsive design principles</li>
+                      <li>JavaScript ES6 features</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-3 pt-4 mt-2 border-t dark:border-gray-700"
+            >
+              <button
+                class="closeModal order-2 sm:order-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                Close
+              </button>
+              <button
+                id="saveJobBtn"
+                class="order-3 sm:order-2 px-4 py-2 border border-primary text-primary hover:bg-primary/10 rounded-lg"
+              >
+                <i class="ri-bookmark-line mr-1"></i> Save
+              </button>
+              <button
+                id="applyJobBtn"
+                class="order-1 sm:order-3 px-4 py-2 bg-primary hover:bg-secondary text-white rounded-lg"
+              >
+                <i class="ri-send-plane-line mr-1"></i> Apply Now
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Application Modal -->
+      <div
+        id="applicationModal"
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+      >
+        <div
+          class="bg-white dark:bg-dark-bg rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto"
+        >
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-4">
+              <h2 class="text-xl font-bold" id="modalTitle">
+                Apply for Position
+              </h2>
+              <button
+                class="closeModal text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+              >
+                <i class="ri-close-line text-xl"></i>
+              </button>
+            </div>
+            <form id="applicationForm" class="space-y-4">
+              <input type="hidden" id="jobId" />
+              <div>
+                <label for="fullName" class="block text-sm font-medium mb-1"
+                  >Full Name*</label
+                >
+                <input
+                  type="text"
+                  id="fullName"
+                  required
+                  class="w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                />
+              </div>
+              <div>
+                <label for="email" class="block text-sm font-medium mb-1"
+                  >Email Address*</label
+                >
+                <input
+                  type="email"
+                  id="email"
+                  required
+                  class="w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                />
+              </div>
+              <div>
+                <label for="phone" class="block text-sm font-medium mb-1"
+                  >Phone Number*</label
+                >
+                <input
+                  type="tel"
+                  id="phone"
+                  required
+                  class="w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-1">Resume/CV*</label>
+                <div
+                  class="border border-dashed dark:border-gray-700 rounded-lg p-4 text-center"
+                >
+                  <div class="flex flex-col items-center justify-center">
+                    <i
+                      class="ri-upload-cloud-line text-3xl text-gray-400 mb-2"
+                    ></i>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">
+                      Drag & drop your resume here or
+                    </p>
+                    <label
+                      for="resume"
+                      class="px-3 py-1.5 bg-primary hover:bg-secondary text-white rounded-lg text-sm cursor-pointer"
+                    >
+                      Browse Files
+                    </label>
+                    <input
+                      type="file"
+                      id="resume"
+                      class="hidden"
+                      accept=".pdf,.doc,.docx"
+                    />
+                  </div>
+                  <div
+                    id="resumeFileName"
+                    class="text-sm text-gray-500 mt-2 hidden"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <label for="coverLetter" class="block text-sm font-medium mb-1"
+                  >Cover Letter</label
+                >
+                <textarea
+                  id="coverLetter"
+                  rows="4"
+                  class="w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                  placeholder="Describe why you're a good fit for this position..."
+                ></textarea>
+              </div>
+              <div class="flex justify-end space-x-3 pt-2">
+                <button
+                  type="button"
+                  class="closeModal px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  class="px-4 py-2 bg-primary hover:bg-secondary text-white rounded-lg"
+                >
+                  Submit Application
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading Spinner -->
+      <div
+        id="loading"
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+      >
+        <div
+          class="bg-white dark:bg-dark-bg rounded-lg p-6 flex flex-col items-center"
+        >
+          <div
+            class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mb-3"
+          ></div>
+          <p
+            class="text-gray-700 dark:text-gray-300 font-medium"
+            id="loadingText"
+          >
+            Loading...
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Initialize dark mode based on user preference
+      if (
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+      ) {
+        document.documentElement.classList.add("dark");
+      }
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", (event) => {
+          if (event.matches) {
+            document.documentElement.classList.add("dark");
+          } else {
+            document.documentElement.classList.remove("dark");
+          }
+        });
+
+      // Data storage
+      let jobs = [];
+      let savedJobs = [];
+      let currentJob = null;
+
+      // UI Elements
+      const navButtons = document.querySelectorAll(".nav-btn");
+      const themeToggle = document.getElementById("themeToggle");
+      const toast = document.getElementById("toast");
+      const searchJobs = document.getElementById("searchJobs");
+      const jobTypeFilter = document.getElementById("jobTypeFilter");
+      const locationFilter = document.getElementById("locationFilter");
+      const experienceFilter = document.getElementById("experienceFilter");
+      const jobsContainer = document.getElementById("jobsContainer");
+      const noJobsMessage = document.getElementById("noJobsMessage");
+      const resetFiltersBtn = document.getElementById("resetFiltersBtn");
+      const jobModal = document.getElementById("jobModal");
+      const jobModalTitle = document.getElementById("jobModalTitle");
+      const jobModalContent = document.getElementById("jobModalContent");
+      const saveJobBtn = document.getElementById("saveJobBtn");
+      const applyJobBtn = document.getElementById("applyJobBtn");
+      const applicationModal = document.getElementById("applicationModal");
+      const applicationForm = document.getElementById("applicationForm");
+      const closeModalButtons = document.querySelectorAll(".closeModal");
+      const loading = document.getElementById("loading");
+      const resumeInput = document.getElementById("resume");
+      const resumeFileName = document.getElementById("resumeFileName");
+
+      // Theme toggle
+      themeToggle.addEventListener("click", () => {
+        document.documentElement.classList.toggle("dark");
+        showToast("Theme changed");
+      });
+
+      // Show toast notification
+      function showToast(message, type = "success") {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+
+        // Set toast color based on type
+        toast.className =
+          "fixed bottom-4 right-4 px-4 py-2 rounded-lg shadow-lg transform transition-all duration-300 z-50";
+
+        if (type === "success") {
+          toast.classList.add("bg-green-500", "text-white");
+        } else if (type === "error") {
+          toast.classList.add("bg-red-500", "text-white");
+        } else if (type === "info") {
+          toast.classList.add("bg-blue-500", "text-white");
+        }
+
+        // Show the toast
+        toast.classList.remove("translate-y-10", "opacity-0", "hidden");
+
+        // Hide the toast after 3 seconds
+        setTimeout(() => {
+          toast.classList.add("translate-y-10", "opacity-0");
+          setTimeout(() => {
+            toast.classList.add("hidden");
+          }, 300);
+        }, 3000);
+      }
+
+      // Show loading spinner
+      function showLoading(message = "Loading...") {
+        const loading = document.getElementById("loading");
+        const loadingText = document.getElementById("loadingText");
+        loadingText.textContent = message;
+        loading.classList.remove("hidden");
+      }
+
+      // Hide loading spinner
+      function hideLoading() {
+        const loading = document.getElementById("loading");
+        loading.classList.add("hidden");
+      }
+
+      // Modal functions
+      function openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.classList.remove("hidden");
+      }
+
+      function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.classList.add("hidden");
+      }
+
+      closeModalButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const modal = button.closest('[id$="Modal"]');
+          if (modal) {
+            closeModal(modal.id);
+          }
+        });
+      });
+
+      // Initialize Jobs Data
+      function initJobs() {
+        jobs = [
+          {
+            id: 1,
+            title: "Junior Software Developer",
+            company: "TechSA Solutions",
+            location: "Cape Town",
+            type: "Full-time",
+            experience: "Entry Level",
+            salary: "R25,000 - R35,000 per month",
+            posted: "2023-07-01",
+            logo: "TS",
+            description:
+              "TechSA Solutions is seeking a Junior Software Developer to join our growing team. This role is perfect for recent graduates with a passion for coding and problem-solving.",
+            requirements: [
+              "Bachelor's degree in Computer Science, Software Engineering, or related field",
+              "Basic knowledge of web development technologies (HTML, CSS, JavaScript)",
+              "Understanding of object-oriented programming concepts",
+              "Good communication and teamwork skills",
+              "Willingness to learn new technologies",
+            ],
+            responsibilities: [
+              "Develop and maintain web applications under supervision",
+              "Write clean, maintainable, and efficient code",
+              "Collaborate with senior developers on projects",
+              "Debug and fix issues in existing applications",
+              "Participate in code reviews and team meetings",
+            ],
+            benefits: [
+              "Competitive salary",
+              "Medical aid contribution",
+              "13th cheque",
+              "Professional development opportunities",
+              "Flexible working hours",
+            ],
+          },
+          {
+            id: 2,
+            title: "Graduate Finance Analyst",
+            company: "SA Financial Group",
+            location: "Johannesburg",
+            type: "Graduate Program",
+            experience: "Entry Level",
+            salary: "R20,000 - R25,000 per month",
+            posted: "2023-07-05",
+            logo: "SF",
+            description:
+              "Join our 18-month graduate program designed to develop the next generation of financial leaders. Rotate through different departments to gain broad exposure to the financial services industry.",
+            requirements: [
+              "Bachelor's degree in Finance, Accounting, Economics, or related field",
+              "Strong academic record (minimum 65% average)",
+              "Analytical thinking and problem-solving skills",
+              "Proficiency in Excel and financial modeling",
+              "South African citizenship or permanent residency",
+            ],
+            responsibilities: [
+              "Assist in financial analysis and reporting",
+              "Support the preparation of budgets and forecasts",
+              "Help analyze market trends and competitor activities",
+              "Participate in project work across departments",
+              "Develop presentations for management",
+            ],
+            benefits: [
+              "Structured learning and development program",
+              "Mentorship from senior executives",
+              "Performance bonuses",
+              "Medical and pension benefits",
+              "Study assistance for professional qualifications",
+            ],
+          },
+          {
+            id: 3,
+            title: "Marketing Internship",
+            company: "Platinum Brands",
+            location: "Durban",
+            type: "Internship",
+            experience: "Entry Level",
+            salary: "R8,000 - R12,000 per month",
+            posted: "2023-07-10",
+            logo: "PB",
+            description:
+              "6-month paid internship for marketing graduates looking to gain hands-on experience in brand management, digital marketing, and consumer research.",
+            requirements: [
+              "Diploma or degree in Marketing, Communications, or related field",
+              "Completed studies within the last 12 months",
+              "Creative mindset and good writing skills",
+              "Basic understanding of social media platforms",
+              "Ability to work in a fast-paced environment",
+            ],
+            responsibilities: [
+              "Assist with social media content creation and scheduling",
+              "Support the marketing team with campaign execution",
+              "Help conduct market research and analyze data",
+              "Contribute to brainstorming sessions for new campaigns",
+              "Maintain marketing materials and brand assets",
+            ],
+            benefits: [
+              "Stipend and transport allowance",
+              "Potential for permanent employment",
+              "Real-world experience with major South African brands",
+              "Certificate of completion",
+              "Networking opportunities with industry professionals",
+            ],
+          },
+          {
+            id: 4,
+            title: "Graduate Civil Engineer",
+            company: "Construction Partners SA",
+            location: "Pretoria",
+            type: "Full-time",
+            experience: "Entry Level",
+            salary: "R22,000 - R30,000 per month",
+            posted: "2023-07-08",
+            logo: "CP",
+            description:
+              "Exciting opportunity for a graduate Civil Engineer to join our infrastructure projects team. Work on meaningful projects that contribute to South Africa's development.",
+            requirements: [
+              "B.Eng or BSc in Civil Engineering",
+              "Strong understanding of engineering principles",
+              "Good mathematical and problem-solving skills",
+              "Ability to read and interpret technical drawings",
+              "Willingness to work on site when required",
+            ],
+            responsibilities: [
+              "Assist senior engineers with project planning and execution",
+              "Prepare engineering calculations and designs under supervision",
+              "Conduct site visits and inspections",
+              "Contribute to technical documentation and reporting",
+              "Liaise with contractors and stakeholders",
+            ],
+            benefits: [
+              "Competitive salary package",
+              "Professional registration support",
+              "Continued professional development",
+              "Medical aid and pension benefits",
+              "Performance bonuses",
+            ],
+          },
+          {
+            id: 5,
+            title: "Clinical Research Assistant",
+            company: "Cape Health Institute",
+            location: "Cape Town",
+            type: "Contract",
+            experience: "Entry Level",
+            salary: "R18,000 - R22,000 per month",
+            posted: "2023-07-12",
+            logo: "CH",
+            description:
+              "12-month contract position for a Clinical Research Assistant to support ongoing health research projects aimed at improving healthcare outcomes in South Africa.",
+            requirements: [
+              "Degree in Life Sciences, Nursing, Public Health, or related field",
+              "Understanding of research methodologies and ethics",
+              "Good attention to detail and organizational skills",
+              "Computer literacy (MS Office, basic data entry)",
+              "Ability to communicate with diverse stakeholders",
+            ],
+            responsibilities: [
+              "Assist with participant recruitment and screening",
+              "Collect and record research data accurately",
+              "Support the preparation of research materials",
+              "Help with administrative tasks related to research projects",
+              "Contribute to data analysis and reporting",
+            ],
+            benefits: [
+              "Valuable research experience",
+              "Exposure to healthcare innovation",
+              "Flexible working arrangements",
+              "Skills development opportunities",
+              "Possibility of contract extension",
+            ],
+          },
+          {
+            id: 6,
+            title: "Graduate Teacher",
+            company: "Johannesburg Secondary",
+            location: "Johannesburg",
+            type: "Full-time",
+            experience: "Entry Level",
+            salary: "R15,000 - R20,000 per month",
+            posted: "2023-07-15",
+            logo: "JS",
+            description:
+              "Opportunity for newly qualified teachers to join our progressive school. We are particularly looking for Mathematics, Science, and English teachers with fresh ideas and enthusiasm.",
+            requirements: [
+              "Bachelor of Education or PGCE",
+              "SACE registration (or in process)",
+              "Passion for education and youth development",
+              "Good classroom management skills",
+              "Willingness to participate in extracurricular activities",
+            ],
+            responsibilities: [
+              "Plan and deliver engaging lessons in your subject area",
+              "Assess student progress and provide constructive feedback",
+              "Participate in parent-teacher meetings",
+              "Contribute to curriculum development",
+              "Support the school's vision and values",
+            ],
+            benefits: [
+              "School holidays",
+              "Mentoring program for new teachers",
+              "Professional development opportunities",
+              "Supportive teaching environment",
+              "Pension benefits",
+            ],
+          },
+        ];
+      }
+
+      // Display Jobs
+      function displayFilteredJobs() {
+        const searchTerm = searchJobs.value.toLowerCase();
+        const jobTypeValue = jobTypeFilter.value;
+        const locationValue = locationFilter.value;
+        const experienceValue = experienceFilter.value;
+
+        // Filter jobs
+        let filteredJobs = [...jobs];
+
+        // Apply search filter
+        if (searchTerm) {
+          filteredJobs = filteredJobs.filter(
+            (job) =>
+              job.title.toLowerCase().includes(searchTerm) ||
+              job.company.toLowerCase().includes(searchTerm) ||
+              job.description.toLowerCase().includes(searchTerm)
+          );
+        }
+
+        // Apply job type filter
+        if (jobTypeValue) {
+          filteredJobs = filteredJobs.filter(
+            (job) => job.type === jobTypeValue
+          );
+        }
+
+        // Apply location filter
+        if (locationValue) {
+          filteredJobs = filteredJobs.filter(
+            (job) => job.location === locationValue
+          );
+        }
+
+        // Apply experience filter
+        if (experienceValue) {
+          filteredJobs = filteredJobs.filter(
+            (job) => job.experience === experienceValue
+          );
+        }
+
+        // Display message if no jobs
+        if (filteredJobs.length === 0) {
+          jobsContainer.innerHTML = "";
+          noJobsMessage.classList.remove("hidden");
+          return;
+        } else {
+          noJobsMessage.classList.add("hidden");
+        }
+
+        // Sort jobs by posted date (newest first)
+        const sortedJobs = [...filteredJobs].sort((a, b) => {
+          return new Date(b.posted) - new Date(a.posted);
+        });
+
+        jobsContainer.innerHTML = "";
+
+        sortedJobs.forEach((job) => {
+          // Generate random background color for logo
+          const bgColors = [
+            "bg-blue-500",
+            "bg-green-500",
+            "bg-purple-500",
+            "bg-red-500",
+            "bg-yellow-500",
+            "bg-pink-500",
+          ];
+          const randomBg = bgColors[job.id % bgColors.length];
+
+          // Determine if job is saved
+          const isSaved = savedJobs.includes(job.id);
+
+          const jobCard = document.createElement("div");
+          jobCard.className =
+            "bg-light-card dark:bg-dark-card rounded-lg shadow-md overflow-hidden";
+          jobCard.innerHTML = `
+                    <div class="p-5">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mr-4">
+                                <div class="w-12 h-12 rounded-lg ${randomBg} flex items-center justify-center text-white font-semibold text-lg">
+                                    ${job.logo}
+                                </div>
+                            </div>
+                            <div class="flex-grow">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h3 class="font-semibold">${
+                                          job.title
+                                        }</h3>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">${
+                                          job.company
+                                        }</p>
+                                    </div>
+                                    <button class="save-job text-gray-400 hover:text-primary ${
+                                      isSaved ? "saved text-primary" : ""
+                                    }" data-id="${job.id}">
+                                        <i class="ri-bookmark-${
+                                          isSaved ? "fill" : "line"
+                                        } text-lg"></i>
+                                    </button>
+                                </div>
+                                <div class="mt-3 flex flex-wrap gap-2">
+                                    <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-800 rounded-full text-xs flex items-center">
+                                        <i class="ri-map-pin-line mr-1"></i> ${
+                                          job.location
+                                        }
+                                    </span>
+                                    <span class="px-2 py-0.5 bg-primary/10 text-primary rounded-full text-xs flex items-center">
+                                        <i class="ri-briefcase-line mr-1"></i> ${
+                                          job.type
+                                        }
+                                    </span>
+                                    <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-800 rounded-full text-xs flex items-center">
+                                        <i class="ri-user-star-line mr-1"></i> ${
+                                          job.experience
+                                        }
+                                    </span>
+                                </div>
+                                <div class="mt-3">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm font-medium">${
+                                          job.salary
+                                        }</span>
+                                        <span class="text-xs text-gray-500 dark:text-gray-400">Posted ${timeSince(
+                                          new Date(job.posted)
+                                        )}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <p class="text-sm text-gray-600 dark:text-gray-400">${
+                              job.description
+                            }</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-gray-800/50 p-3 flex justify-end">
+                        <button class="view-job px-4 py-1.5 bg-primary hover:bg-secondary text-white rounded-lg text-sm" data-id="${
+                          job.id
+                        }">
+                            View Details
+                        </button>
+                    </div>
+                `;
+
+          jobsContainer.appendChild(jobCard);
+
+          // Add event listeners
+          const viewButton = jobCard.querySelector(".view-job");
+          viewButton.addEventListener("click", () => {
+            const jobId = parseInt(viewButton.dataset.id);
+            viewJobDetails(jobId);
+          });
+
+          const saveButton = jobCard.querySelector(".save-job");
+          saveButton.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const jobId = parseInt(saveButton.dataset.id);
+            toggleSaveJob(jobId, saveButton);
+          });
+        });
+      }
+
+      // Toggle save job
+      function toggleSaveJob(jobId, buttonElement) {
+        const index = savedJobs.indexOf(jobId);
+
+        if (index === -1) {
+          // Job is not saved, save it
+          savedJobs.push(jobId);
+          buttonElement.classList.add("saved", "text-primary");
+          buttonElement.innerHTML = '<i class="ri-bookmark-fill text-lg"></i>';
+          showToast("Job saved to your favorites");
+        } else {
+          // Job is saved, unsave it
+          savedJobs.splice(index, 1);
+          buttonElement.classList.remove("saved", "text-primary");
+          buttonElement.innerHTML = '<i class="ri-bookmark-line text-lg"></i>';
+          showToast("Job removed from your favorites");
+        }
+      }
+
+      // View job details with AI match analysis
+      function viewJobDetails(jobId) {
+        const job = jobs.find((j) => j.id === jobId);
+        if (!job) return;
+
+        currentJob = job;
+
+        jobModalTitle.textContent = job.title;
+
+        // Determine if job is saved
+        const isSaved = savedJobs.includes(job.id);
+        if (isSaved) {
+          saveJobBtn.innerHTML = '<i class="ri-bookmark-fill mr-1"></i> Saved';
+          saveJobBtn.classList.add("text-primary", "border-primary");
+        } else {
+          saveJobBtn.innerHTML = '<i class="ri-bookmark-line mr-1"></i> Save';
+          saveJobBtn.classList.remove("text-primary", "border-primary");
+        }
+
+        // Generate random background color for logo
+        const bgColors = [
+          "bg-blue-500",
+          "bg-green-500",
+          "bg-purple-500",
+          "bg-red-500",
+          "bg-yellow-500",
+          "bg-pink-500",
+        ];
+        const randomBg = bgColors[job.id % bgColors.length];
+
+        jobModalContent.innerHTML = `
+                <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="w-16 h-16 rounded-lg ${randomBg} flex items-center justify-center text-white font-semibold text-xl">
+                            ${job.logo}
+                        </div>
+                    </div>
+                    <div class="flex-grow text-center sm:text-left">
+                        <h3 class="text-xl font-semibold">${job.title}</h3>
+                        <p class="text-lg text-gray-600 dark:text-gray-400">${
+                          job.company
+                        }</p>
+                        <div class="mt-2 flex flex-wrap justify-center sm:justify-start gap-2">
+                            <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-800 rounded-full text-xs flex items-center">
+                                <i class="ri-map-pin-line mr-1"></i> ${
+                                  job.location
+                                }
+                            </span>
+                            <span class="px-2 py-0.5 bg-primary/10 text-primary rounded-full text-xs flex items-center">
+                                <i class="ri-briefcase-line mr-1"></i> ${
+                                  job.type
+                                }
+                            </span>
+                            <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-800 rounded-full text-xs flex items-center">
+                                <i class="ri-user-star-line mr-1"></i> ${
+                                  job.experience
+                                }
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h4 class="font-medium">Salary Range</h4>
+                            <p class="text-lg font-semibold text-primary">${
+                              job.salary
+                            }</p>
+                        </div>
+                        <div class="text-right">
+                            <h4 class="font-medium">Posted</h4>
+                            <p class="text-gray-600 dark:text-gray-400">${formatDate(
+                              job.posted
+                            )} (${timeSince(new Date(job.posted))})</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <h4 class="font-medium mb-2">Job Description</h4>
+                    <p class="text-gray-600 dark:text-gray-400">${
+                      job.description
+                    }</p>
+                </div>
+                <div class="mt-6">
+                    <h4 class="font-medium mb-2">Requirements</h4>
+                    <ul class="list-disc pl-5 space-y-1 text-gray-600 dark:text-gray-400">
+                        ${job.requirements
+                          .map((req) => `<li>${req}</li>`)
+                          .join("")}
+                    </ul>
+                </div>
+                <div class="mt-6">
+                    <h4 class="font-medium mb-2">Responsibilities</h4>
+                    <ul class="list-disc pl-5 space-y-1 text-gray-600 dark:text-gray-400">
+                        ${job.responsibilities
+                          .map((resp) => `<li>${resp}</li>`)
+                          .join("")}
+                    </ul>
+                </div>
+                <div class="mt-6">
+                    <h4 class="font-medium mb-2">Benefits</h4>
+                    <ul class="list-disc pl-5 space-y-1 text-gray-600 dark:text-gray-400">
+                        ${job.benefits.map((ben) => `<li>${ben}</li>`).join("")}
+                    </ul>
+                </div>
+            `;
+
+        openModal("jobModal");
+
+        // Handle save job button
+        saveJobBtn.onclick = () => {
+          const isSaved = savedJobs.includes(job.id);
+
+          if (isSaved) {
+            // Job is saved, unsave it
+            const index = savedJobs.indexOf(job.id);
+            savedJobs.splice(index, 1);
+            saveJobBtn.innerHTML = '<i class="ri-bookmark-line mr-1"></i> Save';
+            saveJobBtn.classList.remove("text-primary", "border-primary");
+            showToast("Job removed from your favorites");
+          } else {
+            // Job is not saved, save it
+            savedJobs.push(job.id);
+            saveJobBtn.innerHTML =
+              '<i class="ri-bookmark-fill mr-1"></i> Saved';
+            saveJobBtn.classList.add("text-primary", "border-primary");
+            showToast("Job saved to your favorites");
+          }
+
+          // Update job cards in the main list
+          const jobCards = document.querySelectorAll(".save-job");
+          jobCards.forEach((btn) => {
+            const btnJobId = parseInt(btn.dataset.id);
+            if (btnJobId === job.id) {
+              if (savedJobs.includes(job.id)) {
+                btn.classList.add("saved", "text-primary");
+                btn.innerHTML = '<i class="ri-bookmark-fill text-lg"></i>';
+              } else {
+                btn.classList.remove("saved", "text-primary");
+                btn.innerHTML = '<i class="ri-bookmark-line text-lg"></i>';
+              }
+            }
+          });
+        };
+
+        // Handle apply button
+        applyJobBtn.onclick = () => {
+          // Close job detail modal
+          closeModal("jobModal");
+
+          // Set job ID in the application form
+          document.getElementById("jobId").value = job.id;
+
+          // Open application modal
+          openModal("applicationModal");
+        };
+      }
+
+      // Handle resume file selection
+      resumeInput.addEventListener("change", function () {
+        if (this.files && this.files[0]) {
+          const file = this.files[0];
+          resumeFileName.textContent = file.name;
+          resumeFileName.classList.remove("hidden");
+        }
+      });
+
+      // Handle application form submission
+      applicationForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const jobId = document.getElementById("jobId").value;
+        const job = jobs.find((j) => j.id === parseInt(jobId));
+
+        if (!job) {
+          showToast("Job not found", "error");
+          return;
+        }
+
+        // Close the modal
+        closeModal("applicationModal");
+
+        // Show loading spinner
+        showLoading("Submitting application...");
+
+        // Simulate application submission
+        setTimeout(() => {
+          hideLoading();
+          showToast(
+            `Application submitted for ${job.title} at ${job.company}`,
+            "success"
+          );
+
+          // Reset form
+          applicationForm.reset();
+          resumeFileName.classList.add("hidden");
+        }, 2000);
+      });
+
+      // Reset filters
+      resetFiltersBtn.addEventListener("click", () => {
+        searchJobs.value = "";
+        jobTypeFilter.value = "";
+        locationFilter.value = "";
+        experienceFilter.value = "";
+        displayFilteredJobs();
+      });
+
+      // Handle search, filter
+      searchJobs.addEventListener("input", () => {
+        displayFilteredJobs();
+      });
+
+      jobTypeFilter.addEventListener("change", () => {
+        displayFilteredJobs();
+      });
+
+      locationFilter.addEventListener("change", () => {
+        displayFilteredJobs();
+      });
+
+      experienceFilter.addEventListener("change", () => {
+        displayFilteredJobs();
+      });
+
+      // Utility functions
+      function formatDate(dateString) {
+        const options = { year: "numeric", month: "short", day: "numeric" };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+      }
+
+      function timeSince(date) {
+        const seconds = Math.floor((new Date() - date) / 1000);
+
+        let interval = seconds / 31536000; // years
+        if (interval > 1) {
+          return Math.floor(interval) + " years ago";
+        }
+
+        interval = seconds / 2592000; // months
+        if (interval > 1) {
+          return Math.floor(interval) + " months ago";
+        }
+
+        interval = seconds / 86400; // days
+        if (interval > 1) {
+          return Math.floor(interval) + " days ago";
+        }
+
+        interval = seconds / 3600; // hours
+        if (interval > 1) {
+          return Math.floor(interval) + " hours ago";
+        }
+
+        interval = seconds / 60; // minutes
+        if (interval > 1) {
+          return Math.floor(interval) + " minutes ago";
+        }
+
+        return "just now";
+      }
+
+      // Initialize the app
+      function initApp() {
+        // Initialize job data
+        initJobs();
+
+        // Display jobs
+        displayFilteredJobs();
+
+        // Add CSS for active buttons/tabs
+        const style = document.createElement("style");
+        style.textContent = `
+                .nav-btn {
+                    @apply px-4 py-2 font-medium rounded-full whitespace-nowrap hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors;
+                }
+                .nav-btn.active {
+                    @apply bg-primary text-white hover:bg-secondary;
+                }
+                .no-scrollbar {
+                    -ms-overflow-style: none;
+                    scrollbar-width: none;
+                }
+                .no-scrollbar::-webkit-scrollbar {
+                    display: none;
+                }
+            `;
+        document.head.appendChild(style);
+      }
+
+      // Initialize the app
+      initApp();
+    </script>
+  </body>
+</html>

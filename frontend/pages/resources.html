@@ -1,0 +1,1921 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Career Companion - Resources</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#00A0A0", // Teal color
+              secondary: "#008080", // Darker teal for hover
+              accent: "#00C0C0", // Lighter teal for accents
+              darkblue: {
+                primary: "#0E3559", // Main dark blue
+                secondary: "#0A2845", // Darker blue for hover
+                light: "#1A4876", // Lighter blue for accents
+              },
+              dark: {
+                bg: "#121C2E", // Dark blue background for dark mode
+                card: "#1E2A3E", // Card background in dark mode
+                text: "#E5E5E5", // Text color in dark mode
+              },
+              light: {
+                bg: "#FFFFFF", // White background in light mode
+                card: "#F5F5F5", // Light gray for cards in light mode
+                text: "#333333", // Text color in light mode
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  </head>
+  <body
+    class="bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text transition-colors duration-200"
+  >
+    <div id="app" class="min-h-screen flex flex-col">
+      <!-- Header -->
+      <header class="bg-primary text-white shadow-md">
+        <div class="container mx-auto px-4 py-3">
+          <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+              <i class="ri-briefcase-4-line text-2xl"></i>
+              <h1 class="text-xl font-bold">Career Companion</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+              <button
+                id="themeToggle"
+                class="p-1 rounded-full hover:bg-secondary"
+              >
+                <i class="ri-sun-line dark:hidden text-xl"></i>
+                <i class="ri-moon-line hidden dark:block text-xl"></i>
+              </button>
+              <div class="hidden md:block">
+                <button
+                  class="px-3 py-1 bg-white text-primary rounded-full text-sm font-medium hover:bg-gray-100"
+                >
+                  Sign In
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Navigation -->
+      <nav class="bg-white dark:bg-dark-card shadow-sm">
+        <div class="container mx-auto px-4">
+          <div class="flex overflow-x-auto no-scrollbar py-2 space-x-1">
+            <a href="dashboard.html" class="nav-btn">Dashboard</a>
+            <a href="applications.html" class="nav-btn">Applications</a>
+            <a href="skills.html" class="nav-btn">Skills</a>
+            <a href="mentorship.html" class="nav-btn active">Mentorship</a>
+            <a href="jobs.html" class="nav-btn">Jobs</a>
+            <a href="resources.html" class="nav-btn">Resources</a>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Main Content - Resources Section -->
+      <main class="flex-grow container mx-auto px-4 py-6">
+        <div class="mb-6">
+          <h1 class="text-2xl font-bold mb-2">Career Resources</h1>
+          <p class="text-gray-600 dark:text-gray-400">
+            Tools and guidance to help you succeed in your career journey
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="md:col-span-2 space-y-6">
+            <div
+              class="bg-light-card dark:bg-dark-card rounded-lg shadow-md overflow-hidden"
+            >
+              <div class="p-5">
+                <h2 class="text-lg font-semibold mb-4 flex items-center">
+                  <i class="ri-file-text-line mr-2 text-primary"></i>
+                  Resume Builder
+                </h2>
+                <p class="mb-4">
+                  Create a professional resume that stands out to employers. Our
+                  tool helps you format your experience and skills effectively.
+                </p>
+                <div
+                  class="flex flex-col sm:flex-row sm:space-x-3 space-y-2 sm:space-y-0"
+                >
+                  <button
+                    id="createResumeBtn"
+                    class="px-4 py-2 bg-primary hover:bg-secondary text-white rounded-lg"
+                  >
+                    Create New Resume
+                  </button>
+                  <button
+                    id="uploadResumeBtn"
+                    class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+                  >
+                    Upload Existing Resume
+                  </button>
+                </div>
+              </div>
+              <div
+                class="bg-gray-50 dark:bg-gray-800/50 p-4 flex justify-between items-center"
+              >
+                <span class="text-sm font-medium"
+                  >Resume Feedback Available</span
+                >
+                <button
+                  id="getFeedbackBtn"
+                  class="text-primary hover:text-secondary font-medium text-sm"
+                >
+                  Get Feedback
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-5"
+            >
+              <h2 class="text-lg font-semibold mb-4 flex items-center">
+                <i class="ri-user-voice-line mr-2 text-primary"></i>
+                Interview Preparation
+              </h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div
+                  class="border dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow"
+                >
+                  <h3 class="font-medium mb-2">Mock Interviews</h3>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                    Practice with AI or schedule with real professionals
+                  </p>
+                  <button
+                    class="text-primary hover:text-secondary text-sm font-medium"
+                  >
+                    Start Practice
+                  </button>
+                </div>
+                <div
+                  class="border dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow"
+                >
+                  <h3 class="font-medium mb-2">Common Questions</h3>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                    Prepare answers for frequently asked questions
+                  </p>
+                  <button
+                    class="text-primary hover:text-secondary text-sm font-medium"
+                  >
+                    View Questions
+                  </button>
+                </div>
+                <div
+                  class="border dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow"
+                >
+                  <h3 class="font-medium mb-2">Industry Insights</h3>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                    Learn what employers look for in your field
+                  </p>
+                  <button
+                    class="text-primary hover:text-secondary text-sm font-medium"
+                  >
+                    Read Insights
+                  </button>
+                </div>
+                <div
+                  class="border dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow"
+                >
+                  <h3 class="font-medium mb-2">Interview Feedback</h3>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                    Get constructive feedback on your performance
+                  </p>
+                  <button
+                    class="text-primary hover:text-secondary text-sm font-medium"
+                  >
+                    Request Feedback
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-5"
+            >
+              <h2 class="text-lg font-semibold mb-4 flex items-center">
+                <i class="ri-road-map-line mr-2 text-primary"></i>
+                Career Strategy Guide
+              </h2>
+              <div class="space-y-4">
+                <div
+                  class="flex items-center space-x-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg"
+                >
+                  <div class="bg-primary text-white p-2 rounded-full">
+                    <i class="ri-compass-3-line"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-medium">Identify Your Career Path</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                      Assessments and tools to discover your ideal career
+                    </p>
+                  </div>
+                  <button
+                    class="ml-auto text-primary hover:text-secondary career-guide-btn"
+                    data-guide="career-path"
+                  >
+                    <i class="ri-arrow-right-line"></i>
+                  </button>
+                </div>
+                <div
+                  class="flex items-center space-x-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg"
+                >
+                  <div class="bg-primary text-white p-2 rounded-full">
+                    <i class="ri-focus-3-line"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-medium">Goal Setting</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                      Create achievable short and long-term career goals
+                    </p>
+                  </div>
+                  <button
+                    class="ml-auto text-primary hover:text-secondary career-guide-btn"
+                    data-guide="goal-setting"
+                  >
+                    <i class="ri-arrow-right-line"></i>
+                  </button>
+                </div>
+                <div
+                  class="flex items-center space-x-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg"
+                >
+                  <div class="bg-primary text-white p-2 rounded-full">
+                    <i class="ri-team-line"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-medium">Networking Strategies</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                      Build professional connections in your industry
+                    </p>
+                  </div>
+                  <button
+                    class="ml-auto text-primary hover:text-secondary career-guide-btn"
+                    data-guide="networking"
+                  >
+                    <i class="ri-arrow-right-line"></i>
+                  </button>
+                </div>
+                <div
+                  class="flex items-center space-x-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg"
+                >
+                  <div class="bg-primary text-white p-2 rounded-full">
+                    <i class="ri-stack-line"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-medium">Skill Development Plan</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                      Identify and close skill gaps for career growth
+                    </p>
+                  </div>
+                  <button
+                    class="ml-auto text-primary hover:text-secondary career-guide-btn"
+                    data-guide="skill-development"
+                  >
+                    <i class="ri-arrow-right-line"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-6">
+            <!-- Enhanced Chatbot for Career Advice -->
+            <div
+              class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-5"
+            >
+              <h2 class="text-lg font-semibold mb-4">
+                Career Assistant Chatbot
+              </h2>
+              <div
+                id="chatContainer"
+                class="border dark:border-gray-700 rounded-lg overflow-hidden"
+              >
+                <div
+                  id="chatMessages"
+                  class="max-h-80 overflow-y-auto p-4 space-y-3"
+                >
+                  <div class="flex items-start">
+                    <div
+                      class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white flex-shrink-0 mr-2"
+                    >
+                      <i class="ri-robot-line"></i>
+                    </div>
+                    <div
+                      class="bg-gray-100 dark:bg-gray-800 rounded-lg p-3 max-w-[80%]"
+                    >
+                      <p class="text-sm">
+                        Hi there! I'm your Career Assistant. How can I help with
+                        your career journey today?
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="border-t dark:border-gray-700 p-3">
+                  <div class="flex flex-wrap gap-2 mb-3">
+                    <button
+                      class="quick-question px-2 py-1 bg-primary/10 text-primary rounded-full text-xs"
+                    >
+                      Resume tips
+                    </button>
+                    <button
+                      class="quick-question px-2 py-1 bg-primary/10 text-primary rounded-full text-xs"
+                    >
+                      Interview prep
+                    </button>
+                    <button
+                      class="quick-question px-2 py-1 bg-primary/10 text-primary rounded-full text-xs"
+                    >
+                      Salary negotiation
+                    </button>
+                    <button
+                      class="quick-question px-2 py-1 bg-primary/10 text-primary rounded-full text-xs"
+                    >
+                      Career change
+                    </button>
+                  </div>
+                  <div class="flex space-x-2">
+                    <input
+                      type="text"
+                      id="chatInput"
+                      placeholder="Ask a career question..."
+                      class="flex-grow px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                    />
+                    <button
+                      id="sendChatBtn"
+                      class="bg-primary hover:bg-secondary text-white px-3 py-2 rounded-lg"
+                    >
+                      <i class="ri-send-plane-line"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-5"
+            >
+              <h2 class="text-lg font-semibold mb-4">Upcoming Workshops</h2>
+              <div class="space-y-3">
+                <div class="border dark:border-gray-700 rounded-lg p-3">
+                  <div class="flex justify-between">
+                    <span
+                      class="text-xs text-white bg-primary px-2 py-0.5 rounded-full"
+                      >Online</span
+                    >
+                    <span class="text-xs text-gray-500 dark:text-gray-400"
+                      >July 15, 2023</span
+                    >
+                  </div>
+                  <h3 class="font-medium mt-2">Resume Writing Masterclass</h3>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                    Learn how to craft a standout resume
+                  </p>
+                  <button
+                    class="workshop-register-btn mt-2 text-primary hover:text-secondary text-sm font-medium"
+                    data-workshop="resume-writing"
+                  >
+                    Register
+                  </button>
+                </div>
+                <div class="border dark:border-gray-700 rounded-lg p-3">
+                  <div class="flex justify-between">
+                    <span
+                      class="text-xs text-white bg-primary px-2 py-0.5 rounded-full"
+                      >In-Person</span
+                    >
+                    <span class="text-xs text-gray-500 dark:text-gray-400"
+                      >July 22, 2023</span
+                    >
+                  </div>
+                  <h3 class="font-medium mt-2">Networking for Introverts</h3>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                    Strategies for building connections
+                  </p>
+                  <button
+                    class="workshop-register-btn mt-2 text-primary hover:text-secondary text-sm font-medium"
+                    data-workshop="networking"
+                  >
+                    Register
+                  </button>
+                </div>
+                <div class="border dark:border-gray-700 rounded-lg p-3">
+                  <div class="flex justify-between">
+                    <span
+                      class="text-xs text-white bg-primary px-2 py-0.5 rounded-full"
+                      >Online</span
+                    >
+                    <span class="text-xs text-gray-500 dark:text-gray-400"
+                      >August 5, 2023</span
+                    >
+                  </div>
+                  <h3 class="font-medium mt-2">Salary Negotiation Skills</h3>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                    Get the compensation you deserve
+                  </p>
+                  <button
+                    class="workshop-register-btn mt-2 text-primary hover:text-secondary text-sm font-medium"
+                    data-workshop="salary-negotiation"
+                  >
+                    Register
+                  </button>
+                </div>
+              </div>
+              <button
+                id="viewAllWorkshopsBtn"
+                class="mt-4 w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-sm"
+              >
+                View All Workshops
+              </button>
+            </div>
+
+            <div
+              class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-5"
+            >
+              <h2 class="text-lg font-semibold mb-4">Resource Library</h2>
+              <ul class="space-y-2">
+                <li>
+                  <a
+                    href="#"
+                    class="resource-link flex items-center p-2 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg"
+                    data-resource="interview-guide"
+                  >
+                    <i class="ri-file-pdf-line text-red-500 mr-2"></i>
+                    <span>Interview Question Guide</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="resource-link flex items-center p-2 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg"
+                    data-resource="job-tracker"
+                  >
+                    <i class="ri-file-excel-line text-green-500 mr-2"></i>
+                    <span>Job Search Tracker Template</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="resource-link flex items-center p-2 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg"
+                    data-resource="resume-tutorial"
+                  >
+                    <i class="ri-film-line text-blue-500 mr-2"></i>
+                    <span>Resume Video Tutorial</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="resource-link flex items-center p-2 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg"
+                    data-resource="email-templates"
+                  >
+                    <i class="ri-file-text-line text-purple-500 mr-2"></i>
+                    <span>Networking Email Templates</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="resource-link flex items-center p-2 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg"
+                    data-resource="career-guide"
+                  >
+                    <i class="ri-book-line text-orange-500 mr-2"></i>
+                    <span>Career Development Guide</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer class="bg-white dark:bg-dark-card shadow-inner mt-auto">
+        <div class="container mx-auto px-4 py-4">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center mb-3 md:mb-0">
+              <i class="ri-briefcase-4-line text-primary text-xl mr-2"></i>
+              <span class="text-gray-700 dark:text-gray-300 font-medium"
+                >Career Companion</span
+              >
+            </div>
+            <div class="flex items-center space-x-4">
+              <a
+                href="#"
+                class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+              >
+                <i class="ri-question-line"></i>
+              </a>
+              <a
+                href="#"
+                class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+              >
+                <i class="ri-settings-3-line"></i>
+              </a>
+              <a
+                href="#"
+                class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+              >
+                <i class="ri-user-line"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <!-- Toast Notification -->
+      <div
+        id="toast"
+        class="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg transform translate-y-10 opacity-0 transition-all duration-300 z-50 hidden"
+      >
+        Action completed successfully
+      </div>
+
+      <!-- Resume Builder Modal -->
+      <div
+        id="resumeBuilderModal"
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+      >
+        <div
+          class="bg-white dark:bg-dark-bg rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+        >
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-4">
+              <h2 class="text-xl font-bold">Resume Builder</h2>
+              <button
+                class="closeModal text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+              >
+                <i class="ri-close-line text-xl"></i>
+              </button>
+            </div>
+            <div class="space-y-6">
+              <!-- Personal Information -->
+              <div>
+                <h3 class="text-lg font-medium mb-3">Personal Information</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label for="fullName" class="block text-sm font-medium mb-1"
+                      >Full Name*</label
+                    >
+                    <input
+                      type="text"
+                      id="fullName"
+                      required
+                      class="w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                    />
+                  </div>
+                  <div>
+                    <label for="jobTitle" class="block text-sm font-medium mb-1"
+                      >Job Title</label
+                    >
+                    <input
+                      type="text"
+                      id="jobTitle"
+                      class="w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                    />
+                  </div>
+                  <div>
+                    <label for="email" class="block text-sm font-medium mb-1"
+                      >Email*</label
+                    >
+                    <input
+                      type="email"
+                      id="email"
+                      required
+                      class="w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                    />
+                  </div>
+                  <div>
+                    <label for="phone" class="block text-sm font-medium mb-1"
+                      >Phone*</label
+                    >
+                    <input
+                      type="tel"
+                      id="phone"
+                      required
+                      class="w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                    />
+                  </div>
+                  <div>
+                    <label for="location" class="block text-sm font-medium mb-1"
+                      >Location</label
+                    >
+                    <input
+                      type="text"
+                      id="location"
+                      placeholder="City, Province"
+                      class="w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                    />
+                  </div>
+                  <div>
+                    <label for="linkedIn" class="block text-sm font-medium mb-1"
+                      >LinkedIn</label
+                    >
+                    <input
+                      type="url"
+                      id="linkedIn"
+                      class="w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Professional Summary -->
+              <div>
+                <h3 class="text-lg font-medium mb-3">Professional Summary</h3>
+                <textarea
+                  id="summary"
+                  rows="4"
+                  class="w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                  placeholder="Write a brief summary of your professional background and goals..."
+                ></textarea>
+              </div>
+
+              <!-- Experience -->
+              <div>
+                <div class="flex justify-between items-center mb-3">
+                  <h3 class="text-lg font-medium">Work Experience</h3>
+                  <button
+                    id="addExperienceBtn"
+                    class="px-2 py-1 text-xs bg-primary hover:bg-secondary text-white rounded-full flex items-center"
+                  >
+                    <i class="ri-add-line mr-1"></i> Add Experience
+                  </button>
+                </div>
+
+                <div id="experienceEntries" class="space-y-4">
+                  <div
+                    class="experience-entry border dark:border-gray-700 rounded-lg p-4"
+                  >
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+                      <div>
+                        <label class="block text-sm font-medium mb-1"
+                          >Job Title*</label
+                        >
+                        <input
+                          type="text"
+                          class="job-title w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label class="block text-sm font-medium mb-1"
+                          >Company*</label
+                        >
+                        <input
+                          type="text"
+                          class="company w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label class="block text-sm font-medium mb-1"
+                          >Start Date*</label
+                        >
+                        <input
+                          type="month"
+                          class="start-date w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label class="block text-sm font-medium mb-1"
+                          >End Date</label
+                        >
+                        <input
+                          type="month"
+                          class="end-date w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                        />
+                        <div class="flex items-center mt-1">
+                          <input
+                            type="checkbox"
+                            class="current-job mr-2"
+                            id="currentJob1"
+                          />
+                          <label for="currentJob1" class="text-sm"
+                            >I currently work here</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium mb-1"
+                        >Job Description</label
+                      >
+                      <textarea
+                        class="job-description w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                        rows="3"
+                        placeholder="Describe your responsibilities and achievements..."
+                      ></textarea>
+                    </div>
+                    <button
+                      class="remove-experience mt-3 text-red-500 hover:text-red-700 text-sm flex items-center"
+                    >
+                      <i class="ri-delete-bin-line mr-1"></i> Remove
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Education -->
+              <div>
+                <div class="flex justify-between items-center mb-3">
+                  <h3 class="text-lg font-medium">Education</h3>
+                  <button
+                    id="addEducationBtn"
+                    class="px-2 py-1 text-xs bg-primary hover:bg-secondary text-white rounded-full flex items-center"
+                  >
+                    <i class="ri-add-line mr-1"></i> Add Education
+                  </button>
+                </div>
+
+                <div id="educationEntries" class="space-y-4">
+                  <div
+                    class="education-entry border dark:border-gray-700 rounded-lg p-4"
+                  >
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+                      <div>
+                        <label class="block text-sm font-medium mb-1"
+                          >Degree/Certificate*</label
+                        >
+                        <input
+                          type="text"
+                          class="degree w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label class="block text-sm font-medium mb-1"
+                          >Institution*</label
+                        >
+                        <input
+                          type="text"
+                          class="institution w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label class="block text-sm font-medium mb-1"
+                          >Start Date*</label
+                        >
+                        <input
+                          type="month"
+                          class="edu-start-date w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label class="block text-sm font-medium mb-1"
+                          >End Date</label
+                        >
+                        <input
+                          type="month"
+                          class="edu-end-date w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                        />
+                        <div class="flex items-center mt-1">
+                          <input
+                            type="checkbox"
+                            class="current-education mr-2"
+                            id="currentEdu1"
+                          />
+                          <label for="currentEdu1" class="text-sm"
+                            >I'm currently studying here</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium mb-1"
+                        >Description</label
+                      >
+                      <textarea
+                        class="education-description w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                        rows="2"
+                        placeholder="Describe your field of study, achievements, etc."
+                      ></textarea>
+                    </div>
+                    <button
+                      class="remove-education mt-3 text-red-500 hover:text-red-700 text-sm flex items-center"
+                    >
+                      <i class="ri-delete-bin-line mr-1"></i> Remove
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Skills -->
+              <div>
+                <h3 class="text-lg font-medium mb-3">Skills</h3>
+                <div class="mb-3">
+                  <label class="block text-sm font-medium mb-1"
+                    >Add Skills</label
+                  >
+                  <div class="flex space-x-2">
+                    <input
+                      type="text"
+                      id="skillInput"
+                      class="flex-grow px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                      placeholder="Enter a skill"
+                    />
+                    <button
+                      id="addSkillBtn"
+                      class="px-3 py-2 bg-primary hover:bg-secondary text-white rounded-lg"
+                    >
+                      <i class="ri-add-line"></i>
+                    </button>
+                  </div>
+                </div>
+                <div id="skillsList" class="flex flex-wrap gap-2 mt-2">
+                  <!-- Sample skills -->
+                  <div
+                    class="skill-tag px-3 py-1.5 bg-primary/10 text-primary rounded-lg text-sm flex items-center"
+                  >
+                    HTML/CSS
+                    <button class="remove-skill ml-2">
+                      <i class="ri-close-line"></i>
+                    </button>
+                  </div>
+                  <div
+                    class="skill-tag px-3 py-1.5 bg-primary/10 text-primary rounded-lg text-sm flex items-center"
+                  >
+                    JavaScript
+                    <button class="remove-skill ml-2">
+                      <i class="ri-close-line"></i>
+                    </button>
+                  </div>
+                  <div
+                    class="skill-tag px-3 py-1.5 bg-primary/10 text-primary rounded-lg text-sm flex items-center"
+                  >
+                    Problem Solving
+                    <button class="remove-skill ml-2">
+                      <i class="ri-close-line"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="flex justify-end space-x-3 pt-4 border-t dark:border-gray-700"
+              >
+                <button
+                  type="button"
+                  class="closeModal px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  Cancel
+                </button>
+                <button
+                  id="previewResumeBtn"
+                  class="px-4 py-2 border border-primary text-primary hover:bg-primary/10 rounded-lg"
+                >
+                  <i class="ri-eye-line mr-1"></i> Preview
+                </button>
+                <button
+                  id="saveResumeBtn"
+                  class="px-4 py-2 bg-primary hover:bg-secondary text-white rounded-lg"
+                >
+                  <i class="ri-download-line mr-1"></i> Save Resume
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Career Guide Modal -->
+      <div
+        id="careerGuideModal"
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+      >
+        <div
+          class="bg-white dark:bg-dark-bg rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+        >
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-4">
+              <h2 class="text-xl font-bold" id="guideTitle">Career Guide</h2>
+              <button
+                class="closeModal text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+              >
+                <i class="ri-close-line text-xl"></i>
+              </button>
+            </div>
+            <div id="guideContent" class="prose dark:prose-invert max-w-none">
+              <!-- Content will be dynamically inserted here -->
+            </div>
+            <div
+              class="flex justify-end space-x-3 pt-4 mt-4 border-t dark:border-gray-700"
+            >
+              <button
+                class="closeModal px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                Close
+              </button>
+              <button
+                id="downloadGuideBtn"
+                class="px-4 py-2 bg-primary hover:bg-secondary text-white rounded-lg"
+              >
+                <i class="ri-download-line mr-1"></i> Download PDF
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Workshop Registration Modal -->
+      <div
+        id="workshopModal"
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+      >
+        <div
+          class="bg-white dark:bg-dark-bg rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto"
+        >
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-4">
+              <h2 class="text-xl font-bold" id="workshopTitle">
+                Workshop Registration
+              </h2>
+              <button
+                class="closeModal text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+              >
+                <i class="ri-close-line text-xl"></i>
+              </button>
+            </div>
+            <div id="workshopDetails" class="mb-6">
+              <!-- Workshop details will be inserted here -->
+            </div>
+            <form id="workshopRegistrationForm" class="space-y-4">
+              <input type="hidden" id="workshopId" />
+              <div>
+                <label
+                  for="registrantName"
+                  class="block text-sm font-medium mb-1"
+                  >Your Name*</label
+                >
+                <input
+                  type="text"
+                  id="registrantName"
+                  required
+                  class="w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                />
+              </div>
+              <div>
+                <label
+                  for="registrantEmail"
+                  class="block text-sm font-medium mb-1"
+                  >Email Address*</label
+                >
+                <input
+                  type="email"
+                  id="registrantEmail"
+                  required
+                  class="w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                />
+              </div>
+              <div>
+                <label
+                  for="registrationNotes"
+                  class="block text-sm font-medium mb-1"
+                  >Any specific topics you'd like covered?</label
+                >
+                <textarea
+                  id="registrationNotes"
+                  rows="3"
+                  class="w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                ></textarea>
+              </div>
+              <div class="flex justify-end space-x-3 pt-2">
+                <button
+                  type="button"
+                  class="closeModal px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  class="px-4 py-2 bg-primary hover:bg-secondary text-white rounded-lg"
+                >
+                  Register Now
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading Spinner -->
+      <div
+        id="loading"
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+      >
+        <div
+          class="bg-white dark:bg-dark-bg rounded-lg p-6 flex flex-col items-center"
+        >
+          <div
+            class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mb-3"
+          ></div>
+          <p
+            class="text-gray-700 dark:text-gray-300 font-medium"
+            id="loadingText"
+          >
+            Loading...
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Initialize dark mode based on user preference
+      if (
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+      ) {
+        document.documentElement.classList.add("dark");
+      }
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", (event) => {
+          if (event.matches) {
+            document.documentElement.classList.add("dark");
+          } else {
+            document.documentElement.classList.remove("dark");
+          }
+        });
+
+      // UI Elements
+      const navButtons = document.querySelectorAll(".nav-btn");
+      const themeToggle = document.getElementById("themeToggle");
+      const toast = document.getElementById("toast");
+      const createResumeBtn = document.getElementById("createResumeBtn");
+      const uploadResumeBtn = document.getElementById("uploadResumeBtn");
+      const getFeedbackBtn = document.getElementById("getFeedbackBtn");
+      const chatInput = document.getElementById("chatInput");
+      const sendChatBtn = document.getElementById("sendChatBtn");
+      const chatMessages = document.getElementById("chatMessages");
+      const quickQuestions = document.querySelectorAll(".quick-question");
+      const careerGuideButtons = document.querySelectorAll(".career-guide-btn");
+      const workshopRegisterButtons = document.querySelectorAll(
+        ".workshop-register-btn"
+      );
+      const resourceLinks = document.querySelectorAll(".resource-link");
+      const resumeBuilderModal = document.getElementById("resumeBuilderModal");
+      const careerGuideModal = document.getElementById("careerGuideModal");
+      const workshopModal = document.getElementById("workshopModal");
+      const closeModalButtons = document.querySelectorAll(".closeModal");
+      const addExperienceBtn = document.getElementById("addExperienceBtn");
+      const addEducationBtn = document.getElementById("addEducationBtn");
+      const addSkillBtn = document.getElementById("addSkillBtn");
+      const skillInput = document.getElementById("skillInput");
+      const skillsList = document.getElementById("skillsList");
+      const viewAllWorkshopsBtn = document.getElementById(
+        "viewAllWorkshopsBtn"
+      );
+      const guideTitle = document.getElementById("guideTitle");
+      const guideContent = document.getElementById("guideContent");
+      const workshopTitle = document.getElementById("workshopTitle");
+      const workshopDetails = document.getElementById("workshopDetails");
+      const workshopRegistrationForm = document.getElementById(
+        "workshopRegistrationForm"
+      );
+      const previewResumeBtn = document.getElementById("previewResumeBtn");
+      const saveResumeBtn = document.getElementById("saveResumeBtn");
+      const loading = document.getElementById("loading");
+
+      // Theme toggle
+      themeToggle.addEventListener("click", () => {
+        document.documentElement.classList.toggle("dark");
+        showToast("Theme changed");
+      });
+
+      // Show toast notification
+      function showToast(message, type = "success") {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+
+        // Set toast color based on type
+        toast.className =
+          "fixed bottom-4 right-4 px-4 py-2 rounded-lg shadow-lg transform transition-all duration-300 z-50";
+
+        if (type === "success") {
+          toast.classList.add("bg-green-500", "text-white");
+        } else if (type === "error") {
+          toast.classList.add("bg-red-500", "text-white");
+        } else if (type === "info") {
+          toast.classList.add("bg-blue-500", "text-white");
+        }
+
+        // Show the toast
+        toast.classList.remove("translate-y-10", "opacity-0", "hidden");
+
+        // Hide the toast after 3 seconds
+        setTimeout(() => {
+          toast.classList.add("translate-y-10", "opacity-0");
+          setTimeout(() => {
+            toast.classList.add("hidden");
+          }, 300);
+        }, 3000);
+      }
+
+      // Show loading spinner
+      function showLoading(message = "Loading...") {
+        const loading = document.getElementById("loading");
+        const loadingText = document.getElementById("loadingText");
+        loadingText.textContent = message;
+        loading.classList.remove("hidden");
+      }
+
+      // Hide loading spinner
+      function hideLoading() {
+        const loading = document.getElementById("loading");
+        loading.classList.add("hidden");
+      }
+
+      // Modal functions
+      function openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.classList.remove("hidden");
+      }
+
+      function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.classList.add("hidden");
+      }
+
+      closeModalButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const modal = button.closest('[id$="Modal"]');
+          if (modal) {
+            closeModal(modal.id);
+          }
+        });
+      });
+
+      // Resume Builder Functions
+      createResumeBtn.addEventListener("click", () => {
+        openModal("resumeBuilderModal");
+      });
+
+      uploadResumeBtn.addEventListener("click", () => {
+        showToast("Upload feature coming soon!", "info");
+      });
+
+      getFeedbackBtn.addEventListener("click", () => {
+        showToast("Upload your resume to get AI feedback!", "info");
+      });
+
+      // Add experience entry
+      addExperienceBtn.addEventListener("click", () => {
+        const experienceEntries = document.getElementById("experienceEntries");
+        const newEntry = document.createElement("div");
+        newEntry.className =
+          "experience-entry border dark:border-gray-700 rounded-lg p-4";
+
+        const entryId = Date.now();
+        newEntry.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Job Title*</label>
+                        <input type="text" class="job-title w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Company*</label>
+                        <input type="text" class="company w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Start Date*</label>
+                        <input type="month" class="start-date w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">End Date</label>
+                        <input type="month" class="end-date w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base">
+                        <div class="flex items-center mt-1">
+                            <input type="checkbox" class="current-job mr-2" id="currentJob${entryId}">
+                            <label for="currentJob${entryId}" class="text-sm">I currently work here</label>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Job Description</label>
+                    <textarea class="job-description w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base" rows="3" placeholder="Describe your responsibilities and achievements..."></textarea>
+                </div>
+                <button class="remove-experience mt-3 text-red-500 hover:text-red-700 text-sm flex items-center">
+                    <i class="ri-delete-bin-line mr-1"></i> Remove
+                </button>
+            `;
+
+        experienceEntries.appendChild(newEntry);
+
+        // Add event listener to remove button
+        const removeBtn = newEntry.querySelector(".remove-experience");
+        removeBtn.addEventListener("click", () => {
+          experienceEntries.removeChild(newEntry);
+        });
+
+        // Add event listener to current job checkbox
+        const currentJobCheckbox = newEntry.querySelector(".current-job");
+        const endDateInput = newEntry.querySelector(".end-date");
+
+        currentJobCheckbox.addEventListener("change", () => {
+          if (currentJobCheckbox.checked) {
+            endDateInput.value = "";
+            endDateInput.disabled = true;
+          } else {
+            endDateInput.disabled = false;
+          }
+        });
+      });
+
+      // Add education entry
+      addEducationBtn.addEventListener("click", () => {
+        const educationEntries = document.getElementById("educationEntries");
+        const newEntry = document.createElement("div");
+        newEntry.className =
+          "education-entry border dark:border-gray-700 rounded-lg p-4";
+
+        const entryId = Date.now();
+        newEntry.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Degree/Certificate*</label>
+                        <input type="text" class="degree w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Institution*</label>
+                        <input type="text" class="institution w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Start Date*</label>
+                        <input type="month" class="edu-start-date w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">End Date</label>
+                        <input type="month" class="edu-end-date w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base">
+                        <div class="flex items-center mt-1">
+                            <input type="checkbox" class="current-education mr-2" id="currentEdu${entryId}">
+                            <label for="currentEdu${entryId}" class="text-sm">I'm currently studying here</label>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Description</label>
+                    <textarea class="education-description w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base" rows="2" placeholder="Describe your field of study, achievements, etc."></textarea>
+                </div>
+                <button class="remove-education mt-3 text-red-500 hover:text-red-700 text-sm flex items-center">
+                    <i class="ri-delete-bin-line mr-1"></i> Remove
+                </button>
+            `;
+
+        educationEntries.appendChild(newEntry);
+
+        // Add event listener to remove button
+        const removeBtn = newEntry.querySelector(".remove-education");
+        removeBtn.addEventListener("click", () => {
+          educationEntries.removeChild(newEntry);
+        });
+
+        // Add event listener to current education checkbox
+        const currentEduCheckbox = newEntry.querySelector(".current-education");
+        const endDateInput = newEntry.querySelector(".edu-end-date");
+
+        currentEduCheckbox.addEventListener("change", () => {
+          if (currentEduCheckbox.checked) {
+            endDateInput.value = "";
+            endDateInput.disabled = true;
+          } else {
+            endDateInput.disabled = false;
+          }
+        });
+      });
+
+      // Add skill
+      addSkillBtn.addEventListener("click", () => {
+        const skill = skillInput.value.trim();
+        if (skill) {
+          // Create skill tag
+          const skillTag = document.createElement("div");
+          skillTag.className =
+            "skill-tag px-3 py-1.5 bg-primary/10 text-primary rounded-lg text-sm flex items-center";
+          skillTag.innerHTML = `
+                    ${skill}
+                    <button class="remove-skill ml-2">
+                        <i class="ri-close-line"></i>
+                    </button>
+                `;
+
+          // Add event listener to remove button
+          const removeBtn = skillTag.querySelector(".remove-skill");
+          removeBtn.addEventListener("click", () => {
+            skillsList.removeChild(skillTag);
+          });
+
+          // Add to list
+          skillsList.appendChild(skillTag);
+
+          // Clear input
+          skillInput.value = "";
+          skillInput.focus();
+        }
+      });
+
+      // Handle skill input enter key
+      skillInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          addSkillBtn.click();
+        }
+      });
+
+      // Set up existing remove skill buttons
+      document.querySelectorAll(".remove-skill").forEach((button) => {
+        button.addEventListener("click", () => {
+          const skillTag = button.closest(".skill-tag");
+          skillsList.removeChild(skillTag);
+        });
+      });
+
+      // Set up existing remove experience buttons
+      document.querySelectorAll(".remove-experience").forEach((button) => {
+        button.addEventListener("click", () => {
+          const experienceEntry = button.closest(".experience-entry");
+          experienceEntry.remove();
+        });
+      });
+
+      // Set up existing remove education buttons
+      document.querySelectorAll(".remove-education").forEach((button) => {
+        button.addEventListener("click", () => {
+          const educationEntry = button.closest(".education-entry");
+          educationEntry.remove();
+        });
+      });
+
+      // Preview resume
+      previewResumeBtn.addEventListener("click", () => {
+        showToast("Preview feature coming soon!", "info");
+      });
+
+      // Save resume
+      saveResumeBtn.addEventListener("click", () => {
+        showLoading("Generating your resume...");
+
+        setTimeout(() => {
+          hideLoading();
+          closeModal("resumeBuilderModal");
+          showToast("Resume saved successfully!");
+        }, 2000);
+      });
+
+      // Career Assistant Chatbot
+      sendChatBtn.addEventListener("click", sendChatMessage);
+
+      chatInput.addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+          sendChatMessage();
+        }
+      });
+
+      // Handle quick question buttons
+      quickQuestions.forEach((button) => {
+        button.addEventListener("click", () => {
+          chatInput.value = button.textContent;
+          sendChatMessage();
+        });
+      });
+
+      function sendChatMessage() {
+        const message = chatInput.value.trim();
+        if (!message) return;
+
+        // Add user message to chat
+        addMessageToChat("user", message);
+
+        // Clear input
+        chatInput.value = "";
+
+        // Show typing indicator
+        addTypingIndicator();
+
+        // Simulate response after a delay
+        setTimeout(() => {
+          removeTypingIndicator();
+
+          let response;
+          if (message.toLowerCase().includes("resume")) {
+            response =
+              "Creating a standout resume is crucial! Here are some tips:\n\n• Keep it concise (1-2 pages)\n• Tailor it to each job application\n• Use action verbs to describe accomplishments\n• Quantify achievements when possible\n• Use a clean, professional design\n\nWould you like me to review your resume? You can upload it for feedback.";
+          } else if (message.toLowerCase().includes("interview")) {
+            response =
+              "Interview preparation is key to success! Here's a quick guide:\n\n• Research the company thoroughly\n• Practice common questions\n• Prepare examples using the STAR method\n• Dress professionally\n• Prepare questions to ask the interviewer\n\nCheck out our mock interview tool to practice with AI feedback!";
+          } else if (
+            message.toLowerCase().includes("salary") ||
+            message.toLowerCase().includes("negotiation")
+          ) {
+            response =
+              "Salary negotiation tips:\n\n• Research market rates for your role and experience\n• Consider the full compensation package, not just salary\n• Practice your negotiation pitch\n• Start higher than your target\n• Be confident but respectful\n\nWould you like to join our upcoming salary negotiation workshop?";
+          } else if (message.toLowerCase().includes("career change")) {
+            response =
+              "Considering a career change? Here's how to approach it:\n\n• Identify transferable skills\n• Consider additional education or certifications\n• Network in your target industry\n• Gain relevant experience (volunteering, freelancing)\n• Update your resume to highlight transferable skills\n\nOur career path assessment can help identify suitable new directions!";
+          } else {
+            response =
+              "Thanks for your question! I'm here to help with any career-related topics including resume building, interview preparation, job search strategies, and professional development. Is there something specific you'd like guidance on?";
+          }
+
+          addMessageToChat("bot", response);
+        }, 1500);
+      }
+
+      function addMessageToChat(sender, message) {
+        const messageElement = document.createElement("div");
+        messageElement.className = "flex items-start mb-3";
+
+        if (sender === "user") {
+          messageElement.innerHTML = `
+                    <div class="ml-auto bg-primary text-white rounded-lg p-3 max-w-[80%]">
+                        <p class="text-sm">${message}</p>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-500 flex-shrink-0 ml-2">
+                        <i class="ri-user-line"></i>
+                    </div>
+                `;
+        } else {
+          messageElement.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white flex-shrink-0 mr-2">
+                        <i class="ri-robot-line"></i>
+                    </div>
+                    <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-3 max-w-[80%]">
+                        <p class="text-sm whitespace-pre-line">${message}</p>
+                    </div>
+                `;
+        }
+
+        chatMessages.appendChild(messageElement);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      function addTypingIndicator() {
+        const typingElement = document.createElement("div");
+        typingElement.className = "flex items-start typing-indicator mb-3";
+        typingElement.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white flex-shrink-0 mr-2">
+                    <i class="ri-robot-line"></i>
+                </div>
+                <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-3 max-w-[80%]">
+                    <div class="flex space-x-1">
+                        <div class="w-2 h-2 bg-gray-400 dark:bg-gray-500 rounded-full animate-bounce"></div>
+                        <div class="w-2 h-2 bg-gray-400 dark:bg-gray-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                        <div class="w-2 h-2 bg-gray-400 dark:bg-gray-500 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+                    </div>
+                </div>
+            `;
+
+        chatMessages.appendChild(typingElement);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      function removeTypingIndicator() {
+        const typingIndicator = document.querySelector(".typing-indicator");
+        if (typingIndicator) {
+          typingIndicator.remove();
+        }
+      }
+
+      // Career Guides
+      careerGuideButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const guideType = button.dataset.guide;
+          openCareerGuide(guideType);
+        });
+      });
+
+      function openCareerGuide(guideType) {
+        let title, content;
+
+        switch (guideType) {
+          case "career-path":
+            title = "Identifying Your Career Path";
+            content = `
+                        <h3>Finding Your Professional Direction</h3>
+                        <p>Choosing the right career path is a journey of self-discovery and exploration. This guide will help you identify a fulfilling career path aligned with your strengths, interests, and values.</p>
+                        
+                        <h4>Self-Assessment: The Foundation</h4>
+                        <p>Begin by understanding yourself through these key areas:</p>
+                        <ul>
+                            <li><strong>Skills inventory:</strong> What are you naturally good at? What have you learned to excel in?</li>
+                            <li><strong>Interests and passions:</strong> What activities energize you rather than drain you?</li>
+                            <li><strong>Values assessment:</strong> What matters most to you in work and life?</li>
+                            <li><strong>Personality traits:</strong> How do you interact with the world and process information?</li>
+                        </ul>
+                        
+                        <h4>Career Exploration</h4>
+                        <p>Once you have a better understanding of yourself:</p>
+                        <ul>
+                            <li>Research industries and roles that align with your self-assessment</li>
+                            <li>Conduct informational interviews with professionals</li>
+                            <li>Job shadow to get firsthand experience</li>
+                            <li>Volunteer or intern to test potential paths</li>
+                            <li>Consider assessments like Holland Code, Myers-Briggs, or StrengthsFinder</li>
+                        </ul>
+                        
+                        <h4>Decision-Making Framework</h4>
+                        <p>When evaluating potential career paths, consider:</p>
+                        <ol>
+                            <li>Alignment with your skills, interests, and values</li>
+                            <li>Market demand and future outlook</li>
+                            <li>Required education or training investment</li>
+                            <li>Potential for growth and advancement</li>
+                            <li>Work-life balance and lifestyle implications</li>
+                        </ol>
+                        
+                        <h4>Action Plan</h4>
+                        <p>After identifying promising career paths:</p>
+                        <ol>
+                            <li>Create a development plan to acquire necessary skills</li>
+                            <li>Set short-term and long-term goals</li>
+                            <li>Build a network in your chosen field</li>
+                            <li>Seek mentorship from experienced professionals</li>
+                            <li>Regularly review and adjust your path as you grow</li>
+                        </ol>
+                        
+                        <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mt-4">
+                            <h4 class="text-primary">Pro Tip</h4>
+                            <p>Career paths rarely follow a straight line. Be open to pivots and unexpected opportunities that may lead to greater fulfillment and success.</p>
+                        </div>
+                    `;
+            break;
+          case "goal-setting":
+            title = "Effective Career Goal Setting";
+            content = `
+                        <h3>Setting Achievable Career Goals</h3>
+                        <p>Effective goal setting is the cornerstone of career success. This guide provides a structured approach to establishing and achieving meaningful professional goals.</p>
+                        
+                        <h4>The SMART Framework</h4>
+                        <p>Ensure your goals meet these criteria:</p>
+                        <ul>
+                            <li><strong>Specific:</strong> Clearly define what you want to accomplish</li>
+                            <li><strong>Measurable:</strong> Identify concrete metrics to track progress</li>
+                            <li><strong>Achievable:</strong> Set challenging but realistic targets</li>
+                            <li><strong>Relevant:</strong> Align with your broader career vision</li>
+                            <li><strong>Time-bound:</strong> Establish deadlines and timeframes</li>
+                        </ul>
+                        
+                        <h4>Types of Career Goals</h4>
+                        <p>Develop a balanced portfolio of goals across these categories:</p>
+                        <ul>
+                            <li><strong>Skill development goals:</strong> Learning new technical or soft skills</li>
+                            <li><strong>Performance goals:</strong> Improving specific aspects of your current role</li>
+                            <li><strong>Position goals:</strong> Advancing to new roles or responsibilities</li>
+                            <li><strong>Compensation goals:</strong> Achieving financial targets</li>
+                            <li><strong>Work-life balance goals:</strong> Creating sustainable career satisfaction</li>
+                        </ul>
+                        
+                        <h4>Strategic Goal Planning</h4>
+                        <p>Structure your goals across different time horizons:</p>
+                        <ol>
+                            <li><strong>Long-term goals (3-5+ years):</strong> Your bigger career vision</li>
+                            <li><strong>Medium-term goals (1-3 years):</strong> Significant milestones toward your vision</li>
+                            <li><strong>Short-term goals (3-12 months):</strong> Immediate next steps</li>
+                            <li><strong>Micro-goals (weekly/monthly):</strong> Daily and weekly actions</li>
+                        </ol>
+                        
+                        <h4>Implementation and Tracking</h4>
+                        <p>Bring your goals to life through:</p>
+                        <ul>
+                            <li>Creating detailed action plans for each goal</li>
+                            <li>Establishing tracking systems and regular check-ins</li>
+                            <li>Identifying potential obstacles and mitigation strategies</li>
+                            <li>Building in accountability through mentors or peers</li>
+                            <li>Celebrating milestones and reassessing regularly</li>
+                        </ul>
+                        
+                        <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mt-4">
+                            <h4 class="text-primary">Pro Tip</h4>
+                            <p>Goals are meant to guide you, not constrain you. As you grow and circumstances change, be willing to adjust your goals to reflect new priorities and opportunities.</p>
+                        </div>
+                    `;
+            break;
+          case "networking":
+            title = "Networking Strategies";
+            content = `
+                        <h3>Building Effective Professional Relationships</h3>
+                        <p>Professional networking is about cultivating mutually beneficial relationships that enhance your career. This guide will help you develop networking skills that feel authentic and productive.</p>
+                        
+                        <h4>Mindset Shift: Value Exchange</h4>
+                        <p>Successful networking begins with the right perspective:</p>
+                        <ul>
+                            <li>Focus on how you can help others, not just what you can gain</li>
+                            <li>Approach networking as relationship building, not transaction</li>
+                            <li>View networking as a long-term investment, not a quick win</li>
+                            <li>Recognize that quality connections outweigh quantity</li>
+                        </ul>
+                        
+                        <h4>Strategic Network Building</h4>
+                        <p>Develop a diverse network that includes:</p>
+                        <ul>
+                            <li><strong>Operational network:</strong> Colleagues who help you do your current job</li>
+                            <li><strong>Personal network:</strong> Contacts who share interests and provide support</li>
+                            <li><strong>Strategic network:</strong> People who open doors to new opportunities</li>
+                            <li><strong>Developmental network:</strong> Mentors and advisors who guide your growth</li>
+                        </ul>
+                        
+                        <h4>Networking Channels and Opportunities</h4>
+                        <p>Leverage multiple avenues to expand your network:</p>
+                        <ol>
+                            <li><strong>Professional associations:</strong> Industry-specific groups and events</li>
+                            <li><strong>Online platforms:</strong> LinkedIn and industry-specific communities</li>
+                            <li><strong>Alumni networks:</strong> School and previous employer connections</li>
+                            <li><strong>Conferences and workshops:</strong> Learning and connecting opportunities</li>
+                            <li><strong>Volunteer opportunities:</strong> Contributing while building relationships</li>
+                        </ol>
+                        
+                        <h4>Practical Networking Skills</h4>
+                        <p>Develop these essential capabilities:</p>
+                        <ul>
+                            <li>Crafting a compelling elevator pitch</li>
+                            <li>Active listening and asking thoughtful questions</li>
+                            <li>Following up effectively and consistently</li>
+                            <li>Providing value through knowledge, resources, or connections</li>
+                            <li>Maintaining relationships over time through regular contact</li>
+                        </ul>
+                        
+                        <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mt-4">
+                            <h4 class="text-primary">For Introverts</h4>
+                            <p>Networking doesn't have to mean large events. One-on-one coffee meetings, small group settings, or content creation can be equally effective ways to build your professional relationships.</p>
+                        </div>
+                    `;
+            break;
+          case "skill-development":
+            title = "Skill Development Planning";
+            content = `
+                        <h3>Strategic Skill Development for Career Growth</h3>
+                        <p>In today's rapidly evolving job market, continuous skill development is essential for career success. This guide will help you create a strategic approach to building the skills that matter most.</p>
+                        
+                        <h4>Skill Gap Analysis</h4>
+                        <p>Begin by identifying the skills you need to develop:</p>
+                        <ul>
+                            <li>Assess your current skill inventory honestly</li>
+                            <li>Research skills in demand for your target role or industry</li>
+                            <li>Get feedback from managers, mentors, and peers</li>
+                            <li>Review job descriptions for roles you aspire to</li>
+                            <li>Consider both technical and transferable skills</li>
+                        </ul>
+                        
+                        <h4>Prioritizing Skills to Develop</h4>
+                        <p>Focus your efforts by prioritizing skills based on:</p>
+                        <ul>
+                            <li><strong>Impact:</strong> Skills that will add the most value</li>
+                            <li><strong>Urgency:</strong> Skills needed for immediate opportunities</li>
+                            <li><strong>Trends:</strong> Skills with growing importance in your field</li>
+                            <li><strong>Leverage:</strong> Skills that build on your existing strengths</li>
+                            <li><strong>Passion:</strong> Skills you're motivated to learn</li>
+                        </ul>
+                        
+                        <h4>Learning Pathways and Resources</h4>
+                        <p>Consider multiple approaches to skill development:</p>
+                        <ol>
+                            <li><strong>Formal education:</strong> Degrees, certifications, and courses</li>
+                            <li><strong>On-the-job learning:</strong> Stretch assignments and new responsibilities</li>
+                            <li><strong>Self-directed learning:</strong> Books, online tutorials, podcasts</li>
+                            <li><strong>Social learning:</strong> Communities of practice, study groups</li>
+                            <li><strong>Experiential learning:</strong> Projects, volunteering, side hustles</li>
+                        </ol>
+                        
+                        <h4>Creating Your Skill Development Plan</h4>
+                        <p>Structure your learning journey with:</p>
+                        <ul>
+                            <li>Clear, specific learning objectives</li>
+                            <li>Realistic timelines and milestones</li>
+                            <li>A mix of quick wins and long-term development</li>
+                            <li>Practical applications for new skills</li>
+                            <li>Regular reflection and adjustment</li>
+                        </ul>
+                        
+                        <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mt-4">
+                            <h4 class="text-primary">The 70-20-10 Model</h4>
+                            <p>Research suggests that effective professional development comes from: 70% challenging assignments, 20% developmental relationships, and 10% formal training. Design your skill development plan to leverage all three.</p>
+                        </div>
+                    `;
+            break;
+          default:
+            title = "Career Guide";
+            content =
+              "<p>Select a specific guide to view detailed content.</p>";
+        }
+
+        // Update modal
+        guideTitle.textContent = title;
+        guideContent.innerHTML = content;
+
+        // Open modal
+        openModal("careerGuideModal");
+      }
+
+      // Workshop registration
+      workshopRegisterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const workshopId = button.dataset.workshop;
+          openWorkshopRegistration(workshopId);
+        });
+      });
+
+      function openWorkshopRegistration(workshopId) {
+        let title, details;
+
+        switch (workshopId) {
+          case "resume-writing":
+            title = "Resume Writing Masterclass";
+            details = `
+                        <div class="mb-4">
+                            <span class="block text-xs text-white bg-primary px-2 py-0.5 rounded-full w-fit mb-2">Online</span>
+                            <h3 class="font-medium">Resume Writing Masterclass</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Learn how to craft a standout resume that gets you interviews</p>
+                        </div>
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center text-sm">
+                                <i class="ri-calendar-line mr-2 text-gray-500"></i>
+                                <span>July 15, 2023 | 10:00 AM - 12:00 PM SAST</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-user-line mr-2 text-gray-500"></i>
+                                <span>Presenter: Lerato Molefe, HR Director</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-money-dollar-circle-line mr-2 text-gray-500"></i>
+                                <span>Free for Career Companion users</span>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg mb-4">
+                            <h4 class="font-medium mb-1">What You'll Learn:</h4>
+                            <ul class="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                <li>ATS-friendly resume formatting</li>
+                                <li>Writing impactful achievement statements</li>
+                                <li>Tailoring your resume to specific roles</li>
+                                <li>Highlighting transferable skills effectively</li>
+                                <li>Common resume mistakes to avoid</li>
+                            </ul>
+                        </div>
+                    `;
+            break;
+          case "networking":
+            title = "Networking for Introverts";
+            details = `
+                        <div class="mb-4">
+                            <span class="block text-xs text-white bg-primary px-2 py-0.5 rounded-full w-fit mb-2">In-Person</span>
+                            <h3 class="font-medium">Networking for Introverts</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Learn effective networking strategies that work for your personality</p>
+                        </div>
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center text-sm">
+                                <i class="ri-calendar-line mr-2 text-gray-500"></i>
+                                <span>July 22, 2023 | 2:00 PM - 4:30 PM SAST</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-map-pin-line mr-2 text-gray-500"></i>
+                                <span>Sandton Business Hub, Johannesburg</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-user-line mr-2 text-gray-500"></i>
+                                <span>Facilitator: David Okafor, Marketing Manager</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-money-dollar-circle-line mr-2 text-gray-500"></i>
+                                <span>R150 (Free for Premium members)</span>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg mb-4">
+                            <h4 class="font-medium mb-1">Workshop Agenda:</h4>
+                            <ul class="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                <li>Understanding networking as relationship building</li>
+                                <li>Preparing for networking events</li>
+                                <li>Authentic conversation starters and techniques</li>
+                                <li>One-on-one vs. group networking strategies</li>
+                                <li>Digital networking best practices</li>
+                                <li>Practice session with feedback</li>
+                            </ul>
+                        </div>
+                    `;
+            break;
+          case "salary-negotiation":
+            title = "Salary Negotiation Skills";
+            details = `
+                        <div class="mb-4">
+                            <span class="block text-xs text-white bg-primary px-2 py-0.5 rounded-full w-fit mb-2">Online</span>
+                            <h3 class="font-medium">Salary Negotiation Skills</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Learn to negotiate with confidence for the compensation you deserve</p>
+                        </div>
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center text-sm">
+                                <i class="ri-calendar-line mr-2 text-gray-500"></i>
+                                <span>August 5, 2023 | 6:00 PM - 8:00 PM SAST</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-computer-line mr-2 text-gray-500"></i>
+                                <span>Zoom Webinar (link provided after registration)</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-user-line mr-2 text-gray-500"></i>
+                                <span>Speaker: Thabo Nkosi, Senior HR Consultant</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="ri-money-dollar-circle-line mr-2 text-gray-500"></i>
+                                <span>R200 (R100 for Career Companion members)</span>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg mb-4">
+                            <h4 class="font-medium mb-1">Key Topics:</h4>
+                            <ul class="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                <li>Researching salary ranges in South African industries</li>
+                                <li>Timing your negotiation effectively</li>
+                                <li>Framing your value proposition</li>
+                                <li>Handling objections confidently</li>
+                                <li>Negotiating beyond base salary (benefits, flexibility, etc.)</li>
+                                <li>Role-playing practical scenarios</li>
+                            </ul>
+                        </div>
+                    `;
+            break;
+          default:
+            title = "Workshop Registration";
+            details = "<p>Workshop details not available.</p>";
+        }
+
+        // Update modal
+        workshopTitle.textContent = title;
+        workshopDetails.innerHTML = details;
+        document.getElementById("workshopId").value = workshopId;
+
+        // Open modal
+        openModal("workshopModal");
+      }
+
+      // Handle workshop registration form
+      workshopRegistrationForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const workshopId = document.getElementById("workshopId").value;
+
+        // Close the modal
+        closeModal("workshopModal");
+
+        // Show loading spinner
+        showLoading("Registering for workshop...");
+
+        // Simulate registration process
+        setTimeout(() => {
+          hideLoading();
+          showToast(
+            "Workshop registration successful! Check your email for details.",
+            "success"
+          );
+
+          // Reset form
+          workshopRegistrationForm.reset();
+        }, 1500);
+      });
+
+      // Resource library links
+      resourceLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          const resourceId = link.dataset.resource;
+          showToast(`Downloading ${link.textContent.trim()}...`, "info");
+        });
+      });
+
+      // View all workshops button
+      viewAllWorkshopsBtn.addEventListener("click", () => {
+        showToast("More workshops coming soon!", "info");
+      });
+
+      // Add CSS for active buttons/tabs
+      const style = document.createElement("style");
+      style.textContent = `
+            .nav-btn {
+                @apply px-4 py-2 font-medium rounded-full whitespace-nowrap hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors;
+            }
+            .nav-btn.active {
+                @apply bg-primary text-white hover:bg-secondary;
+            }
+            .no-scrollbar {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            .no-scrollbar::-webkit-scrollbar {
+                display: none;
+            }
+        `;
+      document.head.appendChild(style);
+    </script>
+  </body>
+</html>

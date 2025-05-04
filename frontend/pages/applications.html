@@ -1,0 +1,3278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Career Companion - Applications</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#00A0A0", // Teal color
+              secondary: "#008080", // Darker teal for hover
+              accent: "#00C0C0", // Lighter teal for accents
+              darkblue: {
+                primary: "#0E3559", // Main dark blue
+                secondary: "#0A2845", // Darker blue for hover
+                light: "#1A4876", // Lighter blue for accents
+              },
+              dark: {
+                bg: "#121C2E", // Dark blue background for dark mode
+                card: "#1E2A3E", // Card background in dark mode
+                text: "#E5E5E5", // Text color in dark mode
+              },
+              light: {
+                bg: "#FFFFFF", // White background in light mode
+                card: "#F5F5F5", // Light gray for cards in light mode
+                text: "#333333", // Text color in light mode
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body
+    class="bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text transition-colors duration-200"
+  >
+    <div id="app" class="min-h-screen flex flex-col">
+      <!-- Header -->
+      <header class="bg-primary text-white shadow-md">
+        <div class="container mx-auto px-4 py-3">
+          <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+              <i class="ri-briefcase-4-line text-2xl"></i>
+              <h1 class="text-xl font-bold">Career Companion</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+              <button
+                id="themeToggle"
+                class="p-1 rounded-full hover:bg-secondary"
+              >
+                <i class="ri-sun-line dark:hidden text-xl"></i>
+                <i class="ri-moon-line hidden dark:block text-xl"></i>
+              </button>
+              <div class="hidden md:block">
+                <button
+                  class="px-3 py-1 bg-white text-primary rounded-full text-sm font-medium hover:bg-gray-100"
+                >
+                  Sign In
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Navigation -->
+      <nav class="bg-white dark:bg-dark-card shadow-sm">
+        <div class="container mx-auto px-4">
+          <div class="flex overflow-x-auto no-scrollbar py-2 space-x-1">
+            <a href="dashboard.html" class="nav-btn">Dashboard</a>
+            <a href="applications.html" class="nav-btn active">Applications</a>
+            <a href="skills.html" class="nav-btn">Skills</a>
+            <a href="mentorship.html" class="nav-btn">Mentorship</a>
+            <a href="jobs.html" class="nav-btn">Jobs</a>
+            <a href="resources.html" class="nav-btn">Resources</a>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Main Content - Applications Section -->
+      <main class="flex-grow container mx-auto px-4 py-6">
+        <div
+          class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6"
+        >
+          <h1 class="text-2xl font-bold">Job Applications</h1>
+          <div class="flex flex-col sm:flex-row gap-3 mt-3 md:mt-0">
+            <button
+              id="analyzeApplicationsBtn"
+              class="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-lg flex items-center"
+            >
+              <i class="ri-ai-generate mr-1"></i> Analyze Applications
+            </button>
+            <button
+              id="addApplicationBtn"
+              class="bg-primary hover:bg-secondary text-white py-2 px-4 rounded-lg flex items-center"
+            >
+              <i class="ri-add-line mr-1"></i> New Application
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-5 mb-6"
+        >
+          <div class="flex flex-col md:flex-row justify-between gap-4">
+            <div class="relative flex-grow">
+              <input
+                type="text"
+                id="searchApplications"
+                placeholder="Search applications..."
+                class="w-full pl-10 pr-4 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+              />
+              <i class="ri-search-line absolute left-3 top-3 text-gray-400"></i>
+            </div>
+            <div class="flex gap-2">
+              <select
+                id="filterStatus"
+                class="px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+              >
+                <option value="all">All Status</option>
+                <option value="Applied">Applied</option>
+                <option value="Screening">Screening</option>
+                <option value="Interview">Interview</option>
+                <option value="Assessment">Assessment</option>
+                <option value="Final Interview">Final Interview</option>
+                <option value="Offer">Offer</option>
+                <option value="Accepted">Accepted</option>
+                <option value="Rejected">Rejected</option>
+              </select>
+              <select
+                id="sortApplications"
+                class="px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+              >
+                <option value="date">Date (Recent)</option>
+                <option value="company">Company (A-Z)</option>
+                <option value="status">Status</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Application Stats Summary -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <div class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-4">
+            <div class="flex justify-between">
+              <h3 class="text-gray-500 dark:text-gray-400 text-sm font-medium">
+                Total Applications
+              </h3>
+              <i class="ri-file-list-3-line text-primary"></i>
+            </div>
+            <p class="mt-2 text-3xl font-bold" id="totalApplications">0</p>
+            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+              <span class="text-green-500"
+                ><i class="ri-arrow-up-line"></i> 3</span
+              >
+              from last month
+            </p>
+          </div>
+
+          <div class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-4">
+            <div class="flex justify-between">
+              <h3 class="text-gray-500 dark:text-gray-400 text-sm font-medium">
+                Interview Rate
+              </h3>
+              <i class="ri-user-voice-line text-primary"></i>
+            </div>
+            <p class="mt-2 text-3xl font-bold" id="interviewRate">0%</p>
+            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+              Applications that reached interview stage
+            </p>
+          </div>
+
+          <div class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-4">
+            <div class="flex justify-between">
+              <h3 class="text-gray-500 dark:text-gray-400 text-sm font-medium">
+                Success Rate
+              </h3>
+              <i class="ri-check-double-line text-primary"></i>
+            </div>
+            <p class="mt-2 text-3xl font-bold" id="successRate">0%</p>
+            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+              Applications with offers or accepted
+            </p>
+          </div>
+
+          <div class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-4">
+            <div class="flex justify-between">
+              <h3 class="text-gray-500 dark:text-gray-400 text-sm font-medium">
+                Active Applications
+              </h3>
+              <i class="ri-time-line text-primary"></i>
+            </div>
+            <p class="mt-2 text-3xl font-bold" id="activeApplications">0</p>
+            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+              Currently in progress
+            </p>
+          </div>
+        </div>
+
+        <div id="applicationsContainer" class="space-y-4">
+          <!-- Applications will be dynamically inserted here -->
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer class="bg-white dark:bg-dark-card shadow-inner mt-auto">
+        <div class="container mx-auto px-4 py-4">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center mb-3 md:mb-0">
+              <i class="ri-briefcase-4-line text-primary text-xl mr-2"></i>
+              <span class="text-gray-700 dark:text-gray-300 font-medium"
+                >Career Companion</span
+              >
+            </div>
+            <div class="flex items-center space-x-4">
+              <a
+                href="#"
+                class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+              >
+                <i class="ri-question-line"></i>
+              </a>
+              <a
+                href="#"
+                class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+              >
+                <i class="ri-settings-3-line"></i>
+              </a>
+              <a
+                href="#"
+                class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+              >
+                <i class="ri-user-line"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <!-- Toast Notification -->
+      <div
+        id="toast"
+        class="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg transform translate-y-10 opacity-0 transition-all duration-300 z-50"
+      >
+        Action completed successfully
+      </div>
+
+      <!-- Add Application Modal -->
+      <div
+        id="applicationModal"
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+      >
+        <div
+          class="bg-white dark:bg-dark-bg rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto"
+        >
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-4">
+              <h2 class="text-xl font-bold" id="modalTitle">Add Application</h2>
+              <button
+                class="closeModal text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+              >
+                <i class="ri-close-line text-xl"></i>
+              </button>
+            </div>
+            <form id="applicationForm" class="space-y-4">
+              <input type="hidden" id="applicationId" />
+              <div>
+                <label for="companyName" class="block text-sm font-medium mb-1"
+                  >Company Name*</label
+                >
+                <input
+                  type="text"
+                  id="companyName"
+                  required
+                  class="w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                />
+              </div>
+              <div>
+                <label for="jobTitle" class="block text-sm font-medium mb-1"
+                  >Job Title*</label
+                >
+                <input
+                  type="text"
+                  id="jobTitle"
+                  required
+                  class="w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                />
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label
+                    for="applicationDate"
+                    class="block text-sm font-medium mb-1"
+                    >Application Date*</label
+                  >
+                  <input
+                    type="date"
+                    id="applicationDate"
+                    required
+                    class="w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                  />
+                </div>
+                <div>
+                  <label
+                    for="applicationStatus"
+                    class="block text-sm font-medium mb-1"
+                    >Status*</label
+                  >
+                  <select
+                    id="applicationStatus"
+                    required
+                    class="w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                  >
+                    <option value="Applied">Applied</option>
+                    <option value="Screening">Screening</option>
+                    <option value="Interview">Interview</option>
+                    <option value="Assessment">Assessment</option>
+                    <option value="Final Interview">Final Interview</option>
+                    <option value="Offer">Offer</option>
+                    <option value="Accepted">Accepted</option>
+                    <option value="Rejected">Rejected</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <label for="jobLocation" class="block text-sm font-medium mb-1"
+                  >Location</label
+                >
+                <input
+                  type="text"
+                  id="jobLocation"
+                  class="w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                />
+              </div>
+              <div id="interviewDateContainer" class="hidden">
+                <label
+                  for="interviewDate"
+                  class="block text-sm font-medium mb-1"
+                  >Interview Date</label
+                >
+                <input
+                  type="datetime-local"
+                  id="interviewDate"
+                  class="w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                />
+              </div>
+              <div id="assessmentDetailsContainer" class="hidden">
+                <label
+                  for="assessmentDetails"
+                  class="block text-sm font-medium mb-1"
+                  >Assessment Details</label
+                >
+                <input
+                  type="text"
+                  id="assessmentDetails"
+                  placeholder="Type of assessment"
+                  class="w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                />
+              </div>
+              <div id="offerDetailsContainer" class="hidden">
+                <label for="offerDetails" class="block text-sm font-medium mb-1"
+                  >Offer Details</label
+                >
+                <input
+                  type="text"
+                  id="offerDetails"
+                  placeholder="Salary, benefits, etc."
+                  class="w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                />
+              </div>
+              <div>
+                <label
+                  for="applicationNotes"
+                  class="block text-sm font-medium mb-1"
+                  >Notes</label
+                >
+                <textarea
+                  id="applicationNotes"
+                  rows="3"
+                  class="w-full px-3 py-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-dark-bg text-base"
+                ></textarea>
+              </div>
+              <div class="flex justify-end space-x-3 pt-2">
+                <button
+                  type="button"
+                  class="closeModal px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  class="px-4 py-2 bg-primary hover:bg-secondary text-white rounded-lg"
+                >
+                  Save Application
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Application Detail Modal with Process Visualization -->
+      <div
+        id="applicationDetailModal"
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+      >
+        <div
+          class="bg-white dark:bg-dark-bg rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+        >
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-4">
+              <h2 class="text-xl font-bold" id="applicationDetailTitle">
+                Application Details
+              </h2>
+              <button
+                class="closeModal text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+              >
+                <i class="ri-close-line text-xl"></i>
+              </button>
+            </div>
+            <div id="applicationDetailContent" class="space-y-6">
+              <!-- Content will be dynamically inserted here -->
+            </div>
+
+            <!-- Application Process Visualization -->
+            <div class="mt-8 border-t dark:border-gray-700 pt-6">
+              <h3 class="text-lg font-semibold mb-4">Application Process</h3>
+              <div id="applicationProcessSteps" class="relative">
+                <!-- Process steps will be added here -->
+              </div>
+            </div>
+
+            <!-- Application Success Predictor -->
+            <div
+              id="successPredictorSection"
+              class="mt-8 border-t dark:border-gray-700 pt-6"
+            >
+              <h3 class="text-lg font-semibold mb-4 flex items-center">
+                <i class="ri-bar-chart-box-line mr-2 text-primary"></i>
+                Success Predictor
+              </h3>
+              <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                <div class="flex items-center mb-4">
+                  <div
+                    id="successPredictorGauge"
+                    class="w-20 h-20 rounded-full relative flex items-center justify-center mr-4"
+                  >
+                    <!-- Success prediction gauge will be inserted here -->
+                  </div>
+                  <div>
+                    <h4 class="font-medium">Success Likelihood</h4>
+                    <p
+                      class="text-sm text-gray-600 dark:text-gray-400 mb-1"
+                      id="successPredictorText"
+                    >
+                      Based on your profile and application history
+                    </p>
+                    <div class="flex space-x-2" id="successFactorTags">
+                      <!-- Success factor tags will be inserted here -->
+                    </div>
+                  </div>
+                </div>
+                <div id="successPredictorDetails">
+                  <!-- Success predictor details will be inserted here -->
+                </div>
+              </div>
+            </div>
+
+            <!-- AI Feedback Section -->
+            <div
+              id="aiFeedbackSection"
+              class="mt-8 border-t dark:border-gray-700 pt-6"
+            >
+              <h3 class="text-lg font-semibold mb-4">AI Insights</h3>
+              <div
+                id="aiFeedbackContent"
+                class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg"
+              >
+                <!-- AI feedback will be added here -->
+              </div>
+            </div>
+
+            <div
+              class="flex justify-end space-x-3 pt-4 mt-6 border-t dark:border-gray-700"
+            >
+              <button
+                class="closeModal px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                Close
+              </button>
+              <button
+                id="editApplicationBtn"
+                class="px-4 py-2 bg-primary hover:bg-secondary text-white rounded-lg"
+              >
+                Edit Application
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Application Pattern Analysis Modal -->
+      <div
+        id="patternAnalysisModal"
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+      >
+        <div
+          class="bg-white dark:bg-dark-bg rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+        >
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-4">
+              <h2 class="text-xl font-bold">Application Pattern Analysis</h2>
+              <button
+                class="closeModal text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+              >
+                <i class="ri-close-line text-xl"></i>
+              </button>
+            </div>
+
+            <div class="mb-6">
+              <div class="flex items-center mb-2">
+                <div
+                  class="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-300 mr-3"
+                >
+                  <i class="ri-ai-generate"></i>
+                </div>
+                <div>
+                  <h3 class="font-medium">
+                    AI Analysis of Your Application Patterns
+                  </h3>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">
+                    Based on analysis of all your job applications
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Funnel Visualization -->
+            <div class="mb-8 bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+              <h3 class="font-medium mb-4">Application Funnel</h3>
+              <div class="flex items-center justify-center">
+                <div class="w-full max-w-md space-y-2">
+                  <!-- Applied Stage -->
+                  <div>
+                    <div class="flex justify-between text-sm mb-1">
+                      <span>Applied</span>
+                      <span id="appliedCount">20 applications (100%)</span>
+                    </div>
+                    <div
+                      class="w-full bg-blue-100 dark:bg-blue-900/30 h-10 rounded-t-lg flex items-center justify-center text-blue-800 dark:text-blue-300 text-sm"
+                    >
+                      20
+                    </div>
+                  </div>
+
+                  <!-- Screening Stage -->
+                  <div>
+                    <div class="flex justify-between text-sm mb-1">
+                      <span>Screening</span>
+                      <span id="screeningCount">12 applications (60%)</span>
+                    </div>
+                    <div
+                      class="w-[80%] mx-auto bg-indigo-100 dark:bg-indigo-900/30 h-10 flex items-center justify-center text-indigo-800 dark:text-indigo-300 text-sm"
+                    >
+                      12
+                    </div>
+                  </div>
+
+                  <!-- Interview Stage -->
+                  <div>
+                    <div class="flex justify-between text-sm mb-1">
+                      <span>Interview</span>
+                      <span id="interviewCount">6 applications (30%)</span>
+                    </div>
+                    <div
+                      class="w-[60%] mx-auto bg-purple-100 dark:bg-purple-900/30 h-10 flex items-center justify-center text-purple-800 dark:text-purple-300 text-sm"
+                    >
+                      6
+                    </div>
+                  </div>
+
+                  <!-- Assessment Stage -->
+                  <div>
+                    <div class="flex justify-between text-sm mb-1">
+                      <span>Assessment</span>
+                      <span id="assessmentCount">4 applications (20%)</span>
+                    </div>
+                    <div
+                      class="w-[40%] mx-auto bg-yellow-100 dark:bg-yellow-900/30 h-10 flex items-center justify-center text-yellow-800 dark:text-yellow-300 text-sm"
+                    >
+                      4
+                    </div>
+                  </div>
+
+                  <!-- Final Interview Stage -->
+                  <div>
+                    <div class="flex justify-between text-sm mb-1">
+                      <span>Final Interview</span>
+                      <span id="finalInterviewCount">2 applications (10%)</span>
+                    </div>
+                    <div
+                      class="w-[30%] mx-auto bg-orange-100 dark:bg-orange-900/30 h-10 flex items-center justify-center text-orange-800 dark:text-orange-300 text-sm"
+                    >
+                      2
+                    </div>
+                  </div>
+
+                  <!-- Offer Stage -->
+                  <div>
+                    <div class="flex justify-between text-sm mb-1">
+                      <span>Offer/Accepted</span>
+                      <span id="offerCount">1 application (5%)</span>
+                    </div>
+                    <div
+                      class="w-[20%] mx-auto bg-green-100 dark:bg-green-900/30 h-10 rounded-b-lg flex items-center justify-center text-green-800 dark:text-green-300 text-sm"
+                    >
+                      1
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Analysis Results -->
+            <div
+              id="stagnationPatternResult"
+              class="mb-6 bg-red-50 dark:bg-red-900/10 rounded-lg p-4"
+            >
+              <div class="flex items-start">
+                <i
+                  class="ri-error-warning-line text-red-500 dark:text-red-400 text-xl mt-0.5 mr-3"
+                ></i>
+                <div>
+                  <h3 class="font-medium text-red-800 dark:text-red-300 mb-2">
+                    Stagnation Detected:
+                    <span id="stagnationStage"
+                      >Application to Interview Stage</span
+                    >
+                  </h3>
+                  <p class="text-sm text-red-700 dark:text-red-300">
+                    Based on industry standards for South African software
+                    engineering roles, your interview rate is lower than
+                    expected. Typically, 1 in 10 applications should lead to an
+                    interview, but your current rate is
+                    <span id="stagnationRate">1 in 20</span>.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Potential Issues -->
+            <div class="mb-6">
+              <h3 class="font-medium mb-3">Potential Issues</h3>
+              <div class="space-y-3" id="potentialIssuesList">
+                <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                  <h4 class="font-medium mb-1">Resume Optimization</h4>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">
+                    Your resume may not be effectively highlighting the right
+                    skills or using appropriate keywords for ATS systems.
+                    Technical resumes need specific formatting and content to
+                    pass initial screenings.
+                  </p>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                  <h4 class="font-medium mb-1">Application Targeting</h4>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">
+                    You may be applying to positions that require more
+                    experience than you currently have. Focus on roles that
+                    better match your current skill set and experience level.
+                  </p>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                  <h4 class="font-medium mb-1">Cover Letter Strategy</h4>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">
+                    Your cover letters might not be effectively communicating
+                    your value proposition. Each cover letter should be tailored
+                    to the specific role and company.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recommended Actions -->
+            <div class="mb-6">
+              <h3 class="font-medium mb-3">Recommended Actions</h3>
+              <div class="space-y-3" id="recommendedActionsList">
+                <div class="bg-primary/10 p-3 rounded-lg">
+                  <h4 class="font-medium text-primary mb-1">
+                    Get Resume Review
+                  </h4>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">
+                    Have your resume reviewed by a professional to ensure it's
+                    optimized for ATS systems and effectively highlights your
+                    relevant skills and experience.
+                  </p>
+                  <button
+                    class="mt-2 text-primary hover:text-secondary text-sm font-medium"
+                  >
+                    Request Resume Review
+                  </button>
+                </div>
+                <div class="bg-primary/10 p-3 rounded-lg">
+                  <h4 class="font-medium text-primary mb-1">
+                    Connect with a Mentor
+                  </h4>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">
+                    Work with a mentor who specializes in helping candidates
+                    navigate the application and interview process in your
+                    field.
+                  </p>
+                  <button
+                    class="mt-2 text-primary hover:text-secondary text-sm font-medium"
+                  >
+                    Find a Mentor
+                  </button>
+                </div>
+                <div class="bg-primary/10 p-3 rounded-lg">
+                  <h4 class="font-medium text-primary mb-1">
+                    Adjust Job Targeting
+                  </h4>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">
+                    Focus on roles that better match your current skill level
+                    and experience. Consider expanding your search to include
+                    adjacent roles that may be less competitive.
+                  </p>
+                  <button
+                    class="mt-2 text-primary hover:text-secondary text-sm font-medium"
+                  >
+                    View Recommended Jobs
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recommended Mentors -->
+            <div class="border-t dark:border-gray-700 mt-6 pt-4">
+              <h3 class="font-medium mb-3">
+                Recommended Mentors for
+                <span id="mentorSpecialization">Application Stage</span>
+              </h3>
+              <div
+                id="recommendedMentors"
+                class="grid grid-cols-1 md:grid-cols-2 gap-3"
+              >
+                <!-- Mentors will be dynamically inserted here -->
+                <div
+                  class="mentor-card flex items-start p-3 border dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800"
+                >
+                  <div
+                    class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-semibold text-lg flex-shrink-0 mr-3"
+                  >
+                    DO
+                  </div>
+                  <div class="flex-grow">
+                    <div class="flex justify-between items-start">
+                      <div>
+                        <h4 class="font-medium">David Okafor</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                          Resume & Application Specialist
+                        </p>
+                      </div>
+                      <div class="flex items-center text-yellow-500 text-sm">
+                        <i class="ri-star-fill mr-1"></i>
+                        <span>4.7</span>
+                      </div>
+                    </div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                      Expert in optimizing resumes to pass ATS screening
+                      processes.
+                    </p>
+                    <button
+                      class="mt-2 text-primary hover:text-secondary text-sm font-medium"
+                    >
+                      Request Mentorship
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  class="mentor-card flex items-start p-3 border dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800"
+                >
+                  <div
+                    class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white font-semibold text-lg flex-shrink-0 mr-3"
+                  >
+                    RT
+                  </div>
+                  <div class="flex-grow">
+                    <div class="flex justify-between items-start">
+                      <div>
+                        <h4 class="font-medium">Rethabile Tshabalala</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                          Job Search Strategist
+                        </p>
+                      </div>
+                      <div class="flex items-center text-yellow-500 text-sm">
+                        <i class="ri-star-fill mr-1"></i>
+                        <span>4.8</span>
+                      </div>
+                    </div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                      Specializes in helping candidates target the right
+                      positions for their skill level.
+                    </p>
+                    <button
+                      class="mt-2 text-primary hover:text-secondary text-sm font-medium"
+                    >
+                      Request Mentorship
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Initialize dark mode based on user preference
+      if (
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+      ) {
+        document.documentElement.classList.add("dark");
+      }
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", (event) => {
+          if (event.matches) {
+            document.documentElement.classList.add("dark");
+          } else {
+            document.documentElement.classList.remove("dark");
+          }
+        });
+
+      // Data storage (since localStorage is not available in the sandbox)
+      let applications = [];
+      let applicationIdCounter = 1;
+
+      // Mentors data for stage-specific recommendations
+      let mentors = [
+        {
+          id: 1,
+          name: "Thabo Nkosi",
+          avatar: "TN",
+          title: "Technical Interview Coach",
+          specialization: "Interview",
+          rating: 4.9,
+          description:
+            "Specialized in tech industry interviews with 95% success rate.",
+        },
+        {
+          id: 2,
+          name: "Lerato Molefe",
+          avatar: "LM",
+          title: "Assessment Preparation Expert",
+          specialization: "Assessment",
+          rating: 4.8,
+          description:
+            "Helps candidates ace technical and aptitude assessments.",
+        },
+        {
+          id: 3,
+          name: "David Okafor",
+          avatar: "DO",
+          title: "Resume & Application Specialist",
+          specialization: "Applied",
+          rating: 4.7,
+          description:
+            "Expert in optimizing resumes to pass ATS screening processes.",
+        },
+        {
+          id: 4,
+          name: "Amahle Dlamini",
+          avatar: "AD",
+          title: "Final Interview Strategist",
+          specialization: "Final Interview",
+          rating: 4.9,
+          description: "Specialized in executive and final round interviews.",
+        },
+        {
+          id: 5,
+          name: "Sophia van der Merwe",
+          avatar: "SM",
+          title: "Salary Negotiation Coach",
+          specialization: "Offer",
+          rating: 4.8,
+          description: "Helps candidates secure better compensation packages.",
+        },
+        {
+          id: 6,
+          name: "Rethabile Tshabalala",
+          avatar: "RT",
+          title: "Job Search Strategist",
+          specialization: "Applied",
+          rating: 4.8,
+          description:
+            "Specializes in helping candidates target the right positions for their skill level.",
+        },
+      ];
+
+      // UI Elements
+      const navButtons = document.querySelectorAll(".nav-btn");
+      const addApplicationBtn = document.getElementById("addApplicationBtn");
+      const analyzeApplicationsBtn = document.getElementById(
+        "analyzeApplicationsBtn"
+      );
+      const applicationModal = document.getElementById("applicationModal");
+      const closeModalButtons = document.querySelectorAll(".closeModal");
+      const applicationForm = document.getElementById("applicationForm");
+      const themeToggle = document.getElementById("themeToggle");
+      const toast = document.getElementById("toast");
+      const applicationStatus = document.getElementById("applicationStatus");
+      const interviewDateContainer = document.getElementById(
+        "interviewDateContainer"
+      );
+      const assessmentDetailsContainer = document.getElementById(
+        "assessmentDetailsContainer"
+      );
+      const offerDetailsContainer = document.getElementById(
+        "offerDetailsContainer"
+      );
+      const searchApplications = document.getElementById("searchApplications");
+      const filterStatus = document.getElementById("filterStatus");
+      const sortApplications = document.getElementById("sortApplications");
+      const patternAnalysisModal = document.getElementById(
+        "patternAnalysisModal"
+      );
+
+      // Theme toggle
+      themeToggle.addEventListener("click", () => {
+        document.documentElement.classList.toggle("dark");
+        showToast("Theme changed");
+      });
+
+      // Show toast notification
+      function showToast(message, type = "success") {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+
+        // Set toast color based on type
+        toast.className =
+          "fixed bottom-4 right-4 px-4 py-2 rounded-lg shadow-lg transform transition-all duration-300 z-50";
+
+        if (type === "success") {
+          toast.classList.add("bg-green-500", "text-white");
+        } else if (type === "error") {
+          toast.classList.add("bg-red-500", "text-white");
+        } else if (type === "info") {
+          toast.classList.add("bg-blue-500", "text-white");
+        }
+
+        // Show the toast
+        toast.classList.remove("translate-y-10", "opacity-0");
+
+        // Hide the toast after 3 seconds
+        setTimeout(() => {
+          toast.classList.add("translate-y-10", "opacity-0");
+        }, 3000);
+      }
+
+      // Modal functions
+      function openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.classList.remove("hidden");
+      }
+
+      function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.classList.add("hidden");
+      }
+
+      closeModalButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const modal = button.closest('[id$="Modal"]');
+          if (modal) {
+            closeModal(modal.id);
+          }
+        });
+      });
+
+      // Initialize application form
+      function initApplicationForm(isEdit = false, application = null) {
+        const modalTitle = document.getElementById("modalTitle");
+        const applicationId = document.getElementById("applicationId");
+        const companyName = document.getElementById("companyName");
+        const jobTitle = document.getElementById("jobTitle");
+        const applicationDate = document.getElementById("applicationDate");
+        const jobLocation = document.getElementById("jobLocation");
+        const applicationStatus = document.getElementById("applicationStatus");
+        const interviewDate = document.getElementById("interviewDate");
+        const assessmentDetails = document.getElementById("assessmentDetails");
+        const offerDetails = document.getElementById("offerDetails");
+        const applicationNotes = document.getElementById("applicationNotes");
+
+        if (isEdit && application) {
+          modalTitle.textContent = "Edit Application";
+          applicationId.value = application.id;
+          companyName.value = application.company;
+          jobTitle.value = application.position;
+          applicationDate.value = application.applicationDate;
+          jobLocation.value = application.location || "";
+          applicationStatus.value = application.status;
+          interviewDate.value = application.interviewDate || "";
+          assessmentDetails.value = application.assessmentDetails || "";
+          offerDetails.value = application.offerDetails || "";
+          applicationNotes.value = application.notes || "";
+
+          // Show/hide conditional fields based on status
+          if (
+            application.status === "Interview" ||
+            application.status === "Final Interview"
+          ) {
+            interviewDateContainer.classList.remove("hidden");
+          } else {
+            interviewDateContainer.classList.add("hidden");
+          }
+
+          if (application.status === "Assessment") {
+            assessmentDetailsContainer.classList.remove("hidden");
+          } else {
+            assessmentDetailsContainer.classList.add("hidden");
+          }
+
+          if (
+            application.status === "Offer" ||
+            application.status === "Accepted"
+          ) {
+            offerDetailsContainer.classList.remove("hidden");
+          } else {
+            offerDetailsContainer.classList.add("hidden");
+          }
+        } else {
+          modalTitle.textContent = "Add Application";
+          applicationId.value = "";
+          companyName.value = "";
+          jobTitle.value = "";
+          applicationDate.value = new Date().toISOString().split("T")[0]; // Today's date
+          jobLocation.value = "";
+          applicationStatus.value = "Applied";
+          interviewDate.value = "";
+          assessmentDetails.value = "";
+          offerDetails.value = "";
+          applicationNotes.value = "";
+          interviewDateContainer.classList.add("hidden");
+          assessmentDetailsContainer.classList.add("hidden");
+          offerDetailsContainer.classList.add("hidden");
+        }
+      }
+
+      // Application status change
+      applicationStatus.addEventListener("change", function () {
+        // Handle interview date visibility
+        if (this.value === "Interview" || this.value === "Final Interview") {
+          interviewDateContainer.classList.remove("hidden");
+        } else {
+          interviewDateContainer.classList.add("hidden");
+        }
+
+        // Handle assessment details visibility
+        if (this.value === "Assessment") {
+          assessmentDetailsContainer.classList.remove("hidden");
+        } else {
+          assessmentDetailsContainer.classList.add("hidden");
+        }
+
+        // Handle offer details visibility
+        if (this.value === "Offer" || this.value === "Accepted") {
+          offerDetailsContainer.classList.remove("hidden");
+        } else {
+          offerDetailsContainer.classList.add("hidden");
+        }
+      });
+
+      // Handle application form submission
+      applicationForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const applicationId = document.getElementById("applicationId").value;
+        const companyName = document.getElementById("companyName").value;
+        const jobTitle = document.getElementById("jobTitle").value;
+        const applicationDate =
+          document.getElementById("applicationDate").value;
+        const jobLocation = document.getElementById("jobLocation").value;
+        const status = document.getElementById("applicationStatus").value;
+        const interviewDate = document.getElementById("interviewDate").value;
+        const assessmentDetails =
+          document.getElementById("assessmentDetails").value;
+        const offerDetails = document.getElementById("offerDetails").value;
+        const notes = document.getElementById("applicationNotes").value;
+
+        if (applicationId) {
+          // Edit existing application
+          const index = applications.findIndex(
+            (app) => app.id === parseInt(applicationId)
+          );
+          if (index !== -1) {
+            const previousStatus = applications[index].status;
+            applications[index] = {
+              id: parseInt(applicationId),
+              company: companyName,
+              position: jobTitle,
+              applicationDate: applicationDate,
+              location: jobLocation,
+              status: status,
+              interviewDate:
+                status === "Interview" || status === "Final Interview"
+                  ? interviewDate
+                  : "",
+              assessmentDetails:
+                status === "Assessment" ? assessmentDetails : "",
+              offerDetails:
+                status === "Offer" || status === "Accepted" ? offerDetails : "",
+              notes: notes,
+              // Keep existing timeline if it exists
+              timeline: applications[index].timeline || [
+                {
+                  date: applicationDate,
+                  status: "Applied",
+                  notes: "Application submitted",
+                },
+              ],
+              // Keep lastUpdated date
+              lastUpdated:
+                applications[index].lastUpdated || new Date().toISOString(),
+            };
+
+            // Add new status to timeline if it's different
+            const lastTimelineItem =
+              applications[index].timeline[
+                applications[index].timeline.length - 1
+              ];
+            if (lastTimelineItem.status !== status) {
+              applications[index].timeline.push({
+                date: new Date().toISOString().split("T")[0],
+                status: status,
+                notes: `Status updated to ${status}`,
+              });
+              // Update lastUpdated date
+              applications[index].lastUpdated = new Date().toISOString();
+            }
+
+            showToast("Application updated successfully");
+          }
+        } else {
+          // Add new application
+          const newApplication = {
+            id: applicationIdCounter++,
+            company: companyName,
+            position: jobTitle,
+            applicationDate: applicationDate,
+            location: jobLocation,
+            status: status,
+            interviewDate:
+              status === "Interview" || status === "Final Interview"
+                ? interviewDate
+                : "",
+            assessmentDetails: status === "Assessment" ? assessmentDetails : "",
+            offerDetails:
+              status === "Offer" || status === "Accepted" ? offerDetails : "",
+            notes: notes,
+            lastUpdated: new Date().toISOString(),
+            timeline: [
+              {
+                date: applicationDate,
+                status: "Applied",
+                notes: "Application submitted",
+              },
+            ],
+          };
+
+          // Add additional timeline item if initial status isn't "Applied"
+          if (status !== "Applied") {
+            newApplication.timeline.push({
+              date: new Date().toISOString().split("T")[0],
+              status: status,
+              notes: `Status updated to ${status}`,
+            });
+          }
+
+          applications.push(newApplication);
+          showToast("Application added successfully");
+        }
+
+        // Refresh application list and stats
+        updateApplicationStats();
+        displayFilteredApplications();
+
+        // Close modal
+        closeModal("applicationModal");
+      });
+
+      // Add application button
+      addApplicationBtn.addEventListener("click", () => {
+        initApplicationForm();
+        openModal("applicationModal");
+      });
+
+      // Analyze Applications button
+      analyzeApplicationsBtn.addEventListener("click", () => {
+        analyzeApplicationPatterns();
+      });
+
+      // Analyze application patterns
+      function analyzeApplicationPatterns() {
+        // Get stage counts
+        const stageCounts = {
+          Applied: 0,
+          Screening: 0,
+          Interview: 0,
+          Assessment: 0,
+          "Final Interview": 0,
+          Offer: 0,
+          Accepted: 0,
+          Rejected: 0,
+        };
+
+        // Count applications at each stage
+        applications.forEach((app) => {
+          stageCounts[app.status]++;
+        });
+
+        // Calculate total applications (excluding rejected ones for pattern analysis)
+        const totalActive = applications.filter(
+          (app) => app.status !== "Rejected"
+        ).length;
+        const totalAll = applications.length;
+
+        // Identify stagnation points based on South African software engineering job market
+        const interviewRate = calculateProgressionRate("Applied", [
+          "Interview",
+          "Assessment",
+          "Final Interview",
+          "Offer",
+          "Accepted",
+        ]);
+        const offerRate = calculateProgressionRate("Interview", [
+          "Offer",
+          "Accepted",
+        ]);
+
+        // Update the stagnation analysis content based on the identified pattern
+        updateStagnationContent(interviewRate, offerRate);
+
+        // Update funnel visualization
+        document.getElementById("appliedCount").textContent = `${
+          stageCounts["Applied"] +
+          stageCounts["Screening"] +
+          stageCounts["Interview"] +
+          stageCounts["Assessment"] +
+          stageCounts["Final Interview"] +
+          stageCounts["Offer"] +
+          stageCounts["Accepted"]
+        } applications (100%)`;
+        document.getElementById("screeningCount").textContent = `${
+          stageCounts["Screening"] +
+          stageCounts["Interview"] +
+          stageCounts["Assessment"] +
+          stageCounts["Final Interview"] +
+          stageCounts["Offer"] +
+          stageCounts["Accepted"]
+        } applications (${calculatePercentage(
+          stageCounts["Screening"] +
+            stageCounts["Interview"] +
+            stageCounts["Assessment"] +
+            stageCounts["Final Interview"] +
+            stageCounts["Offer"] +
+            stageCounts["Accepted"],
+          totalActive
+        )}%)`;
+        document.getElementById("interviewCount").textContent = `${
+          stageCounts["Interview"] +
+          stageCounts["Assessment"] +
+          stageCounts["Final Interview"] +
+          stageCounts["Offer"] +
+          stageCounts["Accepted"]
+        } applications (${calculatePercentage(
+          stageCounts["Interview"] +
+            stageCounts["Assessment"] +
+            stageCounts["Final Interview"] +
+            stageCounts["Offer"] +
+            stageCounts["Accepted"],
+          totalActive
+        )}%)`;
+        document.getElementById("assessmentCount").textContent = `${
+          stageCounts["Assessment"] +
+          stageCounts["Final Interview"] +
+          stageCounts["Offer"] +
+          stageCounts["Accepted"]
+        } applications (${calculatePercentage(
+          stageCounts["Assessment"] +
+            stageCounts["Final Interview"] +
+            stageCounts["Offer"] +
+            stageCounts["Accepted"],
+          totalActive
+        )}%)`;
+        document.getElementById("finalInterviewCount").textContent = `${
+          stageCounts["Final Interview"] +
+          stageCounts["Offer"] +
+          stageCounts["Accepted"]
+        } applications (${calculatePercentage(
+          stageCounts["Final Interview"] +
+            stageCounts["Offer"] +
+            stageCounts["Accepted"],
+          totalActive
+        )}%)`;
+        document.getElementById("offerCount").textContent = `${
+          stageCounts["Offer"] + stageCounts["Accepted"]
+        } applications (${calculatePercentage(
+          stageCounts["Offer"] + stageCounts["Accepted"],
+          totalActive
+        )}%)`;
+
+        // Open the pattern analysis modal
+        openModal("patternAnalysisModal");
+      }
+
+      // Calculate progression rate from one stage to subsequent stages
+      function calculateProgressionRate(fromStage, toStages) {
+        const fromCount = applications.filter(
+          (app) => app.status === fromStage || toStages.includes(app.status)
+        ).length;
+        const toCount = applications.filter((app) =>
+          toStages.includes(app.status)
+        ).length;
+
+        if (fromCount === 0) return 0;
+
+        return toCount / fromCount;
+      }
+
+      // Calculate percentage of total
+      function calculatePercentage(value, total) {
+        if (total === 0) return 0;
+        return Math.round((value / total) * 100);
+      }
+
+      // Update the stagnation content based on identified patterns
+      function updateStagnationContent(interviewRate, offerRate) {
+        const stagnationStageEl = document.getElementById("stagnationStage");
+        const stagnationRateEl = document.getElementById("stagnationRate");
+        const potentialIssuesList = document.getElementById(
+          "potentialIssuesList"
+        );
+        const recommendedActionsList = document.getElementById(
+          "recommendedActionsList"
+        );
+        const mentorSpecializationEl = document.getElementById(
+          "mentorSpecialization"
+        );
+        const recommendedMentorsEl =
+          document.getElementById("recommendedMentors");
+
+        // Determine if there's a stagnation point and where it is
+        let stagnationDetected = false;
+        let stagnationPhase = "";
+        let stagnationRateText = "";
+        let issuesContent = "";
+        let actionsContent = "";
+        let specializationText = "";
+        let relevantMentors = [];
+
+        // Check if there are enough applications to analyze patterns
+        if (applications.length < 5) {
+          document.getElementById("stagnationPatternResult").innerHTML = `
+                    <div class="flex items-start">
+                        <i class="ri-information-line text-blue-500 dark:text-blue-400 text-xl mt-0.5 mr-3"></i>
+                        <div>
+                            <h3 class="font-medium text-blue-800 dark:text-blue-300 mb-2">Not Enough Data</h3>
+                            <p class="text-sm text-blue-700 dark:text-blue-300">You need at least 5 applications to analyze application patterns effectively. Continue adding your job applications to get meaningful insights.</p>
+                        </div>
+                    </div>
+                `;
+          return;
+        }
+
+        // In South Africa, software engineering roles typically expect:
+        // - 1 in 10 applications should reach interview stage
+        // - 1 in 3 interviews should lead to an offer
+
+        if (interviewRate < 0.1) {
+          // Less than 10% of applications reach interview
+          stagnationDetected = true;
+          stagnationPhase = "Application to Interview Stage";
+          stagnationRateText = `1 in ${Math.round(1 / interviewRate)}`;
+          specializationText = "Application Stage";
+
+          // Relevant issues for this stage
+          issuesContent = `
+                    <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                        <h4 class="font-medium mb-1">Resume Optimization</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Your resume may not be effectively highlighting the right skills or using appropriate keywords for ATS systems. Technical resumes need specific formatting and content to pass initial screenings.</p>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                        <h4 class="font-medium mb-1">Application Targeting</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">You may be applying to positions that require more experience than you currently have. Focus on roles that better match your current skill set and experience level.</p>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                        <h4 class="font-medium mb-1">Cover Letter Strategy</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Your cover letters might not be effectively communicating your value proposition. Each cover letter should be tailored to the specific role and company.</p>
+                    </div>
+                `;
+
+          // Relevant actions for this stage
+          actionsContent = `
+                    <div class="bg-primary/10 p-3 rounded-lg">
+                        <h4 class="font-medium text-primary mb-1">Get Resume Review</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Have your resume reviewed by a professional to ensure it's optimized for ATS systems and effectively highlights your relevant skills and experience.</p>
+                        <button class="mt-2 text-primary hover:text-secondary text-sm font-medium">Request Resume Review</button>
+                    </div>
+                    <div class="bg-primary/10 p-3 rounded-lg">
+                        <h4 class="font-medium text-primary mb-1">Adjust Job Targeting</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Focus on roles that better match your current skill level and experience. Consider expanding your search to include adjacent roles that may be less competitive.</p>
+                        <button class="mt-2 text-primary hover:text-secondary text-sm font-medium">View Recommended Jobs</button>
+                    </div>
+                    <div class="bg-primary/10 p-3 rounded-lg">
+                        <h4 class="font-medium text-primary mb-1">Optimize Your GitHub Portfolio</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">For software roles, ensure your GitHub profile showcases relevant projects and contributions. Many recruiters check this before proceeding to interviews.</p>
+                        <button class="mt-2 text-primary hover:text-secondary text-sm font-medium">GitHub Portfolio Guide</button>
+                    </div>
+                `;
+
+          // Mentors for this stage
+          relevantMentors = mentors.filter(
+            (mentor) => mentor.specialization === "Applied"
+          );
+        } else if (offerRate < 0.33) {
+          // Less than 33% of interviews lead to offers
+          stagnationDetected = true;
+          stagnationPhase = "Interview to Offer Stage";
+          stagnationRateText = `1 in ${Math.round(1 / offerRate)}`;
+          specializationText = "Interview Stage";
+
+          // Relevant issues for this stage
+          issuesContent = `
+                    <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                        <h4 class="font-medium mb-1">Interview Preparation</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">You may need to improve your interview skills, including technical question responses, behavioral question answers, and overall professional presentation.</p>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                        <h4 class="font-medium mb-1">Technical Skills Gap</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">There might be a gap between the technical skills expected in interviews and your current proficiency. Focus on improving core technical skills for your target roles.</p>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                        <h4 class="font-medium mb-1">Communication Skills</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Technical professionals sometimes struggle to communicate their expertise effectively. Practice explaining complex concepts in simple terms.</p>
+                    </div>
+                `;
+
+          // Relevant actions for this stage
+          actionsContent = `
+                    <div class="bg-primary/10 p-3 rounded-lg">
+                        <h4 class="font-medium text-primary mb-1">Practice Mock Interviews</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Schedule mock interviews with professionals in your field to get feedback on your performance and identify areas for improvement.</p>
+                        <button class="mt-2 text-primary hover:text-secondary text-sm font-medium">Schedule Mock Interview</button>
+                    </div>
+                    <div class="bg-primary/10 p-3 rounded-lg">
+                        <h4 class="font-medium text-primary mb-1">Enhance Technical Skills</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Identify and address any technical skill gaps through targeted courses, projects, or challenges relevant to your field.</p>
+                        <button class="mt-2 text-primary hover:text-secondary text-sm font-medium">Skill Gap Analysis</button>
+                    </div>
+                    <div class="bg-primary/10 p-3 rounded-lg">
+                        <h4 class="font-medium text-primary mb-1">Communication Workshop</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Improve your ability to communicate technical concepts clearly and confidently during interviews.</p>
+                        <button class="mt-2 text-primary hover:text-secondary text-sm font-medium">Join Workshop</button>
+                    </div>
+                `;
+
+          // Mentors for this stage
+          relevantMentors = mentors.filter(
+            (mentor) =>
+              mentor.specialization === "Interview" ||
+              mentor.specialization === "Assessment" ||
+              mentor.specialization === "Final Interview"
+          );
+        } else {
+          // No stagnation detected
+          document.getElementById("stagnationPatternResult").innerHTML = `
+                    <div class="flex items-start">
+                        <i class="ri-check-double-line text-green-500 dark:text-green-400 text-xl mt-0.5 mr-3"></i>
+                        <div>
+                            <h3 class="font-medium text-green-800 dark:text-green-300 mb-2">No Stagnation Detected</h3>
+                            <p class="text-sm text-green-700 dark:text-green-300">Your application progression rates are within or above industry standards. Keep up the good work with your current approach.</p>
+                        </div>
+                    </div>
+                `;
+
+          // Still provide some general advice
+          issuesContent = `
+                    <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                        <h4 class="font-medium mb-1">Continuous Improvement</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Even with good progression rates, there's always room to optimize your applications and interview performance.</p>
+                    </div>
+                `;
+
+          actionsContent = `
+                    <div class="bg-primary/10 p-3 rounded-lg">
+                        <h4 class="font-medium text-primary mb-1">Maintain Your Strategy</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Continue with your current approach while looking for opportunities to further improve your application materials and interview skills.</p>
+                        <button class="mt-2 text-primary hover:text-secondary text-sm font-medium">Advanced Strategies</button>
+                    </div>
+                `;
+
+          // Show all mentors as potentially helpful
+          relevantMentors = mentors;
+          specializationText = "Career Growth";
+
+          return;
+        }
+
+        // Update the UI elements with the identified stagnation point
+        if (stagnationDetected) {
+          stagnationStageEl.textContent = stagnationPhase;
+          stagnationRateEl.textContent = stagnationRateText;
+          mentorSpecializationEl.textContent = specializationText;
+        }
+
+        // Update issues and actions lists
+        potentialIssuesList.innerHTML = issuesContent;
+        recommendedActionsList.innerHTML = actionsContent;
+
+        // Update recommended mentors
+        recommendedMentorsEl.innerHTML = relevantMentors
+          .map((mentor, index) => {
+            // Generate random background color for avatar
+            const bgColors = [
+              "bg-blue-500",
+              "bg-green-500",
+              "bg-purple-500",
+              "bg-red-500",
+              "bg-yellow-500",
+              "bg-pink-500",
+            ];
+            const randomBg = bgColors[mentor.id % bgColors.length];
+
+            return `
+                    <div class="mentor-card flex items-start p-3 border dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800">
+                        <div class="w-10 h-10 rounded-full ${randomBg} flex items-center justify-center text-white font-semibold text-lg flex-shrink-0 mr-3">
+                            ${mentor.avatar}
+                        </div>
+                        <div class="flex-grow">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="font-medium">${mentor.name}</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">${mentor.title}</p>
+                                </div>
+                                <div class="flex items-center text-yellow-500 text-sm">
+                                    <i class="ri-star-fill mr-1"></i>
+                                    <span>${mentor.rating}</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">${mentor.description}</p>
+                            <button class="mt-2 text-primary hover:text-secondary text-sm font-medium">Request Mentorship</button>
+                        </div>
+                    </div>
+                `;
+          })
+          .join("");
+      }
+
+      // Calculate success likelihood based on application stage, industry, company, and user profile match
+      function calculateSuccessLikelihood(application) {
+        // Base success rates by stage
+        const baseRatesByStage = {
+          Applied: 15,
+          Screening: 30,
+          Interview: 45,
+          Assessment: 60,
+          "Final Interview": 75,
+          Offer: 90,
+          Accepted: 100,
+          Rejected: 0,
+        };
+
+        // Industry-specific success rates (simulated data)
+        const industrySuccessRates = {
+          Technology: { factor: 1.2, competitiveness: "High" },
+          Finance: { factor: 0.9, competitiveness: "Very High" },
+          Marketing: { factor: 1.1, competitiveness: "Medium" },
+          Education: { factor: 1.3, competitiveness: "Medium" },
+          Retail: { factor: 1.0, competitiveness: "Medium" },
+          Healthcare: { factor: 0.95, competitiveness: "High" },
+        };
+
+        // Company-specific success rates (simulated data)
+        const companySuccessRates = {
+          "TechSA Solutions": {
+            factor: 1.15,
+            competitiveness: "Medium",
+            keySkills: ["JavaScript", "React", "Node.js"],
+          },
+          "Finance Experts Ltd": {
+            factor: 0.85,
+            competitiveness: "Very High",
+            keySkills: ["Financial Analysis", "Excel", "SQL"],
+          },
+          "Marketing Solutions": {
+            factor: 1.05,
+            competitiveness: "Medium",
+            keySkills: ["Social Media Marketing", "Content Creation", "SEO"],
+          },
+          "Tech Innovators": {
+            factor: 0.9,
+            competitiveness: "High",
+            keySkills: ["Frontend Development", "UI/UX", "JavaScript"],
+          },
+          "Global Software Co": {
+            factor: 0.8,
+            competitiveness: "Very High",
+            keySkills: ["Software Engineering", "Java", "Cloud Computing"],
+          },
+          "EduTech Solutions": {
+            factor: 1.2,
+            competitiveness: "Low",
+            keySkills: ["HTML", "CSS", "Basic JavaScript"],
+          },
+          "Retail Tech Inc": {
+            factor: 1.05,
+            competitiveness: "Medium",
+            keySkills: ["Web Development", "E-commerce", "Shopify"],
+          },
+          "Cape Digital": {
+            factor: 1.1,
+            competitiveness: "Medium",
+            keySkills: ["Frontend Development", "React", "Responsive Design"],
+          },
+          "Durban Web Solutions": {
+            factor: 1.15,
+            competitiveness: "Medium",
+            keySkills: ["JavaScript", "React", "Node.js"],
+          },
+          "SA Tech Ventures": {
+            factor: 0.95,
+            competitiveness: "High",
+            keySkills: [
+              "Software Engineering",
+              "Algorithms",
+              "Data Structures",
+            ],
+          },
+          "Code Masters": {
+            factor: 1.0,
+            competitiveness: "Medium",
+            keySkills: ["Vue.js", "JavaScript", "Web Development"],
+          },
+          "Data Systems Ltd": {
+            factor: 0.9,
+            competitiveness: "High",
+            keySkills: ["Data Visualization", "D3.js", "Frontend Development"],
+          },
+        };
+
+        // Simulated user profile - In a real app, this would come from user data
+        const userProfile = {
+          name: "Thabo Mahlangu",
+          education: "Bachelor of Science in Computer Science",
+          educationLevel: "Bachelor's Degree",
+          skills: [
+            { name: "JavaScript", level: "Intermediate" },
+            { name: "React", level: "Beginner" },
+            { name: "HTML/CSS", level: "Advanced" },
+            { name: "Node.js", level: "Beginner" },
+            { name: "Python", level: "Intermediate" },
+            { name: "SQL", level: "Beginner" },
+            { name: "UI/UX", level: "Intermediate" },
+          ],
+          experience: "1-2 years",
+          demographics: {
+            age: "25-34",
+            location: "Cape Town",
+            gender: "Male",
+          },
+          certifications: ["Responsive Web Design", "JavaScript Algorithms"],
+          projects: 3,
+        };
+
+        // Parse job title and company to guess the industry
+        let industry = "Technology"; // Default
+        const jobTitle = application.position.toLowerCase();
+        const company = application.company;
+
+        if (
+          jobTitle.includes("market") ||
+          jobTitle.includes("content") ||
+          jobTitle.includes("social media")
+        ) {
+          industry = "Marketing";
+        } else if (
+          jobTitle.includes("finance") ||
+          jobTitle.includes("financial") ||
+          jobTitle.includes("account")
+        ) {
+          industry = "Finance";
+        } else if (
+          jobTitle.includes("teach") ||
+          jobTitle.includes("tutor") ||
+          jobTitle.includes("education")
+        ) {
+          industry = "Education";
+        } else if (jobTitle.includes("retail") || jobTitle.includes("sales")) {
+          industry = "Retail";
+        } else if (
+          jobTitle.includes("health") ||
+          jobTitle.includes("medical") ||
+          jobTitle.includes("care")
+        ) {
+          industry = "Healthcare";
+        }
+
+        // Start with base rate for the current stage
+        let successRate = baseRatesByStage[application.status];
+
+        // Adjust for industry
+        const industryData = industrySuccessRates[industry] || {
+          factor: 1.0,
+          competitiveness: "Medium",
+        };
+        successRate *= industryData.factor;
+
+        // Adjust for company if we have data
+        const companyData = companySuccessRates[company] || {
+          factor: 1.0,
+          competitiveness: "Medium",
+          keySkills: [],
+        };
+        successRate *= companyData.factor;
+
+        // Calculate skill match (higher match = higher success rate)
+        let skillMatchScore = 0;
+        if (companyData.keySkills.length > 0) {
+          // Count how many key skills the user has
+          const userSkillNames = userProfile.skills.map((skill) => skill.name);
+          let matchingSkills = 0;
+
+          companyData.keySkills.forEach((skill) => {
+            // Check for exact matches and partial matches
+            const hasExactSkill = userSkillNames.some(
+              (userSkill) => userSkill.toLowerCase() === skill.toLowerCase()
+            );
+
+            const hasRelatedSkill = userSkillNames.some(
+              (userSkill) =>
+                !hasExactSkill &&
+                (skill.toLowerCase().includes(userSkill.toLowerCase()) ||
+                  userSkill.toLowerCase().includes(skill.toLowerCase()))
+            );
+
+            if (hasExactSkill) {
+              matchingSkills += 1;
+            } else if (hasRelatedSkill) {
+              matchingSkills += 0.5;
+            }
+          });
+
+          skillMatchScore =
+            (matchingSkills / companyData.keySkills.length) * 20; // Up to 20% boost
+        }
+
+        // Calculate education match
+        let educationMatchScore = 0;
+        if (jobTitle.includes("senior") || jobTitle.includes("lead")) {
+          // Senior positions prefer advanced degrees
+          if (
+            userProfile.educationLevel === "Master's Degree" ||
+            userProfile.educationLevel === "PhD"
+          ) {
+            educationMatchScore = 10;
+          } else if (userProfile.educationLevel === "Bachelor's Degree") {
+            educationMatchScore = 5;
+          }
+        } else if (jobTitle.includes("junior") || jobTitle.includes("entry")) {
+          // Junior positions are fine with bachelor's
+          if (
+            userProfile.educationLevel === "Bachelor's Degree" ||
+            userProfile.educationLevel === "Associate's Degree"
+          ) {
+            educationMatchScore = 10;
+          } else if (userProfile.educationLevel === "Master's Degree") {
+            educationMatchScore = 5; // Might be overqualified
+          }
+        } else {
+          // Mid-level positions
+          if (userProfile.educationLevel === "Bachelor's Degree") {
+            educationMatchScore = 10;
+          } else if (userProfile.educationLevel === "Master's Degree") {
+            educationMatchScore = 12;
+          } else if (userProfile.educationLevel === "Associate's Degree") {
+            educationMatchScore = 5;
+          }
+        }
+
+        // Experience match
+        let experienceMatchScore = 0;
+        if (jobTitle.includes("senior") || jobTitle.includes("lead")) {
+          if (userProfile.experience === "5+ years") {
+            experienceMatchScore = 15;
+          } else if (userProfile.experience === "3-5 years") {
+            experienceMatchScore = 8;
+          } else {
+            experienceMatchScore = -5; // Not enough experience
+          }
+        } else if (jobTitle.includes("junior") || jobTitle.includes("entry")) {
+          if (
+            userProfile.experience === "0-1 years" ||
+            userProfile.experience === "1-2 years"
+          ) {
+            experienceMatchScore = 15;
+          } else if (userProfile.experience === "3-5 years") {
+            experienceMatchScore = 5; // Might be overqualified
+          }
+        } else {
+          // Mid-level positions
+          if (
+            userProfile.experience === "1-2 years" ||
+            userProfile.experience === "3-5 years"
+          ) {
+            experienceMatchScore = 15;
+          } else if (userProfile.experience === "0-1 years") {
+            experienceMatchScore = 5;
+          }
+        }
+
+        // Location match
+        let locationMatchScore = 0;
+        if (application.location === userProfile.demographics.location) {
+          locationMatchScore = 5;
+        } else if (application.location === "Remote") {
+          locationMatchScore = 5;
+        }
+
+        // Additional factors: certifications and projects
+        let additionalFactorsScore = Math.min(
+          5,
+          userProfile.certifications.length * 2 + userProfile.projects * 1
+        );
+
+        // Historical success rate for similar profiles
+        // Simulating data based on demographics and skills
+        const historicalSuccessRate = calculateHistoricalSuccess(
+          industry,
+          application.position,
+          userProfile.demographics,
+          userProfile.skills,
+          application.status
+        );
+
+        // Final calculation
+        successRate =
+          successRate +
+          skillMatchScore +
+          educationMatchScore +
+          experienceMatchScore +
+          locationMatchScore +
+          additionalFactorsScore;
+
+        // Blend with historical success rate
+        successRate = successRate * 0.7 + historicalSuccessRate * 0.3;
+
+        // Store additional data for displaying in UI
+        application.successFactors = {
+          industry,
+          companyCompetitiveness: companyData.competitiveness,
+          skillMatchScore,
+          educationMatchScore,
+          experienceMatchScore,
+          locationMatchScore,
+          additionalFactorsScore,
+          historicalSuccessRate,
+          keySkills: companyData.keySkills,
+        };
+
+        // Clamp between 0 and 100
+        return Math.max(0, Math.min(100, Math.round(successRate)));
+      }
+
+      // Calculate historical success rate for similar profiles
+      function calculateHistoricalSuccess(
+        industry,
+        position,
+        demographics,
+        skills,
+        applicationStatus
+      ) {
+        // Simulated data - in a real app this would come from a database
+        // Base success rate by industry
+        const industryBaseRates = {
+          Technology: 35,
+          Finance: 30,
+          Marketing: 40,
+          Education: 45,
+          Retail: 35,
+          Healthcare: 30,
+        };
+
+        // Starting with base rate for this industry
+        let rate = industryBaseRates[industry] || 35;
+
+        // Adjustment based on position level
+        const position_lower = position.toLowerCase();
+        if (
+          position_lower.includes("senior") ||
+          position_lower.includes("lead")
+        ) {
+          rate -= 5; // More competitive
+        } else if (
+          position_lower.includes("junior") ||
+          position_lower.includes("entry")
+        ) {
+          rate += 5; // Less competitive
+        }
+
+        // Demographic factors (simulated data)
+        // Note: In a real app, this would be based on actual historical data
+        // without introducing biases, and would focus on skill match rather than demographics
+        if (
+          demographics.location === "Cape Town" ||
+          demographics.location === "Johannesburg"
+        ) {
+          rate += 3; // Major tech hubs might have more opportunities
+        }
+
+        // Skill factors - more technical skills might increase success in certain fields
+        const technicalSkills = skills.filter((skill) =>
+          [
+            "JavaScript",
+            "Python",
+            "Java",
+            "C++",
+            "C#",
+            "SQL",
+            "React",
+            "Angular",
+            "Vue",
+          ].includes(skill.name)
+        );
+
+        if (industry === "Technology" && technicalSkills.length >= 3) {
+          rate += 5;
+        }
+
+        // Adjust based on current application status (already passed some stages)
+        const stageBoost = {
+          Applied: 0,
+          Screening: 5,
+          Interview: 10,
+          Assessment: 15,
+          "Final Interview": 20,
+          Offer: 25,
+        };
+
+        rate += stageBoost[applicationStatus] || 0;
+
+        // Add some randomization to simulate variation in historical data
+        // This would not be in the real implementation, but adds realism to the demo
+        const randomVariation = Math.floor(Math.random() * 10) - 5; // -5 to +5
+        rate += randomVariation;
+
+        return Math.max(0, Math.min(100, Math.round(rate)));
+      }
+
+      // Display applications with enhanced success likelihood indicator
+      function displayFilteredApplications() {
+        const container = document.getElementById("applicationsContainer");
+        const searchTerm = searchApplications.value.toLowerCase();
+        const statusFilter = filterStatus.value;
+        const sortBy = sortApplications.value;
+
+        // Filter applications
+        let filteredApps = [...applications];
+
+        // Apply search filter
+        if (searchTerm) {
+          filteredApps = filteredApps.filter(
+            (app) =>
+              app.company.toLowerCase().includes(searchTerm) ||
+              app.position.toLowerCase().includes(searchTerm) ||
+              (app.location && app.location.toLowerCase().includes(searchTerm))
+          );
+        }
+
+        // Apply status filter
+        if (statusFilter !== "all") {
+          filteredApps = filteredApps.filter(
+            (app) => app.status === statusFilter
+          );
+        }
+
+        // Sort applications
+        if (sortBy === "date") {
+          filteredApps.sort(
+            (a, b) => new Date(b.applicationDate) - new Date(a.applicationDate)
+          );
+        } else if (sortBy === "company") {
+          filteredApps.sort((a, b) => a.company.localeCompare(b.company));
+        } else if (sortBy === "status") {
+          const statusOrder = [
+            "Applied",
+            "Screening",
+            "Interview",
+            "Assessment",
+            "Final Interview",
+            "Offer",
+            "Accepted",
+            "Rejected",
+          ];
+          filteredApps.sort((a, b) => {
+            return (
+              statusOrder.indexOf(a.status) - statusOrder.indexOf(b.status)
+            );
+          });
+        }
+
+        // Display message if no applications
+        if (filteredApps.length === 0) {
+          if (applications.length === 0) {
+            container.innerHTML = `<p class="text-center py-10 text-gray-500 dark:text-gray-400 italic">You haven't added any job applications yet.</p>`;
+          } else {
+            container.innerHTML = `<p class="text-center py-10 text-gray-500 dark:text-gray-400 italic">No applications match your filters.</p>`;
+          }
+          return;
+        }
+
+        container.innerHTML = "";
+
+        filteredApps.forEach((app) => {
+          const statusClasses = {
+            Applied:
+              "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300",
+            Screening:
+              "bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300",
+            Interview:
+              "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300",
+            Assessment:
+              "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300",
+            "Final Interview":
+              "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300",
+            Offer:
+              "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300",
+            Accepted:
+              "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300",
+            Rejected:
+              "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300",
+          };
+
+          const statusClass =
+            statusClasses[app.status] ||
+            "bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300";
+
+          // Generate process visualization (simplified version for the card)
+          const statusOrder = [
+            "Applied",
+            "Screening",
+            "Interview",
+            "Assessment",
+            "Final Interview",
+            "Offer",
+            "Accepted",
+          ];
+          const currentStatusIndex = statusOrder.indexOf(app.status);
+          let processHtml = "";
+
+          if (currentStatusIndex !== -1 && app.status !== "Rejected") {
+            processHtml = `
+                        <div class="mt-4 pt-3 border-t dark:border-gray-700">
+                            <h4 class="text-xs font-medium mb-2">Application Progress</h4>
+                            <div class="relative flex items-center justify-between">
+                                <div class="absolute left-0 right-0 h-1 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                    `;
+
+            // Calculate progress percentage
+            const progressPercentage =
+              ((currentStatusIndex + 1) / statusOrder.length) * 100;
+
+            // Add progress bar
+            processHtml += `
+                        <div class="absolute left-0 h-1 bg-primary rounded" style="width: ${progressPercentage}%"></div>
+                    `;
+
+            // Add status points
+            statusOrder.forEach((status, index) => {
+              const isActive = index <= currentStatusIndex;
+              const pointClass = isActive
+                ? "bg-primary"
+                : "bg-gray-300 dark:bg-gray-600";
+
+              processHtml += `
+                            <div class="z-10 w-3 h-3 rounded-full ${pointClass}"></div>
+                        `;
+            });
+
+            processHtml += `
+                            </div>
+                            <div class="flex justify-between mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                <span>Applied</span>
+                                <span>Screening</span>
+                                <span>Interview</span>
+                                <span>Assessment</span>
+                                <span>Final</span>
+                                <span>Offer</span>
+                                <span>Hired</span>
+                            </div>
+                        </div>
+                    `;
+          }
+
+          // Calculate success likelihood
+          const successRate = calculateSuccessLikelihood(app);
+          let successBadge = "";
+
+          if (app.status !== "Rejected" && app.status !== "Accepted") {
+            let successClass =
+              "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300";
+            if (successRate < 40) {
+              successClass =
+                "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300";
+            } else if (successRate < 70) {
+              successClass =
+                "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300";
+            }
+
+            successBadge = `
+                        <div class="absolute top-3 right-3 px-3 py-1 ${successClass} rounded-full text-xs flex items-center">
+                            <i class="ri-bar-chart-box-line mr-1"></i> ${successRate}% Success
+                        </div>
+                    `;
+          }
+
+          const appElement = document.createElement("div");
+          appElement.className =
+            "bg-light-card dark:bg-dark-card rounded-lg shadow-md overflow-hidden relative";
+          appElement.innerHTML = `
+                    ${successBadge}
+                    <div class="p-5">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                            <div>
+                                <h3 class="text-lg font-semibold">${
+                                  app.position
+                                }</h3>
+                                <p class="text-gray-600 dark:text-gray-400">${
+                                  app.company
+                                }</p>
+                            </div>
+                            <span class="px-3 py-1 rounded-full text-sm font-medium ${statusClass}">
+                                ${app.status}
+                            </span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+                            <div class="flex items-center text-sm">
+                                <i class="ri-calendar-line mr-2 text-gray-500"></i>
+                                <span>Applied: ${formatDate(
+                                  app.applicationDate
+                                )}</span>
+                            </div>
+                            ${
+                              app.location
+                                ? `
+                            <div class="flex items-center text-sm">
+                                <i class="ri-map-pin-line mr-2 text-gray-500"></i>
+                                <span>${app.location}</span>
+                            </div>
+                            `
+                                : ""
+                            }
+                            ${
+                              app.interviewDate
+                                ? `
+                            <div class="flex items-center text-sm">
+                                <i class="ri-user-voice-line mr-2 text-gray-500"></i>
+                                <span>${
+                                  app.status === "Final Interview"
+                                    ? "Final"
+                                    : ""
+                                } Interview: ${formatDateTime(
+                                    app.interviewDate
+                                  )}</span>
+                            </div>
+                            `
+                                : ""
+                            }
+                            ${
+                              app.assessmentDetails
+                                ? `
+                            <div class="flex items-center text-sm">
+                                <i class="ri-file-list-line mr-2 text-gray-500"></i>
+                                <span>Assessment: ${app.assessmentDetails}</span>
+                            </div>
+                            `
+                                : ""
+                            }
+                            ${
+                              app.offerDetails
+                                ? `
+                            <div class="flex items-center text-sm">
+                                <i class="ri-money-dollar-circle-line mr-2 text-gray-500"></i>
+                                <span>Offer: ${app.offerDetails}</span>
+                            </div>
+                            `
+                                : ""
+                            }
+                            <div class="flex items-center text-sm">
+                                <i class="ri-history-line mr-2 text-gray-500"></i>
+                                <span>Last updated: ${formatTimeAgo(
+                                  app.lastUpdated || app.applicationDate
+                                )}</span>
+                            </div>
+                        </div>
+                        
+                        ${processHtml}
+                        
+                        ${
+                          app.notes
+                            ? `
+                        <div class="border-t dark:border-gray-700 pt-3 mt-3">
+                            <h4 class="text-sm font-medium mb-1">Notes:</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">${app.notes}</p>
+                        </div>
+                        `
+                            : ""
+                        }
+                    </div>
+                    <div class="bg-gray-50 dark:bg-gray-800/50 p-3 flex justify-end space-x-2">
+                        <button class="view-application px-3 py-1 text-sm border border-primary text-primary hover:bg-primary/10 rounded-lg" data-id="${
+                          app.id
+                        }">
+                            <i class="ri-eye-line mr-1"></i> View
+                        </button>
+                        <button class="edit-application px-3 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700" data-id="${
+                          app.id
+                        }">
+                            <i class="ri-edit-line mr-1"></i> Edit
+                        </button>
+                        <button class="delete-application px-3 py-1 text-sm border border-red-300 text-red-600 dark:border-red-800 dark:text-red-400 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20" data-id="${
+                          app.id
+                        }">
+                            <i class="ri-delete-bin-line mr-1"></i> Delete
+                        </button>
+                    </div>
+                `;
+
+          container.appendChild(appElement);
+
+          // Add event listeners
+          const viewButton = appElement.querySelector(".view-application");
+          viewButton.addEventListener("click", () => {
+            const appId = parseInt(viewButton.dataset.id);
+            viewApplicationDetails(appId);
+          });
+
+          const editButton = appElement.querySelector(".edit-application");
+          editButton.addEventListener("click", () => {
+            const appId = parseInt(editButton.dataset.id);
+            const application = applications.find((a) => a.id === appId);
+            if (application) {
+              initApplicationForm(true, application);
+              openModal("applicationModal");
+            }
+          });
+
+          const deleteButton = appElement.querySelector(".delete-application");
+          deleteButton.addEventListener("click", () => {
+            const appId = parseInt(deleteButton.dataset.id);
+            deleteApplication(appId);
+          });
+        });
+      }
+
+      // View application details with process visualization
+      function viewApplicationDetails(appId) {
+        const application = applications.find((app) => app.id === appId);
+        if (!application) return;
+
+        const title = document.getElementById("applicationDetailTitle");
+        const content = document.getElementById("applicationDetailContent");
+        const processSteps = document.getElementById("applicationProcessSteps");
+        const aiFeedbackSection = document.getElementById("aiFeedbackSection");
+        const aiFeedbackContent = document.getElementById("aiFeedbackContent");
+        const successPredictorSection = document.getElementById(
+          "successPredictorSection"
+        );
+        const successPredictorGauge = document.getElementById(
+          "successPredictorGauge"
+        );
+        const successPredictorText = document.getElementById(
+          "successPredictorText"
+        );
+        const successFactorTags = document.getElementById("successFactorTags");
+        const successPredictorDetails = document.getElementById(
+          "successPredictorDetails"
+        );
+        const editApplicationBtn =
+          document.getElementById("editApplicationBtn");
+
+        title.textContent = `${application.position} at ${application.company}`;
+
+        // Main application details
+        content.innerHTML = `
+                <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
+                    <div class="space-y-3">
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Company</h3>
+                            <p class="font-semibold">${application.company}</p>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Position</h3>
+                            <p class="font-semibold">${application.position}</p>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Location</h3>
+                            <p>${application.location || "Not specified"}</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Application Date</h3>
+                            <p>${formatDate(application.applicationDate)}</p>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Current Status</h3>
+                            <p class="font-semibold">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium ${getStatusClass(
+                                  application.status
+                                )}">
+                                    ${application.status}
+                                </span>
+                            </p>
+                        </div>
+                        ${
+                          application.interviewDate
+                            ? `
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Interview Date</h3>
+                            <p>${formatDateTime(application.interviewDate)}</p>
+                        </div>
+                        `
+                            : ""
+                        }
+                        ${
+                          application.assessmentDetails
+                            ? `
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Assessment</h3>
+                            <p>${application.assessmentDetails}</p>
+                        </div>
+                        `
+                            : ""
+                        }
+                        ${
+                          application.offerDetails
+                            ? `
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Offer Details</h3>
+                            <p>${application.offerDetails}</p>
+                        </div>
+                        `
+                            : ""
+                        }
+                    </div>
+                </div>
+                ${
+                  application.notes
+                    ? `
+                <div class="mt-4 pt-4 border-t dark:border-gray-700">
+                    <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Notes</h3>
+                    <p class="text-gray-600 dark:text-gray-400">${application.notes}</p>
+                </div>
+                `
+                    : ""
+                }
+            `;
+
+        // Application process visualization
+        const statusOrder = [
+          "Applied",
+          "Screening",
+          "Interview",
+          "Assessment",
+          "Final Interview",
+          "Offer",
+          "Accepted",
+        ];
+        const currentStatusIndex = statusOrder.indexOf(application.status);
+
+        // Create the progress bar
+        let processHtml = "";
+
+        if (application.status !== "Rejected") {
+          processHtml = `
+                    <div class="relative pt-8 pb-12">
+                        <!-- Progress Line -->
+                        <div class="absolute top-16 left-0 right-0 h-1 bg-gray-200 dark:bg-gray-700"></div>
+                `;
+
+          // Add progress fill
+          if (currentStatusIndex >= 0) {
+            const progressWidth =
+              ((currentStatusIndex + 1) / statusOrder.length) * 100;
+            processHtml += `
+                        <div class="absolute top-16 left-0 h-1 bg-primary" style="width: ${progressWidth}%"></div>
+                    `;
+          }
+
+          // Add status steps
+          processHtml += `<div class="relative flex justify-between">`;
+
+          statusOrder.forEach((status, index) => {
+            const isActive = index <= currentStatusIndex;
+            const isCurrent = index === currentStatusIndex;
+
+            let stepClass = "flex flex-col items-center";
+            let iconClass =
+              "w-8 h-8 rounded-full flex items-center justify-center text-white";
+            let textClass = "mt-2 text-sm font-medium";
+
+            if (isActive) {
+              iconClass += " bg-primary";
+              if (isCurrent) {
+                iconClass += " ring-4 ring-primary/30";
+              }
+            } else {
+              iconClass += " bg-gray-300 dark:bg-gray-600";
+              textClass += " text-gray-500 dark:text-gray-400";
+            }
+
+            let iconContent = "";
+            if (isCurrent) {
+              iconContent = '<i class="ri-arrow-right-line"></i>';
+            } else if (isActive) {
+              iconContent = '<i class="ri-check-line"></i>';
+            } else {
+              iconContent = '<i class="ri-time-line"></i>';
+            }
+
+            processHtml += `
+                        <div class="${stepClass}">
+                            <div class="${iconClass}">
+                                ${iconContent}
+                            </div>
+                            <span class="${textClass}">${status}</span>
+                        </div>
+                    `;
+          });
+
+          processHtml += `</div>`;
+
+          // Add timeline events
+          if (application.timeline && application.timeline.length > 0) {
+            processHtml += `
+                        <div class="mt-12 space-y-4">
+                            <h3 class="text-lg font-medium">Application Timeline</h3>
+                    `;
+
+            application.timeline.forEach((event, index) => {
+              processHtml += `
+                            <div class="flex items-start">
+                                <div class="flex flex-col items-center mr-4">
+                                    <div class="w-2 h-2 rounded-full bg-primary mt-1.5"></div>
+                                    ${
+                                      index < application.timeline.length - 1
+                                        ? '<div class="w-px h-10 bg-gray-300 dark:bg-gray-600"></div>'
+                                        : ""
+                                    }
+                                </div>
+                                <div>
+                                    <span class="text-xs text-gray-500 dark:text-gray-400">${formatDate(
+                                      event.date
+                                    )}</span>
+                                    <h4 class="font-medium">${event.status}</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">${
+                                      event.notes
+                                    }</p>
+                                </div>
+                            </div>
+                        `;
+            });
+
+            processHtml += `</div>`;
+          }
+
+          processHtml += `</div>`;
+        } else {
+          // Rejected status visualization
+          processHtml = `
+                    <div class="bg-red-50 dark:bg-red-900/10 rounded-lg p-5 mt-4">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-red-500">
+                                <i class="ri-close-line text-xl"></i>
+                            </div>
+                            <h3 class="ml-3 font-medium text-red-700 dark:text-red-400">Application Rejected</h3>
+                        </div>
+                        <p class="text-sm text-red-600 dark:text-red-300">This application was rejected on ${formatDate(
+                          application.timeline
+                            ? application.timeline[
+                                application.timeline.length - 1
+                              ].date
+                            : "unknown date"
+                        )}.</p>
+                    </div>
+                    
+                    <div class="mt-8 space-y-4">
+                        <h3 class="text-lg font-medium">Application Timeline</h3>
+                `;
+
+          if (application.timeline && application.timeline.length > 0) {
+            application.timeline.forEach((event, index) => {
+              processHtml += `
+                            <div class="flex items-start">
+                                <div class="flex flex-col items-center mr-4">
+                                    <div class="w-2 h-2 rounded-full ${
+                                      event.status === "Rejected"
+                                        ? "bg-red-500"
+                                        : "bg-primary"
+                                    } mt-1.5"></div>
+                                    ${
+                                      index < application.timeline.length - 1
+                                        ? '<div class="w-px h-10 bg-gray-300 dark:bg-gray-600"></div>'
+                                        : ""
+                                    }
+                                </div>
+                                <div>
+                                    <span class="text-xs text-gray-500 dark:text-gray-400">${formatDate(
+                                      event.date
+                                    )}</span>
+                                    <h4 class="font-medium ${
+                                      event.status === "Rejected"
+                                        ? "text-red-600 dark:text-red-400"
+                                        : ""
+                                    }">${event.status}</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">${
+                                      event.notes
+                                    }</p>
+                                </div>
+                            </div>
+                        `;
+            });
+          }
+
+          processHtml += `</div>`;
+        }
+
+        processSteps.innerHTML = processHtml;
+
+        // Application Success Predictor
+        if (
+          application.status !== "Accepted" &&
+          application.status !== "Rejected"
+        ) {
+          successPredictorSection.classList.remove("hidden");
+
+          // Calculate success likelihood
+          const successRate = calculateSuccessLikelihood(application);
+          let gaugeColorClass, textClass;
+
+          if (successRate >= 70) {
+            gaugeColorClass = "border-green-500";
+            textClass = "text-green-500";
+          } else if (successRate >= 40) {
+            gaugeColorClass = "border-yellow-500";
+            textClass = "text-yellow-500";
+          } else {
+            gaugeColorClass = "border-red-500";
+            textClass = "text-red-500";
+          }
+
+          // Create gauge chart
+          successPredictorGauge.innerHTML = `
+                    <div class="absolute inset-0 border-8 ${gaugeColorClass} rounded-full"></div>
+                    <span class="text-lg font-bold ${textClass}">${successRate}%</span>
+                `;
+
+          // Success prediction text
+          successPredictorText.textContent = `Based on your profile match and similar candidates applying to ${application.successFactors.industry} roles`;
+
+          // Success factors
+          const factorElements = [];
+
+          // Company competitiveness tag
+          const competitiveness =
+            application.successFactors.companyCompetitiveness;
+          let competitivenessClass =
+            "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300";
+          if (competitiveness === "Low") {
+            competitivenessClass =
+              "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300";
+          } else if (competitiveness === "Very High") {
+            competitivenessClass =
+              "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300";
+          }
+          factorElements.push(
+            `<span class="px-2 py-0.5 ${competitivenessClass} rounded-full text-xs">${competitiveness} competition</span>`
+          );
+
+          // Skill match tag
+          if (application.successFactors.skillMatchScore > 15) {
+            factorElements.push(
+              `<span class="px-2 py-0.5 bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 rounded-full text-xs">Strong skill match</span>`
+            );
+          } else if (application.successFactors.skillMatchScore > 10) {
+            factorElements.push(
+              `<span class="px-2 py-0.5 bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300 rounded-full text-xs">Good skill match</span>`
+            );
+          } else if (application.successFactors.skillMatchScore > 0) {
+            factorElements.push(
+              `<span class="px-2 py-0.5 bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300 rounded-full text-xs">Weak skill match</span>`
+            );
+          }
+
+          successFactorTags.innerHTML = factorElements.join("");
+
+          // Success predictor details - enhanced with profile match information
+          let strengthsHtml = "";
+          let areasToImproveHtml = "";
+
+          // Add strengths
+          let strengths = [];
+          if (application.successFactors.skillMatchScore > 10) {
+            strengths.push(
+              `Strong skill match with job requirements (${Math.round(
+                application.successFactors.skillMatchScore
+              )}% match)`
+            );
+          }
+          if (application.successFactors.educationMatchScore > 8) {
+            strengths.push("Education level well-matched to this role");
+          }
+          if (application.successFactors.experienceMatchScore > 10) {
+            strengths.push("Experience level aligned with job requirements");
+          }
+          if (application.successFactors.locationMatchScore > 0) {
+            strengths.push("Location advantage (same city or remote work)");
+          }
+          if (
+            application.successFactors.companyCompetitiveness === "Low" ||
+            application.successFactors.companyCompetitiveness === "Medium"
+          ) {
+            strengths.push(
+              `${application.successFactors.companyCompetitiveness} competition level at this company`
+            );
+          }
+          if (application.status !== "Applied") {
+            strengths.push(`Already progressed to ${application.status} stage`);
+          }
+
+          if (strengths.length > 0) {
+            strengthsHtml = `
+                        <div class="mt-4">
+                            <h4 class="font-medium text-green-700 dark:text-green-400 mb-2">Your Strengths</h4>
+                            <ul class="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                ${strengths
+                                  .map((strength) => `<li>${strength}</li>`)
+                                  .join("")}
+                            </ul>
+                        </div>
+                    `;
+          }
+
+          // Areas to improve
+          let areasToImprove = [];
+          if (application.successFactors.skillMatchScore < 10) {
+            areasToImprove.push(
+              `Skill gap: Your profile shows limited match (${Math.round(
+                application.successFactors.skillMatchScore
+              )}%) with required skills`
+            );
+            if (application.successFactors.keySkills.length > 0) {
+              areasToImprove.push(
+                `Consider developing skills in: ${application.successFactors.keySkills.join(
+                  ", "
+                )}`
+              );
+            }
+          }
+          if (application.successFactors.educationMatchScore < 5) {
+            areasToImprove.push(
+              "Education level may not be optimal for this position"
+            );
+          }
+          if (application.successFactors.experienceMatchScore < 5) {
+            areasToImprove.push(
+              "Experience level may not align with job requirements"
+            );
+          }
+          if (
+            application.successFactors.companyCompetitiveness === "High" ||
+            application.successFactors.companyCompetitiveness === "Very High"
+          ) {
+            areasToImprove.push(
+              `${application.successFactors.companyCompetitiveness} competition level at this company`
+            );
+          }
+
+          if (areasToImprove.length > 0) {
+            areasToImproveHtml = `
+                        <div class="mt-4">
+                            <h4 class="font-medium text-yellow-700 dark:text-yellow-400 mb-2">Areas to Improve</h4>
+                            <ul class="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                ${areasToImprove
+                                  .map((area) => `<li>${area}</li>`)
+                                  .join("")}
+                            </ul>
+                        </div>
+                    `;
+          }
+
+          // Historical success rates
+          const historicalSuccessHtml = `
+                    <div class="mt-4">
+                        <h4 class="font-medium mb-2">Historical Success Data</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Candidates with similar profiles applying to ${
+                          application.successFactors.industry
+                        } roles have a ${Math.round(
+            application.successFactors.historicalSuccessRate
+          )}% success rate at this stage.</p>
+                        <div class="mt-2 flex items-center">
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
+                                <div class="bg-primary h-1.5 rounded-full" style="width: ${
+                                  application.successFactors
+                                    .historicalSuccessRate
+                                }%"></div>
+                            </div>
+                            <span class="ml-2 text-xs">${Math.round(
+                              application.successFactors.historicalSuccessRate
+                            )}%</span>
+                        </div>
+                    </div>
+                `;
+
+          // Industry insights
+          const industryInsightsHtml = `
+                    <div class="mt-4 border-t dark:border-gray-700 pt-4">
+                        <h4 class="font-medium mb-2">Industry Insights</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                            The ${
+                              application.successFactors.industry
+                            } industry has a ${application.successFactors.companyCompetitiveness.toLowerCase()} level of competition. 
+                            Successful applications typically show strong matches in ${application.successFactors.keySkills
+                              .slice(0, 2)
+                              .join(" and ")} skills.
+                        </p>
+                    </div>
+                `;
+
+          // Compile all details
+          successPredictorDetails.innerHTML = `
+                    ${strengthsHtml}
+                    ${areasToImproveHtml}
+                    ${historicalSuccessHtml}
+                    ${industryInsightsHtml}
+                `;
+        } else {
+          successPredictorSection.classList.add("hidden");
+        }
+
+        // Show AI Feedback for rejected or accepted applications
+        if (
+          application.status === "Rejected" ||
+          application.status === "Accepted"
+        ) {
+          aiFeedbackSection.classList.remove("hidden");
+
+          if (application.status === "Rejected") {
+            aiFeedbackContent.innerHTML = `
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white flex-shrink-0 mr-3">
+                                <i class="ri-ai-generate"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium mb-2">Possible Rejection Factors</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Based on the job requirements and your profile, here are potential reasons for the rejection:</p>
+                                <ul class="list-disc ml-5 text-sm text-gray-600 dark:text-gray-400 space-y-1 mb-3">
+                                    <li>Experience gap in required technical skills</li>
+                                    <li>High competition for this position</li>
+                                    <li>Qualification mismatch with job requirements</li>
+                                </ul>
+                                <h4 class="font-medium mb-2">Recommendations</h4>
+                                <ul class="list-disc ml-5 text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                    <li>Request feedback from the employer if possible</li>
+                                    <li>Consider upskilling in the areas mentioned in the job description</li>
+                                    <li>Review our <a href="#" class="text-primary hover:underline">resume optimization guide</a> for this industry</li>
+                                    <li>Check similar positions that better match your current skills</li>
+                                </ul>
+                            </div>
+                        </div>
+                    `;
+          } else if (application.status === "Accepted") {
+            aiFeedbackContent.innerHTML = `
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white flex-shrink-0 mr-3">
+                                <i class="ri-ai-generate"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium mb-2">Success Factors</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Based on your profile and this job, here's why you likely succeeded:</p>
+                                <ul class="list-disc ml-5 text-sm text-gray-600 dark:text-gray-400 space-y-1 mb-3">
+                                    <li>Strong match between your skills and job requirements</li>
+                                    <li>Relevant experience in key areas</li>
+                                    <li>Well-presented application materials</li>
+                                </ul>
+                                <h4 class="font-medium mb-2">Next Steps</h4>
+                                <ul class="list-disc ml-5 text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                    <li>Review our <a href="#" class="text-primary hover:underline">first day preparation guide</a></li>
+                                    <li>Set up job success goals and milestones</li>
+                                    <li>Consider joining our mentorship program for career growth</li>
+                                    <li>Update your skills roadmap with new opportunities</li>
+                                </ul>
+                            </div>
+                        </div>
+                    `;
+          }
+        } else {
+          aiFeedbackSection.classList.add("hidden");
+        }
+
+        // Set up edit button
+        editApplicationBtn.onclick = () => {
+          closeModal("applicationDetailModal");
+          initApplicationForm(true, application);
+          openModal("applicationModal");
+        };
+
+        openModal("applicationDetailModal");
+      }
+
+      // Helper function to get status classes
+      function getStatusClass(status) {
+        const statusClasses = {
+          Applied:
+            "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300",
+          Screening:
+            "bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300",
+          Interview:
+            "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300",
+          Assessment:
+            "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300",
+          "Final Interview":
+            "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300",
+          Offer:
+            "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300",
+          Accepted:
+            "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300",
+          Rejected:
+            "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300",
+        };
+
+        return (
+          statusClasses[status] ||
+          "bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300"
+        );
+      }
+
+      // Delete application
+      function deleteApplication(id) {
+        const index = applications.findIndex((app) => app.id === id);
+        if (index !== -1) {
+          applications.splice(index, 1);
+          updateApplicationStats();
+          displayFilteredApplications();
+          showToast("Application deleted");
+        }
+      }
+
+      // Update application statistics
+      function updateApplicationStats() {
+        // Calculate statistics
+        const total = applications.length;
+        const active = applications.filter(
+          (app) => app.status !== "Rejected" && app.status !== "Accepted"
+        ).length;
+        const interviews = applications.filter(
+          (app) =>
+            app.status === "Interview" ||
+            app.status === "Assessment" ||
+            app.status === "Final Interview" ||
+            app.status === "Offer" ||
+            app.status === "Accepted"
+        ).length;
+        const offers = applications.filter(
+          (app) => app.status === "Offer" || app.status === "Accepted"
+        ).length;
+
+        // Calculate rates
+        const interviewRate =
+          total > 0 ? Math.round((interviews / total) * 100) : 0;
+        const successRate = total > 0 ? Math.round((offers / total) * 100) : 0;
+
+        // Update the UI
+        document.getElementById("totalApplications").textContent = total;
+        document.getElementById("activeApplications").textContent = active;
+        document.getElementById(
+          "interviewRate"
+        ).textContent = `${interviewRate}%`;
+        document.getElementById("successRate").textContent = `${successRate}%`;
+      }
+
+      // Handle search, filter, and sort
+      searchApplications.addEventListener("input", () => {
+        displayFilteredApplications();
+      });
+
+      filterStatus.addEventListener("change", () => {
+        displayFilteredApplications();
+      });
+
+      sortApplications.addEventListener("change", () => {
+        displayFilteredApplications();
+      });
+
+      // Utility Functions
+      function formatDate(dateString) {
+        const options = { year: "numeric", month: "short", day: "numeric" };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+      }
+
+      function formatDateTime(dateTimeString) {
+        const options = {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        };
+        return new Date(dateTimeString).toLocaleString(undefined, options);
+      }
+
+      function formatTimeAgo(dateString) {
+        const date = new Date(dateString);
+        const now = new Date();
+        const diffMs = now - date;
+        const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+        if (diffDays === 0) {
+          return "Today";
+        } else if (diffDays === 1) {
+          return "Yesterday";
+        } else if (diffDays < 7) {
+          return `${diffDays} days ago`;
+        } else if (diffDays < 30) {
+          const weeks = Math.floor(diffDays / 7);
+          return `${weeks} ${weeks === 1 ? "week" : "weeks"} ago`;
+        } else if (diffDays < 365) {
+          const months = Math.floor(diffDays / 30);
+          return `${months} ${months === 1 ? "month" : "months"} ago`;
+        } else {
+          const years = Math.floor(diffDays / 365);
+          return `${years} ${years === 1 ? "year" : "years"} ago`;
+        }
+      }
+
+      // Base success rates by stage for prediction
+      const baseRatesByStage = {
+        Applied: 15,
+        Screening: 30,
+        Interview: 45,
+        Assessment: 60,
+        "Final Interview": 75,
+        Offer: 90,
+        Accepted: 100,
+        Rejected: 0,
+      };
+
+      // Initialize the app
+      function initApp() {
+        // Add some sample applications
+        applications = [
+          {
+            id: 1,
+            company: "TechSA Solutions",
+            position: "Junior Web Developer",
+            applicationDate: "2023-07-01",
+            location: "Cape Town",
+            status: "Interview",
+            interviewDate: "2023-07-20T14:00",
+            notes: "Need to review JavaScript concepts before the interview.",
+            lastUpdated: "2023-07-15",
+            timeline: [
+              {
+                date: "2023-07-01",
+                status: "Applied",
+                notes: "Submitted application through company website",
+              },
+              {
+                date: "2023-07-10",
+                status: "Screening",
+                notes: "Passed initial resume screening",
+              },
+              {
+                date: "2023-07-15",
+                status: "Interview",
+                notes: "Scheduled for technical interview on July 20th",
+              },
+            ],
+          },
+          {
+            id: 2,
+            company: "Finance Experts Ltd",
+            position: "Financial Analyst",
+            applicationDate: "2023-06-25",
+            location: "Johannesburg",
+            status: "Applied",
+            interviewDate: "",
+            notes: "Submitted via company website, referenced by Sarah.",
+            lastUpdated: "2023-06-25",
+            timeline: [
+              {
+                date: "2023-06-25",
+                status: "Applied",
+                notes: "Submitted application with referral from Sarah",
+              },
+            ],
+          },
+          {
+            id: 3,
+            company: "Marketing Solutions",
+            position: "Digital Marketing Intern",
+            applicationDate: "2023-06-15",
+            location: "Remote",
+            status: "Rejected",
+            interviewDate: "",
+            notes: "Received rejection email on July 5th.",
+            lastUpdated: "2023-07-05",
+            timeline: [
+              {
+                date: "2023-06-15",
+                status: "Applied",
+                notes: "Submitted application",
+              },
+              {
+                date: "2023-06-25",
+                status: "Interview",
+                notes: "Completed phone interview with HR",
+              },
+              {
+                date: "2023-07-05",
+                status: "Rejected",
+                notes:
+                  "Received rejection email, citing a more experienced candidate",
+              },
+            ],
+          },
+          {
+            id: 4,
+            company: "Tech Innovators",
+            position: "Frontend Developer",
+            applicationDate: "2023-07-05",
+            location: "Cape Town",
+            status: "Assessment",
+            assessmentDetails: "Coding challenge: Build a responsive website",
+            notes: "Need to complete the coding assessment by July 25th.",
+            lastUpdated: "2023-07-20",
+            timeline: [
+              {
+                date: "2023-07-05",
+                status: "Applied",
+                notes: "Applied through LinkedIn Easy Apply",
+              },
+              {
+                date: "2023-07-15",
+                status: "Screening",
+                notes: "Completed phone screening with recruiter",
+              },
+              {
+                date: "2023-07-20",
+                status: "Assessment",
+                notes:
+                  "Received coding challenge to build a responsive website",
+              },
+            ],
+          },
+          {
+            id: 5,
+            company: "Global Software Co",
+            position: "Software Engineer",
+            applicationDate: "2023-06-10",
+            location: "Durban",
+            status: "Screening",
+            notes: "Completed initial screening form, waiting for feedback.",
+            lastUpdated: "2023-06-15",
+            timeline: [
+              {
+                date: "2023-06-10",
+                status: "Applied",
+                notes: "Submitted application through careers page",
+              },
+              {
+                date: "2023-06-15",
+                status: "Screening",
+                notes: "Received and completed screening questionnaire",
+              },
+            ],
+          },
+          // Add more sample applications for pattern analysis
+          {
+            id: 6,
+            company: "EduTech Solutions",
+            position: "Junior Developer",
+            applicationDate: "2023-05-05",
+            location: "Cape Town",
+            status: "Applied",
+            notes: "Applied for entry-level position.",
+            lastUpdated: "2023-05-05",
+            timeline: [
+              {
+                date: "2023-05-05",
+                status: "Applied",
+                notes: "Submitted application online",
+              },
+            ],
+          },
+          {
+            id: 7,
+            company: "Retail Tech Inc",
+            position: "Web Developer",
+            applicationDate: "2023-05-10",
+            location: "Johannesburg",
+            status: "Applied",
+            notes: "Applied for position requiring 1-2 years of experience.",
+            lastUpdated: "2023-05-10",
+            timeline: [
+              {
+                date: "2023-05-10",
+                status: "Applied",
+                notes: "Submitted application through careers portal",
+              },
+            ],
+          },
+          {
+            id: 8,
+            company: "Cape Digital",
+            position: "Frontend Developer",
+            applicationDate: "2023-05-15",
+            location: "Remote",
+            status: "Applied",
+            notes: "Remote position with flexible hours.",
+            lastUpdated: "2023-05-15",
+            timeline: [
+              {
+                date: "2023-05-15",
+                status: "Applied",
+                notes: "Submitted application and portfolio",
+              },
+            ],
+          },
+          {
+            id: 9,
+            company: "Durban Web Solutions",
+            position: "JavaScript Developer",
+            applicationDate: "2023-05-20",
+            location: "Durban",
+            status: "Applied",
+            notes: "Position focused on React development.",
+            lastUpdated: "2023-05-20",
+            timeline: [
+              {
+                date: "2023-05-20",
+                status: "Applied",
+                notes: "Applied with customized cover letter",
+              },
+            ],
+          },
+          {
+            id: 10,
+            company: "SA Tech Ventures",
+            position: "Junior Software Engineer",
+            applicationDate: "2023-05-25",
+            location: "Pretoria",
+            status: "Screening",
+            notes: "Phone screening scheduled for June 1st.",
+            lastUpdated: "2023-05-28",
+            timeline: [
+              {
+                date: "2023-05-25",
+                status: "Applied",
+                notes: "Submitted application",
+              },
+              {
+                date: "2023-05-28",
+                status: "Screening",
+                notes: "Invited for phone screening",
+              },
+            ],
+          },
+          {
+            id: 11,
+            company: "Code Masters",
+            position: "Web Developer",
+            applicationDate: "2023-06-01",
+            location: "Remote",
+            status: "Applied",
+            notes: "Position requires experience with Vue.js.",
+            lastUpdated: "2023-06-01",
+            timeline: [
+              {
+                date: "2023-06-01",
+                status: "Applied",
+                notes: "Submitted application highlighting Vue.js experience",
+              },
+            ],
+          },
+          {
+            id: 12,
+            company: "Data Systems Ltd",
+            position: "Frontend Engineer",
+            applicationDate: "2023-06-05",
+            location: "Johannesburg",
+            status: "Applied",
+            notes: "Position focuses on data visualization.",
+            lastUpdated: "2023-06-05",
+            timeline: [
+              {
+                date: "2023-06-05",
+                status: "Applied",
+                notes: "Submitted application with portfolio examples",
+              },
+            ],
+          },
+        ];
+        applicationIdCounter = 13;
+
+        // Update application stats
+        updateApplicationStats();
+
+        // Display applications
+        displayFilteredApplications();
+
+        // Add CSS for active buttons/tabs
+        const style = document.createElement("style");
+        style.textContent = `
+                .nav-btn {
+                    @apply px-4 py-2 font-medium rounded-full whitespace-nowrap hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors;
+                }
+                .nav-btn.active {
+                    @apply bg-primary text-white hover:bg-secondary;
+                }
+                .no-scrollbar {
+                    -ms-overflow-style: none;
+                    scrollbar-width: none;
+                }
+                .no-scrollbar::-webkit-scrollbar {
+                    display: none;
+                }
+            `;
+        document.head.appendChild(style);
+      }
+
+      // Initialize the app
+      initApp();
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const navLinks = document.querySelectorAll(".nav-btn");
+        const currentPage = window.location.pathname.split("/").pop();
+
+        navLinks.forEach((link) => {
+          if (link.getAttribute("href") === currentPage) {
+            link.classList.add("active");
+          } else {
+            link.classList.remove("active");
+          }
+        });
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const navLinks = document.querySelectorAll(".nav-btn");
+
+        navLinks.forEach((link) => {
+          link.addEventListener("click", (e) => {
+            // Allow the default navigation behavior without any pop-ups
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Career Companion Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#00A0A0", // Teal color
+              secondary: "#008080", // Darker teal for hover
+              accent: "#00C0C0", // Lighter teal for accents
+              darkblue: {
+                primary: "#0E3559", // Main dark blue
+                secondary: "#0A2845", // Darker blue for hover
+                light: "#1A4876", // Lighter blue for accents
+              },
+              dark: {
+                bg: "#121C2E", // Dark blue background for dark mode
+                card: "#1E2A3E", // Card background in dark mode
+                text: "#E5E5E5", // Text color in dark mode
+              },
+              light: {
+                bg: "#FFFFFF", // White background in light mode
+                card: "#F5F5F5", // Light gray for cards in light mode
+                text: "#333333", // Text color in light mode
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  </head>
+  <body
+    class="bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text transition-colors duration-200"
+  >
+    <div id="app" class="min-h-screen flex flex-col">
+      <!-- Header -->
+      <header class="bg-primary text-white shadow-md">
+        <div class="container mx-auto px-4 py-3">
+          <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+              <i class="ri-briefcase-4-line text-2xl"></i>
+              <h1 class="text-xl font-bold">Career Companion</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+              <button
+                id="themeToggle"
+                class="p-1 rounded-full hover:bg-secondary"
+              >
+                <i class="ri-sun-line dark:hidden text-xl"></i>
+                <i class="ri-moon-line hidden dark:block text-xl"></i>
+              </button>
+              <div class="hidden md:block">
+                <button
+                  class="px-3 py-1 bg-white text-primary rounded-full text-sm font-medium hover:bg-gray-100"
+                >
+                  Sign In
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Navigation -->
+      <nav class="bg-white dark:bg-dark-card shadow-sm">
+        <div class="container mx-auto px-4">
+          <div class="flex overflow-x-auto no-scrollbar py-2 space-x-1">
+            <a href="dashboard.html" class="nav-btn active">Dashboard</a>
+            <a href="applications.html" class="nav-btn">Applications</a>
+            <a href="skills.html" class="nav-btn">Skills</a>
+            <a href="mentorship.html" class="nav-btn">Mentorship</a>
+            <a href="jobs.html" class="nav-btn">Jobs</a>
+            <a href="resources.html" class="nav-btn">Resources</a>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Main Content - Dashboard -->
+      <main class="flex-grow container mx-auto px-4 py-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-5">
+            <h2 class="text-lg font-semibold mb-4 flex items-center">
+              <i class="ri-dashboard-line mr-2 text-primary"></i>
+              Welcome to Career Companion
+            </h2>
+            <p class="mb-4">
+              Your personalized platform for bridging the gap between education
+              and employment in South Africa.
+            </p>
+            <div class="grid grid-cols-2 gap-4 mt-6">
+              <div class="bg-blue-50 dark:bg-darkblue-light/20 p-4 rounded-lg">
+                <div class="flex justify-between items-start">
+                  <div>
+                    <h3 class="font-medium">Applications</h3>
+                    <p class="text-3xl font-bold mt-2" id="appCount">0</p>
+                  </div>
+                  <i class="ri-file-list-3-line text-primary text-2xl"></i>
+                </div>
+              </div>
+              <div class="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
+                <div class="flex justify-between items-start">
+                  <div>
+                    <h3 class="font-medium">Interviews</h3>
+                    <p class="text-3xl font-bold mt-2" id="interviewCount">0</p>
+                  </div>
+                  <i class="ri-user-voice-line text-primary text-2xl"></i>
+                </div>
+              </div>
+            </div>
+            <button
+              id="quickAddBtn"
+              class="mt-6 bg-primary hover:bg-secondary text-white py-2 px-4 rounded-lg w-full flex items-center justify-center"
+            >
+              <i class="ri-add-line mr-1"></i> Add New Application
+            </button>
+          </div>
+
+          <div class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-5">
+            <h2 class="text-lg font-semibold mb-4 flex items-center">
+              <i class="ri-calendar-check-line mr-2 text-primary"></i>
+              Upcoming Events
+            </h2>
+            <div class="divide-y dark:divide-gray-700" id="upcomingEvents">
+              <p
+                class="py-4 text-gray-500 dark:text-gray-400 text-center italic"
+              >
+                No upcoming events
+              </p>
+            </div>
+            <div class="mt-4">
+              <button
+                class="text-primary hover:text-secondary font-medium flex items-center"
+              >
+                <i class="ri-add-line mr-1"></i> Add Event
+              </button>
+            </div>
+          </div>
+
+          <!-- AI Recommended Events Section -->
+          <div
+            class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-5 md:col-span-2"
+          >
+            <h2 class="text-lg font-semibold mb-4 flex items-center">
+              <i class="ri-AI-line mr-2 text-primary"></i>
+              AI-Recommended Opportunities
+            </h2>
+            <div class="flex items-center gap-3 mb-4">
+              <button
+                class="ai-opportunity-tab active"
+                data-target="networkingevents"
+              >
+                Networking Events
+              </button>
+              <button
+                class="ai-opportunity-tab"
+                data-target="learningopportunities"
+              >
+                Learning Opportunities
+              </button>
+              <button class="ai-opportunity-tab" data-target="careerpaths">
+                Career Paths
+              </button>
+            </div>
+
+            <div id="aiRecommendationContainer">
+              <!-- Networking Events Tab -->
+              <div id="networkingevents" class="ai-opportunity-content active">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div
+                    class="border border-primary/20 rounded-lg p-4 hover:shadow-md transition-shadow"
+                  >
+                    <div class="flex justify-between items-start mb-2">
+                      <span
+                        class="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs"
+                        >Networking</span
+                      >
+                      <span class="text-xs text-gray-500">Aug 15, 2023</span>
+                    </div>
+                    <h3 class="font-medium mb-1">Tech Connect Cape Town</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                      Network with software developers and tech leaders in Cape
+                      Town.
+                    </p>
+                    <div class="flex items-center text-xs text-gray-500 mb-2">
+                      <i class="ri-map-pin-line mr-1"></i>
+                      <span>Cape Town Convention Center</span>
+                    </div>
+                    <div class="flex justify-between items-center mt-2">
+                      <span
+                        class="text-xs bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 px-2 py-0.5 rounded-full"
+                      >
+                        <i class="ri-ai-generate mr-1"></i> 95% Match
+                      </span>
+                      <button
+                        class="text-primary hover:text-secondary text-sm font-medium"
+                      >
+                        RSVP
+                      </button>
+                    </div>
+                  </div>
+
+                  <div
+                    class="border border-primary/20 rounded-lg p-4 hover:shadow-md transition-shadow"
+                  >
+                    <div class="flex justify-between items-start mb-2">
+                      <span
+                        class="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs"
+                        >Meetup</span
+                      >
+                      <span class="text-xs text-gray-500">Aug 22, 2023</span>
+                    </div>
+                    <h3 class="font-medium mb-1">Young Professionals Mixer</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                      Meet other young professionals across industries in
+                      Johannesburg.
+                    </p>
+                    <div class="flex items-center text-xs text-gray-500 mb-2">
+                      <i class="ri-map-pin-line mr-1"></i>
+                      <span>Sandton Business Hub</span>
+                    </div>
+                    <div class="flex justify-between items-center mt-2">
+                      <span
+                        class="text-xs bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 px-2 py-0.5 rounded-full"
+                      >
+                        <i class="ri-ai-generate mr-1"></i> 87% Match
+                      </span>
+                      <button
+                        class="text-primary hover:text-secondary text-sm font-medium"
+                      >
+                        RSVP
+                      </button>
+                    </div>
+                  </div>
+
+                  <div
+                    class="border border-primary/20 rounded-lg p-4 hover:shadow-md transition-shadow"
+                  >
+                    <div class="flex justify-between items-start mb-2">
+                      <span
+                        class="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs"
+                        >Virtual</span
+                      >
+                      <span class="text-xs text-gray-500">Aug 25, 2023</span>
+                    </div>
+                    <h3 class="font-medium mb-1">
+                      SA Finance Industry Webinar
+                    </h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                      Learn about careers in finance and connect with industry
+                      leaders.
+                    </p>
+                    <div class="flex items-center text-xs text-gray-500 mb-2">
+                      <i class="ri-computer-line mr-1"></i>
+                      <span>Zoom Webinar</span>
+                    </div>
+                    <div class="flex justify-between items-center mt-2">
+                      <span
+                        class="text-xs bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 px-2 py-0.5 rounded-full"
+                      >
+                        <i class="ri-ai-generate mr-1"></i> 82% Match
+                      </span>
+                      <button
+                        class="text-primary hover:text-secondary text-sm font-medium"
+                      >
+                        Register
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  class="mt-4 text-primary hover:text-secondary font-medium flex items-center mx-auto"
+                >
+                  <i class="ri-refresh-line mr-1"></i> Refresh Recommendations
+                </button>
+              </div>
+
+              <!-- Learning Opportunities Tab (hidden by default) -->
+              <div
+                id="learningopportunities"
+                class="ai-opportunity-content hidden"
+              >
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <!-- Learning opportunities content here -->
+                  <!-- This would contain similar cards as the networking events tab -->
+                </div>
+              </div>
+
+              <!-- Career Paths Tab (hidden by default) -->
+              <div id="careerpaths" class="ai-opportunity-content hidden">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <!-- Career paths content here -->
+                  <!-- This would contain similar cards as the networking events tab -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-5 md:col-span-2"
+          >
+            <h2 class="text-lg font-semibold mb-4 flex items-center">
+              <i class="ri-pulse-line mr-2 text-primary"></i>
+              Your Progress
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                <h3
+                  class="text-sm font-medium text-gray-500 dark:text-gray-400"
+                >
+                  Profile Completion
+                </h3>
+                <div class="mt-2 relative pt-1">
+                  <div
+                    class="overflow-hidden h-2 text-xs flex rounded bg-gray-200 dark:bg-gray-700"
+                  >
+                    <div
+                      style="width: 70%"
+                      class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-primary"
+                    ></div>
+                  </div>
+                  <p class="mt-1 text-right text-sm font-medium">70%</p>
+                </div>
+              </div>
+              <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                <h3
+                  class="text-sm font-medium text-gray-500 dark:text-gray-400"
+                >
+                  Applications Sent
+                </h3>
+                <div class="mt-2 relative pt-1">
+                  <div
+                    class="overflow-hidden h-2 text-xs flex rounded bg-gray-200 dark:bg-gray-700"
+                  >
+                    <div
+                      style="width: 40%"
+                      class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-primary"
+                    ></div>
+                  </div>
+                  <p class="mt-1 text-right text-sm font-medium">4/10</p>
+                </div>
+              </div>
+              <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                <h3
+                  class="text-sm font-medium text-gray-500 dark:text-gray-400"
+                >
+                  Resume Score
+                </h3>
+                <div class="mt-2 relative pt-1">
+                  <div
+                    class="overflow-hidden h-2 text-xs flex rounded bg-gray-200 dark:bg-gray-700"
+                  >
+                    <div
+                      style="width: 85%"
+                      class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-primary"
+                    ></div>
+                  </div>
+                  <p class="mt-1 text-right text-sm font-medium">85%</p>
+                </div>
+              </div>
+              <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                <h3
+                  class="text-sm font-medium text-gray-500 dark:text-gray-400"
+                >
+                  Interviews Completed
+                </h3>
+                <div class="mt-2 relative pt-1">
+                  <div
+                    class="overflow-hidden h-2 text-xs flex rounded bg-gray-200 dark:bg-gray-700"
+                  >
+                    <div
+                      style="width: 20%"
+                      class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-primary"
+                    ></div>
+                  </div>
+                  <p class="mt-1 text-right text-sm font-medium">1/5</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-5">
+            <h2 class="text-lg font-semibold mb-4 flex items-center">
+              <i class="ri-user-star-line mr-2 text-primary"></i>
+              Recommended Mentors
+            </h2>
+            <div class="space-y-4" id="recommendedMentors">
+              <p
+                class="py-2 text-gray-500 dark:text-gray-400 text-center italic"
+              >
+                Loading mentors...
+              </p>
+            </div>
+            <button
+              id="viewAllMentorsBtn"
+              class="mt-4 text-primary hover:text-secondary font-medium flex items-center"
+            >
+              <i class="ri-user-search-line mr-1"></i> View All Mentors
+            </button>
+          </div>
+
+          <div
+            class="bg-light-card dark:bg-dark-card rounded-lg shadow-md p-5 md:col-span-2"
+          >
+            <h2 class="text-lg font-semibold mb-4 flex items-center">
+              <i class="ri-briefcase-line mr-2 text-primary"></i>
+              Latest Opportunities
+            </h2>
+            <div class="space-y-4" id="latestJobs">
+              <p
+                class="py-2 text-gray-500 dark:text-gray-400 text-center italic"
+              >
+                Loading opportunities...
+              </p>
+            </div>
+            <button
+              id="viewAllJobsBtn"
+              class="mt-4 text-primary hover:text-secondary font-medium flex items-center"
+            >
+              <i class="ri-search-line mr-1"></i> View All Jobs
+            </button>
+          </div>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer class="bg-white dark:bg-dark-card shadow-inner mt-auto">
+        <div class="container mx-auto px-4 py-4">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center mb-3 md:mb-0">
+              <i class="ri-briefcase-4-line text-primary text-xl mr-2"></i>
+              <span class="text-gray-700 dark:text-gray-300 font-medium"
+                >Career Companion</span
+              >
+            </div>
+            <div class="flex items-center space-x-4">
+              <a
+                href="#"
+                class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+              >
+                <i class="ri-question-line"></i>
+              </a>
+              <a
+                href="#"
+                class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+              >
+                <i class="ri-settings-3-line"></i>
+              </a>
+              <a
+                href="#"
+                class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+              >
+                <i class="ri-user-line"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      // Initialize dark mode based on user preference
+      if (
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+      ) {
+        document.documentElement.classList.add("dark");
+      }
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", (event) => {
+          if (event.matches) {
+            document.documentElement.classList.add("dark");
+          } else {
+            document.documentElement.classList.remove("dark");
+          }
+        });
+
+      // Theme toggle
+      document.getElementById("themeToggle").addEventListener("click", () => {
+        document.documentElement.classList.toggle("dark");
+      });
+
+      // AI Opportunity Tabs
+      const opportunityTabs = document.querySelectorAll(".ai-opportunity-tab");
+      const opportunityContents = document.querySelectorAll(
+        ".ai-opportunity-content"
+      );
+
+      opportunityTabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          // Remove active class from all tabs
+          opportunityTabs.forEach((t) => {
+            t.classList.remove("active");
+          });
+
+          // Add active class to clicked tab
+          tab.classList.add("active");
+
+          // Hide all content
+          opportunityContents.forEach((content) => {
+            content.classList.add("hidden");
+          });
+
+          // Show corresponding content
+          const targetId = tab.dataset.target;
+          const targetContent = document.getElementById(targetId);
+          if (targetContent) {
+            targetContent.classList.remove("hidden");
+          }
+        });
+      });
+
+      // Add some sample data
+      document.getElementById("appCount").textContent = "4";
+      document.getElementById("interviewCount").textContent = "1";
+
+      // Sample upcoming events
+      const upcomingEvents = document.getElementById("upcomingEvents");
+      upcomingEvents.innerHTML = `
+            <div class="py-3 flex">
+                <div class="flex-shrink-0 mr-3 mt-1">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary">
+                        <i class="ri-user-voice-line"></i>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-medium">TechSA Solutions Interview</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-1">Position: Junior Web Developer</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-500 flex items-center">
+                        <i class="ri-calendar-line mr-1"></i> 
+                        July 20, 2023, 2:00 PM
+                    </p>
+                </div>
+            </div>
+        `;
+
+      // Sample recommended mentors
+      const recommendedMentors = document.getElementById("recommendedMentors");
+      recommendedMentors.innerHTML = `
+            <div class="flex items-center">
+                <div class="flex-shrink-0 mr-3">
+                    <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-semibold">
+                        TN
+                    </div>
+                </div>
+                <div class="flex-grow">
+                    <h3 class="font-medium">Thabo Nkosi</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-400">Senior Software Engineer, TechSA Solutions</p>
+                </div>
+                <button class="view-mentor ml-2 text-primary hover:text-secondary">
+                    <i class="ri-arrow-right-line"></i>
+                </button>
+            </div>
+            <div class="flex items-center">
+                <div class="flex-shrink-0 mr-3">
+                    <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white font-semibold">
+                        LM
+                    </div>
+                </div>
+                <div class="flex-grow">
+                    <h3 class="font-medium">Lerato Molefe</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-400">HR Director, SA Financial Group</p>
+                </div>
+                <button class="view-mentor ml-2 text-primary hover:text-secondary">
+                    <i class="ri-arrow-right-line"></i>
+                </button>
+            </div>
+        `;
+
+      // Sample latest jobs
+      const latestJobs = document.getElementById("latestJobs");
+      latestJobs.innerHTML = `
+            <div class="flex items-start space-x-3">
+                <div class="flex-shrink-0">
+                    <div class="w-8 h-8 rounded-md bg-purple-500 flex items-center justify-center text-white font-semibold text-sm">
+                        TS
+                    </div>
+                </div>
+                <div class="flex-grow">
+                    <h3 class="font-medium">Junior Software Developer</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-400">TechSA Solutions • Cape Town</p>
+                    <div class="mt-1 flex space-x-2">
+                        <span class="px-2 py-0.5 bg-primary/10 text-primary rounded-full text-xs">Full-time</span>
+                        <span class="text-xs text-gray-500">1 day ago</span>
+                    </div>
+                </div>
+                <button class="view-job text-primary hover:text-secondary">
+                    <i class="ri-arrow-right-line"></i>
+                </button>
+            </div>
+            
+            <div class="flex items-start space-x-3">
+                <div class="flex-shrink-0">
+                    <div class="w-8 h-8 rounded-md bg-blue-500 flex items-center justify-center text-white font-semibold text-sm">
+                        SF
+                    </div>
+                </div>
+                <div class="flex-grow">
+                    <h3 class="font-medium">Graduate Finance Analyst</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-400">SA Financial Group • Johannesburg</p>
+                    <div class="mt-1 flex space-x-2">
+                        <span class="px-2 py-0.5 bg-primary/10 text-primary rounded-full text-xs">Graduate Program</span>
+                        <span class="text-xs text-gray-500">2 days ago</span>
+                    </div>
+                </div>
+                <button class="view-job text-primary hover:text-secondary">
+                    <i class="ri-arrow-right-line"></i>
+                </button>
+            </div>
+            
+            <div class="flex items-start space-x-3">
+                <div class="flex-shrink-0">
+                    <div class="w-8 h-8 rounded-md bg-red-500 flex items-center justify-center text-white font-semibold text-sm">
+                        PB
+                    </div>
+                </div>
+                <div class="flex-grow">
+                    <h3 class="font-medium">Marketing Internship</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-400">Platinum Brands • Durban</p>
+                    <div class="mt-1 flex space-x-2">
+                        <span class="px-2 py-0.5 bg-primary/10 text-primary rounded-full text-xs">Internship</span>
+                        <span class="text-xs text-gray-500">5 days ago</span>
+                    </div>
+                </div>
+                <button class="view-job text-primary hover:text-secondary">
+                    <i class="ri-arrow-right-line"></i>
+                </button>
+            </div>
+        `;
+
+      // Quick Add Application Button
+      document.getElementById("quickAddBtn").addEventListener("click", () => {
+        alert("Open application form modal");
+      });
+
+      // View All Buttons
+      document
+        .getElementById("viewAllMentorsBtn")
+        .addEventListener("click", () => {
+          alert("Navigate to Mentorship page");
+        });
+
+      document
+        .getElementById("viewAllJobsBtn")
+        .addEventListener("click", () => {
+          alert("Navigate to Jobs page");
+        });
+
+      // Add CSS for active buttons/tabs
+      const style = document.createElement("style");
+      style.textContent = `
+            .nav-btn {
+                @apply px-4 py-2 font-medium rounded-full whitespace-nowrap hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors;
+            }
+            .nav-btn.active {
+                @apply bg-primary text-white hover:bg-secondary;
+            }
+            .ai-opportunity-tab {
+                @apply px-3 py-1 font-medium rounded-full text-sm whitespace-nowrap hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors;
+            }
+            .ai-opportunity-tab.active {
+                @apply bg-primary text-white hover:bg-secondary;
+            }
+            .no-scrollbar {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            .no-scrollbar::-webkit-scrollbar {
+                display: none;
+            }
+        `;
+      document.head.appendChild(style);
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const navLinks = document.querySelectorAll(".nav-btn");
+        const currentPage = window.location.pathname.split("/").pop();
+
+        navLinks.forEach((link) => {
+          if (link.getAttribute("href") === currentPage) {
+            link.classList.add("active");
+          } else {
+            link.classList.remove("active");
+            <nav class="bg-white dark:bg-dark-card shadow-sm">
+              <div class="container mx-auto px-4">
+                <div class="flex overflow-x-auto no-scrollbar py-2 space-x-1">
+                  <a href="dashboard.html" class="nav-btn active">
+                    Dashboard
+                  </a>
+                  <a href="applications.html" class="nav-btn">
+                    Applications
+                  </a>
+                  <a href="skills.html" class="nav-btn">
+                    Skills
+                  </a>
+                  <a href="mentorship.html" class="nav-btn">
+                    Mentorship
+                  </a>
+                  <a href="jobs.html" class="nav-btn">
+                    Jobs
+                  </a>
+                  <a href="resources.html" class="nav-btn">
+                    Resources
+                  </a>
+                </div>
+              </div>
+            </nav>;
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
